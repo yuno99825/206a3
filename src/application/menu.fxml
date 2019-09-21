@@ -5,29 +5,41 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="750.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefWidth="750.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menuController">
    <children>
       <Label text="Welcome to VARpedia">
          <font>
             <Font name="System Bold" size="46.0" />
          </font>
       </Label>
-      <ButtonBar prefHeight="40.0" prefWidth="600.0">
-        <buttons>
-          <Button mnemonicParsing="false" text="Delete" />
-            <Button layoutX="437.0" layoutY="17.0" mnemonicParsing="false" text="Create" />
-        </buttons>
-      </ButtonBar>
-      <ListView prefHeight="200.0" prefWidth="200.0" />
+      <HBox alignment="BOTTOM_CENTER">
+         <children>
+            <Label fx:id="creationListLabel" text="Existing creations:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Region prefHeight="26.0" prefWidth="354.0" />
+            <ButtonBar>
+              <buttons>
+                <Button mnemonicParsing="false" text="Delete" />
+                  <Button layoutX="437.0" layoutY="17.0" mnemonicParsing="false" text="Create" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </HBox>
+      <ListView fx:id="creationListView" />
       <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Play" />
    </children>
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
    <padding>
-      <Insets bottom="60.0" left="15.0" right="15.0" top="40.0" />
+      <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
    </padding>
 </VBox>
