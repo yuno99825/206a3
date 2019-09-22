@@ -3,8 +3,12 @@ package application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,6 +43,21 @@ public class MenuController {
             Process process = builder.start();
             updateCreationList();
         }
+    }
+
+    @FXML
+    private void playCreation() throws IOException {
+        String creationName = creationListView.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("VideoPlayer.fxml"));
+        Parent root = loader.load();
+
+        VideoPlayerController controller = loader.getController();
+        controller.setUpVideo(creationName);
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     private void updateCreationList() {

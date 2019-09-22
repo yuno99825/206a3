@@ -34,7 +34,7 @@
          </children>
       </HBox>
       <ListView fx:id="creationListView" />
-      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Play" />
+      <Button mnemonicParsing="false" onAction="#playCreation" prefHeight="26.0" prefWidth="85.0" text="Play" />
    </children>
    <opaqueInsets>
       <Insets />
