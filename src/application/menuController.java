@@ -20,8 +20,6 @@ public class menuController {
     private ListView<String> creationListView;
     @FXML
     private Label creationListLabel;
-    @FXML
-    private Button deleteButton;
 
     @FXML
     private void initialize() {
