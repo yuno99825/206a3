@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class menuController {
+public class MenuController {
     @FXML
     private ListView<String> creationListView;
     @FXML

@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ -z "$(ls -A ./creations)" ]; then
   exit 1
 fi
