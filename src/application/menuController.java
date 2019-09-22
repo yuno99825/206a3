@@ -4,9 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,10 +31,16 @@ public class menuController {
     @FXML
     private void deleteCreation() throws IOException {
         String creationName = creationListView.getSelectionModel().getSelectedItem();
-        String cmd = "rm -fr ./creations/\"" + creationName + "\"";
-        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-        Process process = builder.start();
-        updateCreationList();
+        Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to delete " + creationName + "?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Confirm Delete");
+        alert.setHeight(150);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            String cmd = "rm -fr ./creations/\"" + creationName + "\"";
+            ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
+            Process process = builder.start();
+            updateCreationList();
+        }
     }
 
     private void updateCreationList() {
