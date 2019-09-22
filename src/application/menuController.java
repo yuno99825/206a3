@@ -16,14 +16,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class menuController implements Initializable {
+public class menuController {
     @FXML
-    ListView<String> creationListView;
+    private ListView<String> creationListView;
     @FXML
-    Label creationListLabel;
+    private Label creationListLabel;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    private void initialize() {
         updateCreationList();
     }
 
@@ -55,5 +55,4 @@ public class menuController implements Initializable {
             }
         } catch (IOException e) { }
     }
-    
 }
