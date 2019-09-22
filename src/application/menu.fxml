@@ -27,7 +27,7 @@
             <Region prefHeight="26.0" prefWidth="354.0" />
             <ButtonBar>
               <buttons>
-                <Button mnemonicParsing="false" text="Delete" />
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteCreation" text="Delete" />
                   <Button layoutX="437.0" layoutY="17.0" mnemonicParsing="false" text="Create" />
               </buttons>
             </ButtonBar>
