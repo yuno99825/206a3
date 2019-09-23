@@ -33,10 +33,14 @@ public class MenuController {
     @FXML
     private void deleteCreation() throws IOException {
         String creationName = creationListView.getSelectionModel().getSelectedItem();
+
+        // Create confirmation alert
         Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to delete " + creationName + "?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Confirm Delete");
         alert.setHeight(150);
         alert.showAndWait();
+
+        //
         if (alert.getResult() == ButtonType.YES) {
             String cmd = "rm -fr ./creations/\"" + creationName + "\"";
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);

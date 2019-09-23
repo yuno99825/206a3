@@ -24,17 +24,23 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Region prefHeight="26.0" prefWidth="354.0" />
+            <Region prefHeight="26.0" prefWidth="282.0" />
             <ButtonBar>
               <buttons>
                 <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteCreation" text="Delete" />
-                  <Button layoutX="437.0" layoutY="17.0" mnemonicParsing="false" text="Create" />
+                  <Button mnemonicParsing="false" onAction="#playCreation" prefHeight="26.0" prefWidth="85.0" text="Play" />
               </buttons>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </ButtonBar>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </HBox>
       <ListView fx:id="creationListView" />
-      <Button mnemonicParsing="false" onAction="#playCreation" prefHeight="26.0" prefWidth="85.0" text="Play" />
+      <Button mnemonicParsing="false" text="New Creation" />
    </children>
    <opaqueInsets>
       <Insets />
