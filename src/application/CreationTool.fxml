@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreationToolController">
    <children>
       <VBox spacing="10.0">
          <children>
@@ -26,7 +26,7 @@
             </Label>
             <HBox spacing="10.0">
                <children>
-                  <TextField>
+                  <TextField fx:id="searchField">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -34,17 +34,20 @@
                         <Insets bottom="5.0" left="5.0" top="5.0" />
                      </padding>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Search">
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#doSearch" text="Search">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <TextArea />
-            <Label text="Create Audio Chunk">
+            <TextArea fx:id="searchResultsArea" />
+            <Label text="Create audio chunk from selection:">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
                <font>
-                  <Font size="19.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Label>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -87,7 +90,11 @@
       </VBox>
       <VBox spacing="10.0">
          <children>
-            <Label text="Audio chunks to include:" />
+            <Label text="Audio chunks to include:">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
             <ListView>
                <VBox.margin>
                   <Insets />
@@ -97,6 +104,9 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
             </Label>
             <Slider blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
             <HBox alignment="CENTER_RIGHT">

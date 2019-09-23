@@ -58,7 +58,6 @@ public class MenuController {
         VideoPlayerController controller = loader.getController();
         controller.setUpVideo(creationName);
 
-
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
