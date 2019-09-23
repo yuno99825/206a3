@@ -12,18 +12,19 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
 <HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox>
+      <VBox spacing="10.0">
          <children>
             <Label text="Search term:">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </Label>
-            <HBox>
+            <HBox spacing="10.0">
                <children>
                   <TextField>
                      <HBox.margin>
@@ -41,16 +42,24 @@
                </children>
             </HBox>
             <TextArea />
-            <HBox alignment="CENTER_LEFT">
+            <Label text="Create Audio Chunk">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Label text="Name:" />
                   <TextField />
                </children>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
             </HBox>
-            <HBox layoutX="15.0" layoutY="193.0">
+            <HBox layoutX="15.0" layoutY="193.0" spacing="10.0">
                <children>
                   <Label alignment="TOP_LEFT" text="Voice:" />
-                  <VBox alignment="CENTER_LEFT">
+                  <VBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
                         <RadioButton mnemonicParsing="false" text="RadioButton">
                            <toggleGroup>
@@ -61,6 +70,9 @@
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
             </HBox>
             <ButtonBar>
                <buttons>
@@ -69,17 +81,36 @@
                </buttons>
             </ButtonBar>
          </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
       </VBox>
-      <VBox>
+      <VBox spacing="10.0">
          <children>
+            <Label text="Audio chunks to include:" />
             <ListView>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </ListView>
-            <Label text="Number of images to include:" />
+            <Label text="Number of images to include:">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
             <Slider blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Next" />
+               </children>
+            </HBox>
          </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
       </VBox>
    </children>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
 </HBox>
