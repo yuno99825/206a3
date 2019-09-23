@@ -1,9 +1,7 @@
 package application;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -11,16 +9,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 public class CreationToolController {
-    // Make sure threads are killed upon exiting application by making them daemon
-    private ExecutorService team = Executors.newFixedThreadPool(1,
-            new ThreadFactory() {
-                public Thread newThread(Runnable r) {
-                    Thread t = Executors.defaultThreadFactory().newThread(r);
-                    t.setDaemon(true);
-                    return t;
-                }
-            });
 
+    @FXML
+    private Label searchPrompt;
     @FXML
     private TextField searchField;
     @FXML
@@ -29,18 +20,8 @@ public class CreationToolController {
     private TextArea searchResultsArea;
 
     @FXML
-    private void doSearch() {
-        String searchTerm = searchField.getText();
-        SearchTask searchTask = new SearchTask(searchTerm);
-        team.submit(searchTask);
-        searchTask.setOnSucceeded(e -> {
-            try {
-                searchResultsArea.setText(searchTask.get());
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            } catch (ExecutionException ex) {
-                ex.printStackTrace();
-            }
-        });
+    private void searchButtonClicked() {
+        SearchController searchController = new SearchController(searchField,searchButton,searchResultsArea,searchPrompt);
+        searchController.go();
     }
 }
