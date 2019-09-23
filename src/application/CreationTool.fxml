@@ -41,7 +41,7 @@
                   </Button>
                </children>
             </HBox>
-            <TextArea fx:id="searchResultsArea" />
+            <TextArea fx:id="searchResultsArea" prefHeight="281.0" prefWidth="549.0" wrapText="true" />
             <Label text="Create audio chunk from selection:">
                <VBox.margin>
                   <Insets top="10.0" />

@@ -5,6 +5,8 @@ import javafx.concurrent.Task;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.BreakIterator;
+import java.util.Locale;
 
 public class SearchTask extends Task<String> {
     private String searchTerm;
@@ -31,6 +33,20 @@ public class SearchTask extends Task<String> {
                     results = results + line;
                 }
         }
-        return results;
+        return separateSentences(results);
+    }
+
+    private static String separateSentences(String text) {
+        String sentences = "";
+        BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
+        iterator.setText(text);
+        int start = iterator.first();
+        for (int end = iterator.next();
+             end != BreakIterator.DONE;
+             start = end, end = iterator.next()) {
+            String sentence = text.substring(start,end);
+            sentences = sentences + sentence + "\n";
+        }
+        return sentences;
     }
 }

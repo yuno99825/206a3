@@ -60,6 +60,17 @@ public class MenuController {
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle(creationName);
+        stage.show();
+    }
+
+    @FXML
+    private void openCreationTool() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreationTool.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 845, 578));
+        stage.setTitle("VARpedia Creation Tool");
         stage.show();
     }
 
