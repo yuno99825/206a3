@@ -20,7 +20,7 @@ public class CreationToolController {
     @FXML
     private TextArea searchResultsArea;
     @FXML
-    private Button previewButton;
+    private ToggleGroup voiceToggleGroup;
 
     @FXML
     private void searchButtonClicked() {
@@ -30,7 +30,7 @@ public class CreationToolController {
 
     @FXML
     private void previewButtonClicked() throws IOException {
-        PreviewController previewController = new PreviewController(searchResultsArea);
+        PreviewController previewController = new PreviewController(searchResultsArea, voiceToggleGroup);
         previewController.go();
     }
 
