@@ -15,7 +15,7 @@ public class PreviewController {
 
     public void go() throws IOException {
         String text = searchResultsArea.getSelectedText();
-        if (!text.isEmpty() || searchResultsArea.getSelectedText().isEmpty()) {
+        if (!text.isEmpty() || searchResultsArea.getText().isEmpty()) {
             String cmd = "echo \"" + text + "\" | festival --tts";
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
             Process process = builder.start();
