@@ -51,16 +51,16 @@ public class MenuController {
 
     @FXML
     private void playCreation() throws IOException {
+        Stage stage = new Stage();
         String creationName = creationListView.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("VideoPlayer.fxml"));
         Parent root = loader.load();
 
         VideoPlayerController controller = loader.getController();
-        controller.setUpVideo(creationName);
+        controller.setUpVideo(creationName, stage);
 
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(root, 500, 500));
         stage.show();
     }
 
