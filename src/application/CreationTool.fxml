@@ -78,7 +78,7 @@
             </HBox>
             <ButtonBar>
                <buttons>
-                  <Button id="playButton" mnemonicParsing="false" text="Preview" ButtonBar.buttonData="LEFT" />
+                  <Button id="playButton" fx:id="previewButton" mnemonicParsing="false" onAction="#previewButtonClicked" text="Preview" ButtonBar.buttonData="LEFT" />
                   <Button mnemonicParsing="false" text="Save" ButtonBar.buttonData="LEFT" />
                </buttons>
             </ButtonBar>
