@@ -44,7 +44,6 @@ public class SearchController {
             searchTask.setOnSucceeded(e -> {
                 try {
                     String searchResults = searchTask.get();
-                    System.out.println(searchResults);
                     if (searchResults.equals(searchTerm + " not found :^(\n")) {
                         searchResultsArea.clear();
                         prompt.setText("Invalid, please enter a search term:");
