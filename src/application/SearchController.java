@@ -47,13 +47,13 @@ public class SearchController {
                     if (searchResults.equals(searchTerm + " not found :^(\n")) {
                         searchResultsArea.clear();
                         prompt.setText("Invalid, please enter a search term:");
+                        searchField.setEditable(true);
+                        searchButton.setDisable(false);
                     }
                     else {
                         searchResultsArea.setText(searchResults);
-                        prompt.setText("Enter a search term:");
+                        prompt.setText("You searched: ");
                     }
-                    searchField.setEditable(true);
-                    searchButton.setDisable(false);
 
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
