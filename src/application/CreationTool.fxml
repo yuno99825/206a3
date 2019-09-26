@@ -55,7 +55,7 @@
                   <Label alignment="TOP_LEFT" text="Voice:" />
                   <VBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <RadioButton fx:id="voiceDefault" mnemonicParsing="false" text="Default">
+                        <RadioButton fx:id="voiceDefault" mnemonicParsing="false" selected="true" text="Default">
                            <toggleGroup>
                               <ToggleGroup fx:id="voiceToggleGroup" />
                            </toggleGroup>
