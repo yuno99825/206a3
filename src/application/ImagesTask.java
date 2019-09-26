@@ -9,16 +9,14 @@ import javafx.concurrent.Task;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ImagesTask extends Task<Void> {
 
-    private String term;
+    private String searchTerm;
     private int numberOfImages;
 
-    public ImagesTask(String term, int numberOfImages) {
-        this.term = term;
+    public ImagesTask(String searchTerm, int numberOfImages) {
+        this.searchTerm = searchTerm;
         this.numberOfImages = numberOfImages;
     }
 
@@ -31,7 +29,7 @@ public class ImagesTask extends Task<Void> {
 
                 Flickr flickr = new Flickr(apiKey, sharedSecret, new REST());
 
-                String query = term;
+                String query = searchTerm;
                 int resultsPerPage = numberOfImages;
                 int page = 0;
 

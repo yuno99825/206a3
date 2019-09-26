@@ -78,11 +78,9 @@ public class CreationToolController {
 
     @FXML
     private void nextButtonClicked() throws IOException, InterruptedException {
-        Creator creator = new Creator(chunksListView);
+        String searchTerm = searchField.getText();
+        int numberOfImages = (int) imageSlider.getValue();
+        Creator creator = new Creator(chunksListView, searchTerm, numberOfImages);
         creator.makeCreation();
-//        String term = searchField.getText();
-//        int numberOfImages = (int) imageSlider.getValue();
-//        ImagesController controller = new ImagesController(term,numberOfImages);
-//        controller.getImages();
     }
 }
