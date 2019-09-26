@@ -40,7 +40,7 @@
          </VBox.margin>
       </HBox>
       <ListView fx:id="creationListView" />
-      <Button mnemonicParsing="false" text="New Creation" />
+      <Button mnemonicParsing="false" onAction="#openCreationTool" text="New Creation" />
    </children>
    <opaqueInsets>
       <Insets />

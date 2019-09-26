@@ -11,22 +11,22 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreationToolController">
    <children>
       <VBox spacing="10.0">
          <children>
-            <Label text="Search term:">
+            <Label fx:id="searchPrompt" text="Enter a search term:">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </Label>
             <HBox spacing="10.0">
                <children>
-                  <TextField>
+                  <TextField fx:id="searchField">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -34,39 +34,34 @@
                         <Insets bottom="5.0" left="5.0" top="5.0" />
                      </padding>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Search">
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="26.0" prefWidth="74.0" text="Search">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <TextArea />
-            <Label text="Create Audio Chunk">
+            <TextArea fx:id="searchResultsArea" prefHeight="281.0" prefWidth="549.0" wrapText="true" />
+            <Label text="Create audio chunk from selection:">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
                <font>
-                  <Font size="19.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <children>
-                  <Label text="Name:" />
-                  <TextField />
-               </children>
-               <padding>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </padding>
-            </HBox>
             <HBox layoutX="15.0" layoutY="193.0" spacing="10.0">
                <children>
                   <Label alignment="TOP_LEFT" text="Voice:" />
                   <VBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="RadioButton">
+                        <RadioButton fx:id="voiceDefault" mnemonicParsing="false" text="Default">
                            <toggleGroup>
                               <ToggleGroup fx:id="voiceToggleGroup" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="RadioButton" toggleGroup="$voiceToggleGroup" />
+                        <RadioButton fx:id="voiceMale" mnemonicParsing="false" text="NZ Male" toggleGroup="$voiceToggleGroup" />
+                        <RadioButton fx:id="voiceFemale" layoutX="10.0" layoutY="38.0" mnemonicParsing="false" text="NZ Female" toggleGroup="$voiceToggleGroup" />
                      </children>
                   </VBox>
                </children>
@@ -76,7 +71,7 @@
             </HBox>
             <ButtonBar>
                <buttons>
-                  <Button id="playButton" mnemonicParsing="false" text="Preview" ButtonBar.buttonData="LEFT" />
+                  <Button id="playButton" fx:id="previewButton" mnemonicParsing="false" onAction="#previewButtonClicked" text="Preview" ButtonBar.buttonData="LEFT" />
                   <Button mnemonicParsing="false" text="Save" ButtonBar.buttonData="LEFT" />
                </buttons>
             </ButtonBar>
@@ -87,7 +82,11 @@
       </VBox>
       <VBox spacing="10.0">
          <children>
-            <Label text="Audio chunks to include:" />
+            <Label text="Audio chunks to include:">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
             <ListView>
                <VBox.margin>
                   <Insets />
@@ -97,8 +96,12 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
             </Label>
             <Slider blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+            <Region prefHeight="18.0" prefWidth="248.0" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER_RIGHT">
                <children>
                   <Button alignment="CENTER" mnemonicParsing="false" text="Next" />
