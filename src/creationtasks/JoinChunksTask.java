@@ -22,13 +22,7 @@ public class JoinChunksTask extends Task<Void> {
         cmd = cmd.concat(" .temp/creation_audio.wav");
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
         Process process = builder.start();
-
-        InputStream stdout = process.getErrorStream();
-        BufferedReader stdoutBuffered = new BufferedReader(new InputStreamReader(stdout));
-        String line;
-        while ((line = stdoutBuffered.readLine()) != null) {
-            System.out.println(line);
-        }
+        process.waitFor();
         return null;
     }
 }

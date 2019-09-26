@@ -68,7 +68,7 @@ public class MenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CreationTool.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root, 845, 578));
+        stage.setScene(new Scene(root, 1048, 662));
         stage.setTitle("VARpedia Creation Tool");
         stage.show();
     }

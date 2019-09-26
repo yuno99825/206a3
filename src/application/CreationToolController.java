@@ -81,7 +81,8 @@ public class CreationToolController {
     private void nextButtonClicked() throws IOException, InterruptedException, ExecutionException {
         String searchTerm = searchField.getText();
         int numberOfImages = (int) imageSlider.getValue();
-        Creator creator = new Creator(chunksListView, searchTerm, numberOfImages);
+        ObservableList<Chunk> chunks = chunksListView.getItems();
+        Creator creator = new Creator(chunks, searchTerm, numberOfImages);
         creator.makeCreation();
     }
 }

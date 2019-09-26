@@ -1,6 +1,7 @@
 package application;
 
 import creationtasks.*;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
 import java.io.*;
@@ -10,7 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 public class Creator {
-    private ListView<Chunk> chunksListView;
+    private ObservableList<Chunk> chunks;
     private String searchTerm;
     private int numberOfImages;
     private SynthChunksTask synthChunksTask;
@@ -27,8 +28,8 @@ public class Creator {
                 }
             });
 
-    public Creator (ListView<Chunk> chunksListView, String searchTerm, int numberOfImages) {
-        this.chunksListView = chunksListView;
+    public Creator (ObservableList<Chunk> chunks, String searchTerm, int numberOfImages) {
+        this.chunks = chunks;
         this.searchTerm = searchTerm;
         this.numberOfImages = numberOfImages;
     }
@@ -37,12 +38,12 @@ public class Creator {
         new File(".temp/audio/").mkdirs();
 
         // Synthesize and save each audio chunk
-        synthChunksTask = new SynthChunksTask(chunksListView.getItems());
+        synthChunksTask = new SynthChunksTask(chunks);
         team.submit(synthChunksTask);
         synthChunksTask.setOnSucceeded(e -> {
 
             // Concatenate all audio chunks
-            int numChunks = chunksListView.getItems().size();
+            int numChunks = chunks.size();
             joinChunksTask = new JoinChunksTask(numChunks);
             team.submit(joinChunksTask);
             joinChunksTask.setOnSucceeded(f -> {
