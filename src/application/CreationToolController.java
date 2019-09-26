@@ -4,7 +4,11 @@ import com.fasterxml.jackson.databind.deser.CreatorProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,7 +86,16 @@ public class CreationToolController {
         String searchTerm = searchField.getText();
         int numberOfImages = (int) imageSlider.getValue();
         ObservableList<Chunk> chunks = chunksListView.getItems();
-        Creator creator = new Creator(chunks, searchTerm, numberOfImages);
-        creator.makeCreation();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ProgressScreen.fxml"));
+        Parent root = loader.load();
+
+        ProgressScreenController controller = loader.getController();
+        controller.setUp(chunks, searchTerm, numberOfImages);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+
     }
 }
