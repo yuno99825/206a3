@@ -21,6 +21,10 @@ public class CreationToolController {
     @FXML
     private ToggleGroup voiceToggleGroup;
     @FXML
+    private Button nextButton;
+    @FXML
+    private Slider imageSlider;
+    @FXML
     private Button addChunkButton;
     @FXML
     private Button deleteChunkButton;
@@ -72,6 +76,18 @@ public class CreationToolController {
         PreviewController previewController = new PreviewController(chunksListView);
         previewController.go();
     }
+
+    @FXML
+    private void nextButtonClicked() {
+
+        String term = searchField.getText();
+        int numberOfImages = (int) imageSlider.getValue();
+        ImagesController controller = new ImagesController(term,numberOfImages);
+        controller.getImages();
+
+
+    }
+
 
 
 }
