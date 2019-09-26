@@ -21,6 +21,11 @@ public class CreationToolController {
     private TextArea searchResultsArea;
     @FXML
     private ToggleGroup voiceToggleGroup;
+    @FXML
+    private Button nextButton;
+    @FXML
+    private Slider imageSlider;
+
 
     @FXML
     private void searchButtonClicked() {
@@ -32,6 +37,17 @@ public class CreationToolController {
     private void previewButtonClicked() throws IOException {
         PreviewController previewController = new PreviewController(searchResultsArea, voiceToggleGroup);
         previewController.go();
+    }
+
+    @FXML
+    private void nextButtonClicked() {
+
+        String term = searchField.getText();
+        int numberOfImages = (int) imageSlider.getValue();
+        ImagesController controller = new ImagesController(term,numberOfImages);
+        controller.getImages();
+
+
     }
 
 

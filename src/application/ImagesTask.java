@@ -1,92 +1,90 @@
 package application;
 
+import com.flickr4java.flickr.Flickr;
+import com.flickr4java.flickr.FlickrException;
+import com.flickr4java.flickr.REST;
+import com.flickr4java.flickr.photos.*;
 import javafx.concurrent.Task;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImagesTask extends Task<String> {
+public class ImagesTask extends Task<Void> {
 
     private String term;
+    private int numberOfImages;
 
-    public ImagesTask(String term){
+    public ImagesTask(String term, int numberOfImages) {
         this.term = term;
+        this.numberOfImages = numberOfImages;
     }
+
     @Override
-    protected String call(){
+    protected Void call() {
+        {
+            try {
+                String apiKey = getAPIKey("apiKey");
+                String sharedSecret = getAPIKey("sharedSecret");
 
-        String url = "https://www.flickr.com/search/?text=" + term;
-        String cmd = "wget -q " + url + " -O - | grep 'url(//'";
+                Flickr flickr = new Flickr(apiKey, sharedSecret, new REST());
 
-        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-        Process process = null;
-        try {
-            process = builder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                String query = term;
+                int resultsPerPage = numberOfImages;
+                int page = 0;
 
-        InputStream stdout = process.getInputStream();
-        InputStream stderr = process.getErrorStream();
+                PhotosInterface photos = flickr.getPhotosInterface();
+                SearchParameters params = new SearchParameters();
+                params.setSort(SearchParameters.RELEVANCE);
+                params.setMedia("photos");
+                params.setText(query);
 
-        BufferedReader stdoutBuffered = new BufferedReader(new InputStreamReader(stdout));
-        String line = null;
-        String unfilteredImageUrls = "";
-        try{
-            while ((line = stdoutBuffered.readLine()) != null ) {
+                PhotoList<Photo> results = photos.search(params, resultsPerPage, page);
+                System.out.println("Retrieving " + results.size()+ " results");
 
-                unfilteredImageUrls = unfilteredImageUrls + line;
-
-            }
-            System.out.println(unfilteredImageUrls);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        List<Integer> beginningIndexes = new ArrayList<Integer>();
-        List<Integer> endingIndexes = new ArrayList<Integer>();
-        List<String> listOfUrls = new ArrayList<String>();
-        List<String> listOfNewUrls = new ArrayList<String>();
-
-        int index = 0;
-        while(index != -1){
-            index = unfilteredImageUrls.indexOf("url(//", index);
-            if (index != -1){
-                beginningIndexes.add(index);
-                index++;
-            }
-        }
-        index = 0;
-        int count = 0;
-        while(index != -1) {
-            if (count < beginningIndexes.size()) {
-                index = unfilteredImageUrls.indexOf(")", beginningIndexes.get(count));
-                if (index != -1) {
-                    endingIndexes.add(index);
-                    count++;
+                for (Photo photo: results) {
+                    try {
+                        BufferedImage image = photos.getImage(photo, Size.LARGE);
+                        String filename = query.trim().replace(' ', '-')+"-"+System.currentTimeMillis()+"-"+photo.getId()+".jpg";
+                        File outputfile = new File("downloads",filename);
+                        ImageIO.write(image, "jpg", outputfile);
+                        System.out.println("Downloaded "+filename);
+                    } catch (FlickrException fe) {
+                        System.err.println("Ignoring image " +photo.getId() +": "+ fe.getMessage());
+                    }
                 }
-            } else {
-                index = -1;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("\nDone");
+        }
+
+        return null;
+    }
+
+    public static String getAPIKey(String key) throws Exception {
+        // TODO fix the following based on where you will have your config file stored
+
+        String config = System.getProperty("user.dir")
+                + System.getProperty("file.separator")+ "flickr-api-keys.txt";
+
+//		String config = System.getProperty("user.home")
+//				+ System.getProperty("file.separator")+ "bin"
+//				+ System.getProperty("file.separator")+ "flickr-api-keys.txt";
+        File file = new File(config);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String line;
+        while ( (line = br.readLine()) != null ) {
+            if (line.trim().startsWith(key)) {
+                br.close();
+                return line.substring(line.indexOf("=")+1).trim();
             }
         }
-        System.out.println(beginningIndexes.size());
-        System.out.println(endingIndexes.size());
-
-        for( int i = 0; i < 10; i++){
-
-            listOfUrls.add(unfilteredImageUrls.substring(beginningIndexes.get(i),endingIndexes.get(i)));
-            listOfNewUrls.add(listOfUrls.get(i).replace("url(//","https://"));
-
-        }
-        System.out.println(listOfUrls.size());
-        System.out.println(listOfUrls.get(2));
-
-        return unfilteredImageUrls;
-        //wget -q https://www.flickr.com/search/?text=happy -O - | grep "url(//"
+        br.close();
+        throw new RuntimeException("Couldn't find " + key +" in config file "+file.getName());
     }
 }
