@@ -66,14 +66,8 @@ public class ImagesTask extends Task<Void> {
     }
 
     public static String getAPIKey(String key) throws Exception {
-        // TODO fix the following based on where you will have your config file stored
-
         String config = System.getProperty("user.dir")
                 + System.getProperty("file.separator")+ "flickr-api-keys.txt";
-
-//		String config = System.getProperty("user.home")
-//				+ System.getProperty("file.separator")+ "bin"
-//				+ System.getProperty("file.separator")+ "flickr-api-keys.txt";
         File file = new File(config);
         BufferedReader br = new BufferedReader(new FileReader(file));
 

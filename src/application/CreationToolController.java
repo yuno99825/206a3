@@ -45,6 +45,10 @@ public class CreationToolController {
                     setText(null);
                 } else {
                     setText(chunk.getText());
+                    setMinWidth(e.getWidth());
+                    setMaxWidth(e.getWidth());
+                    setPrefWidth(e.getWidth());
+                    setWrapText(true);
                 }
             }
         });
@@ -84,8 +88,6 @@ public class CreationToolController {
         int numberOfImages = (int) imageSlider.getValue();
         ImagesController controller = new ImagesController(term,numberOfImages);
         controller.getImages();
-
-
     }
 
 
