@@ -13,14 +13,16 @@ public class PreviewController {
 
     public void go() throws IOException {
         Chunk selectedChunk = chunkListView.getSelectionModel().getSelectedItem();
-        String text = selectedChunk.getText();
-        String voiceCommand = selectedChunk.getVoiceCommand();
+        if (selectedChunk != null) {
+            String text = selectedChunk.getText();
+            String voiceCommand = selectedChunk.getVoiceCommand();
 
-        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "festival");
-        Process process = builder.start();
-        PrintWriter stdin = new PrintWriter(process.getOutputStream());
-        stdin.println(voiceCommand); // set the voice
-        stdin.println("(SayText \"" + text + "\")");
-        stdin.close();
+            ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "festival");
+            Process process = builder.start();
+            PrintWriter stdin = new PrintWriter(process.getOutputStream());
+            stdin.println(voiceCommand); // set the voice
+            stdin.println("(SayText \"" + text + "\")");
+            stdin.close();
+        }
     }
 }

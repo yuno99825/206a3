@@ -83,7 +83,6 @@ public class CreationToolController {
 
     @FXML
     private void nextButtonClicked() {
-
         String term = searchField.getText();
         int numberOfImages = (int) imageSlider.getValue();
         ImagesController controller = new ImagesController(term,numberOfImages);
