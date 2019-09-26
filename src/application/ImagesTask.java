@@ -48,7 +48,9 @@ public class ImagesTask extends Task<Void> {
                     try {
                         BufferedImage image = photos.getImage(photo, Size.LARGE);
                         String filename = query.trim().replace(' ', '-')+"-"+System.currentTimeMillis()+"-"+photo.getId()+".jpg";
-                        File outputfile = new File("downloads",filename);
+                        String pathToImages = ".temp" + System.getProperty("file.separator") + "/images";
+                        new File(pathToImages).mkdirs();
+                        File outputfile = new File(pathToImages,filename);
                         ImageIO.write(image, "jpg", outputfile);
                         System.out.println("Downloaded "+filename);
                     } catch (FlickrException fe) {
