@@ -48,7 +48,7 @@ public class ImagesTask extends Task<Void> {
                     try {
                         BufferedImage image = photos.getImage(photo, Size.LARGE);
                         String filename = query.trim().replace(' ', '-')+"-"+System.currentTimeMillis()+"-"+photo.getId()+".jpg";
-                        String pathToImages = ".temp" + System.getProperty("file.separator") + "/images";
+                        String pathToImages = ".temp" + System.getProperty("file.separator") + "images";
                         new File(pathToImages).mkdirs();
                         File outputfile = new File(pathToImages,filename);
                         ImageIO.write(image, "jpg", outputfile);

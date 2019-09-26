@@ -1,5 +1,6 @@
 package application;
 
+import com.fasterxml.jackson.databind.deser.CreatorProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,12 +25,6 @@ public class CreationToolController {
     private Button nextButton;
     @FXML
     private Slider imageSlider;
-    @FXML
-    private Button addChunkButton;
-    @FXML
-    private Button deleteChunkButton;
-    @FXML
-    private Button previewChunkButton;
     @FXML
     private ListView<Chunk> chunksListView;
     private ObservableList<Chunk> chunksList;
@@ -82,10 +77,12 @@ public class CreationToolController {
     }
 
     @FXML
-    private void nextButtonClicked() {
-        String term = searchField.getText();
-        int numberOfImages = (int) imageSlider.getValue();
-        ImagesController controller = new ImagesController(term,numberOfImages);
-        controller.getImages();
+    private void nextButtonClicked() throws IOException, InterruptedException {
+        Creator creator = new Creator(chunksListView);
+        creator.makeCreation();
+//        String term = searchField.getText();
+//        int numberOfImages = (int) imageSlider.getValue();
+//        ImagesController controller = new ImagesController(term,numberOfImages);
+//        controller.getImages();
     }
 }
