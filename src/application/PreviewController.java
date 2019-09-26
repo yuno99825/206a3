@@ -25,31 +25,6 @@ public class PreviewController {
             stdin.println(getVoiceName(voice)); // set the voice
             stdin.println("(SayText \"" + text + "\")");
             stdin.close();
-//            process.destroy();
-
-
-            BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            BufferedReader stderr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-            int exitStatus = 0;
-            try {
-                exitStatus = process.waitFor();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (exitStatus == 0) {
-                String line;
-                while ((line = stdout.readLine()) != null) {
-                    System.out.println(line);
-                }
-            } else {
-                String line;
-                while ((line = stderr.readLine()) != null) {
-                    System.err.println(line);
-                }
-            }
-
 
         } else {
             // Create warning alert
