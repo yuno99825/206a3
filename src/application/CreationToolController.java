@@ -88,7 +88,4 @@ public class CreationToolController {
         ImagesController controller = new ImagesController(term,numberOfImages);
         controller.getImages();
     }
-
-
-
 }
