@@ -1,13 +1,12 @@
 package application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import java.util.ArrayList;
 
 public class CreationToolController {
 
@@ -25,7 +24,31 @@ public class CreationToolController {
     private Button nextButton;
     @FXML
     private Slider imageSlider;
+    @FXML
+    private Button addChunkButton;
+    @FXML
+    private Button deleteChunkButton;
+    @FXML
+    private Button previewChunkButton;
+    @FXML
+    private ListView<Chunk> chunksListView;
+    private ObservableList<Chunk> chunksList;
 
+    @FXML
+    private void initialize() {
+        chunksList = FXCollections.observableArrayList(new ArrayList<Chunk>());
+        chunksListView.setItems(chunksList);
+        chunksListView.setCellFactory(e -> new ListCell<Chunk>(){
+            protected void updateItem(Chunk chunk, boolean empty) {
+                super.updateItem(chunk, empty);
+                if (empty || chunk == null || chunk.getText() == null) {
+                    setText(null);
+                } else {
+                    setText(chunk.getText());
+                }
+            }
+        });
+    }
 
     @FXML
     private void searchButtonClicked() {
@@ -34,8 +57,23 @@ public class CreationToolController {
     }
 
     @FXML
+    private void addButtonClicked() {
+        String selectedText = searchResultsArea.getSelectedText();
+        RadioButton selectedVoiceButton = (RadioButton) voiceToggleGroup.getSelectedToggle();
+        String voice = selectedVoiceButton.getText();
+        if (!selectedText.isEmpty()) {
+            chunksList.add(new Chunk(selectedText, voice));
+        }
+    }
+
+    @FXML
+    private void deleteButtonClicked() {
+        chunksList.remove(chunksListView.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
     private void previewButtonClicked() throws IOException {
-        PreviewController previewController = new PreviewController(searchResultsArea, voiceToggleGroup);
+        PreviewController previewController = new PreviewController(chunksListView);
         previewController.go();
     }
 
