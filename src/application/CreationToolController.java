@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class CreationToolController {
 
@@ -77,7 +78,7 @@ public class CreationToolController {
     }
 
     @FXML
-    private void nextButtonClicked() throws IOException, InterruptedException {
+    private void nextButtonClicked() throws IOException, InterruptedException, ExecutionException {
         String searchTerm = searchField.getText();
         int numberOfImages = (int) imageSlider.getValue();
         Creator creator = new Creator(chunksListView, searchTerm, numberOfImages);

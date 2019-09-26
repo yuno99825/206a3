@@ -1,4 +1,4 @@
-package application;
+package creationtasks;
 
 import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.FlickrException;
@@ -40,7 +40,6 @@ public class ImagesTask extends Task<Void> {
                 params.setText(query);
 
                 PhotoList<Photo> results = photos.search(params, resultsPerPage, page);
-                System.out.println("Retrieving " + results.size()+ " results");
 
                 for (Photo photo: results) {
                     try {
@@ -58,8 +57,6 @@ public class ImagesTask extends Task<Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            System.out.println("\nDone");
         }
 
         return null;
