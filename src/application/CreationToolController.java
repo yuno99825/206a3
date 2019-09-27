@@ -83,19 +83,30 @@ public class CreationToolController {
 
     @FXML
     private void nextButtonClicked() throws IOException, InterruptedException, ExecutionException {
-        String searchTerm = searchField.getText();
-        int numberOfImages = (int) imageSlider.getValue();
-        ObservableList<Chunk> chunks = chunksListView.getItems();
+       if (!chunksListView.getItems().isEmpty()) {
+           String searchTerm = searchField.getText();
+           int numberOfImages = (int) imageSlider.getValue();
+           ObservableList<Chunk> chunks = chunksListView.getItems();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ProgressScreen.fxml"));
-        Parent root = loader.load();
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("ProgressScreen.fxml"));
+           Parent root = loader.load();
 
-        ProgressScreenController controller = loader.getController();
-        controller.setUp(chunks, searchTerm, numberOfImages);
+           ProgressScreenController controller = loader.getController();
+           controller.setUp(chunks, searchTerm, numberOfImages);
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
+           Stage stage = new Stage();
+           stage.setScene(new Scene(root));
+           stage.showAndWait();
+
+           loader = new FXMLLoader(getClass().getResource("CreationPreview.fxml"));
+           root = loader.load();
+           stage = new Stage();
+           stage.setScene(new Scene(root));
+           stage.show();
+
+           Stage thisStage = (Stage) nextButton.getScene().getWindow();
+           thisStage.close();
+       }
 
     }
 }
