@@ -67,12 +67,18 @@ public class CreationToolController {
         String voice = selectedVoiceButton.getText();
         if (!selectedText.isEmpty()) {
             chunksList.add(new Chunk(selectedText, voice));
+            if (searchPrompt.getText().equals("You searched: ")) {
+                nextButton.setDisable(false);
+            }
         }
     }
 
     @FXML
     private void deleteButtonClicked() {
         chunksList.remove(chunksListView.getSelectionModel().getSelectedItem());
+        if (chunksList.isEmpty()) {
+            nextButton.setDisable(true);
+        }
     }
 
     @FXML
@@ -82,8 +88,7 @@ public class CreationToolController {
     }
 
     @FXML
-    private void nextButtonClicked() throws IOException, InterruptedException, ExecutionException {
-       if (!chunksListView.getItems().isEmpty()) {
+    private void nextButtonClicked() throws IOException {
            String searchTerm = searchField.getText();
            int numberOfImages = (int) imageSlider.getValue();
            ObservableList<Chunk> chunks = chunksListView.getItems();
@@ -106,7 +111,5 @@ public class CreationToolController {
 
            Stage thisStage = (Stage) nextButton.getScene().getWindow();
            thisStage.close();
-       }
-
     }
 }

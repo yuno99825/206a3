@@ -109,7 +109,7 @@
             <Region prefHeight="18.0" prefWidth="248.0" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER_RIGHT">
                <children>
-                  <Button fx:id="nextButton" alignment="CENTER" mnemonicParsing="false" onAction="#nextButtonClicked" text="Next" />
+                  <Button fx:id="nextButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#nextButtonClicked" text="Next" />
                </children>
             </HBox>
          </children>

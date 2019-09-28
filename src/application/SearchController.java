@@ -34,6 +34,7 @@ public class SearchController {
     }
 
     public void go() {
+        boolean success = false;
         String searchTerm = searchField.getText();
         if (validateSearchTerm(searchTerm)) {
             searchTask = new SearchTask(searchTerm);
