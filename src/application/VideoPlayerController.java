@@ -2,6 +2,7 @@ package application;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -16,6 +17,8 @@ public class VideoPlayerController {
     private MediaPlayer player;
     @FXML
     private Button playPauseButton;
+    @FXML
+    private BorderPane borderPane;
 
     public void setUpVideo(String creationName, Stage stage) {
         File videoURL = new File("./creations/" + creationName + "/creation.mp4");
@@ -23,8 +26,8 @@ public class VideoPlayerController {
         player = new MediaPlayer(video);
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
-//        mediaView.fitWidthProperty().bind(stage.widthProperty());
-//        mediaView.fitHeightProperty().bind(stage.heightProperty());
+        mediaView.fitWidthProperty().bind(stage.widthProperty());
+        mediaView.fitHeightProperty().bind(borderPane.heightProperty());
     }
 
     @FXML
