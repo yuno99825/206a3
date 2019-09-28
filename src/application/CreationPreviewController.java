@@ -91,6 +91,10 @@ public class CreationPreviewController {
         player.seek(Duration.ZERO);
     }
 
+    public void stopVideo() {
+        player.pause();
+    }
+
     private boolean nameIsValid(String creationName) {
         return creationName.matches("[A-Za-z0-9_\\-][A-Za-z0-9_\\- ]*");
     }
