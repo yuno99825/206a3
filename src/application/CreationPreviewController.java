@@ -21,6 +21,8 @@ public class CreationPreviewController {
     private TextField nameField;
     @FXML
     private Label nameErrorLabel;
+    @FXML
+    private Button cancelButton;
 
     @FXML
     private void initialize(){
@@ -66,6 +68,14 @@ public class CreationPreviewController {
         } else {
             nameErrorLabel.setVisible(true);
         }
+    }
+    @FXML
+    private void cancelButtonClicked() throws IOException {
+        String cmd3 = "rm -fr ./.temp";
+        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd3);
+        builder.start();
+        Stage thisStage = (Stage)nameField.getScene().getWindow();
+        thisStage.close();
     }
 
     @FXML

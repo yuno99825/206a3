@@ -71,10 +71,10 @@ public class SearchController {
     }
 
     private static boolean validateSearchTerm(String searchTerm) {
-        if (searchTerm == null || searchTerm.isEmpty()) {
+        if (searchTerm == null || searchTerm.isEmpty() || searchTerm.trim().isEmpty()) {
             return false;
         }
-        return searchTerm.matches("[a-zA-Z0-9 _-]+");
+        return searchTerm.matches("[a-zA-Z0-9 _\\-]+");
     }
 
 }
