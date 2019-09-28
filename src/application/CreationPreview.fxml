@@ -33,8 +33,9 @@
                <children>
                   <Label text="Name of creation:" />
                   <TextField fx:id="nameField" onKeyReleased="#disableButton" />
-                  <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmButtonClicked" text="Confirm" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" />
                </children>
                <padding>
                   <Insets bottom="5.0" right="5.0" top="5.0" />
