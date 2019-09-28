@@ -2,13 +2,18 @@ package creationtasks;
 
 import javafx.concurrent.Task;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class FinalCreationTask extends Task<Void> {
     private double framerate;
+    private String searchTerm;
 
-    public FinalCreationTask(double framerate) {
+    public FinalCreationTask(double framerate, String searchTerm) {
         this.framerate = framerate;
+        this.searchTerm = searchTerm;
     }
 
     @Override
@@ -16,12 +21,30 @@ public class FinalCreationTask extends Task<Void> {
         if (isCancelled()) {
             return null;
         }
-        String createCmd = "cat .temp/images/* | ffmpeg -y -framerate " + framerate + " -f image2pipe -i - -i " +
-                " .temp/creation_audio.wav -vcodec copy .temp/creation.mp4";
-//        String createCmd = "ffmpeg -framerate " + framerate +" -loop 1 -pattern_type glob -i '.temp/images/*.jpg' " +
-//                "-i .temp/creation_audio.wav -c:v libx264 -c:a aac -b:a 192k -shortest creation.mp4";
-        ProcessBuilder createCmdBuilder = new ProcessBuilder("/bin/bash", "-c", createCmd);
-        Process process = createCmdBuilder.start();
+        ProcessBuilder pb = new ProcessBuilder();
+        pb.command("/bin/bash", "-c", "ffmpeg -f image2 -r " + framerate + " -i './.temp/images/%1d.jpg' -r 30 -y ./.temp/video.mp4");
+        Process makeVid = pb.start();
+
+        if (isCancelled()) {
+            makeVid.destroy();
+            return null;
+        }
+        makeVid.waitFor();
+
+        pb.command("/bin/bash", "-c", "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./CaviarDreams.ttf:fontsize=50: " +
+                "fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='" + searchTerm + "'\" ./.temp/video_with_text.mp4");
+        Process addText = pb.start();
+        if (isCancelled()) {
+            addText.destroy();
+        }
+        addText.waitFor();
+
+        pb.command("/bin/bash", "-c", "ffmpeg -y -i ./.temp/video_with_text.mp4 -i ./.temp/creation_audio.wav -c:v copy -c:a aac -strict experimental ./.temp/creation.mp4");
+        Process createFinal = pb.start();
+        if (isCancelled()) {
+            createFinal.destroy();
+        }
+        createFinal.waitFor();
 
         return null;
     }

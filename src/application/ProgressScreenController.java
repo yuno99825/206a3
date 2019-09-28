@@ -96,7 +96,7 @@ public class ProgressScreenController {
 
                         progressBar.setProgress(0.8);
                         progressLabel.setText("Finalising...");
-                        finalCreationTask = new FinalCreationTask(framerate);
+                        finalCreationTask = new FinalCreationTask(framerate, searchTerm);
                         team.submit(finalCreationTask);
                         finalCreationTask.setOnSucceeded(i -> {
                             progressBar.setProgress(1.0);

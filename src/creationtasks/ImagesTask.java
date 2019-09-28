@@ -41,13 +41,14 @@ public class ImagesTask extends Task<Void> {
 
                 PhotoList<Photo> results = photos.search(params, resultsPerPage, page);
 
+                int i = 1;
                 for (Photo photo: results) {
                     if (isCancelled()) {
                         return null;
                     }
                     try {
                         BufferedImage image = photos.getImage(photo, Size.LARGE);
-                        String filename = query.trim().replace(' ', '-')+"-"+System.currentTimeMillis()+"-"+photo.getId()+".jpg";
+                        String filename = i + ".jpg";
                         String pathToImages = ".temp" + System.getProperty("file.separator") + "images";
                         File outputfile = new File(pathToImages,filename);
                         ImageIO.write(image, "jpg", outputfile);
@@ -55,6 +56,7 @@ public class ImagesTask extends Task<Void> {
                     } catch (FlickrException fe) {
                         System.err.println("Ignoring image " +photo.getId() +": "+ fe.getMessage());
                     }
+                    i++;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
