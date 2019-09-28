@@ -24,7 +24,6 @@ public class CreationPreviewController {
 
     @FXML
     private void initialize(){
-        confirmButton.setDisable(true);
         File videoURL = new File("./.temp/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
         player = new MediaPlayer(video);

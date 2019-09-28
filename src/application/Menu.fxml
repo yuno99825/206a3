@@ -27,8 +27,8 @@
             <Region prefHeight="26.0" prefWidth="282.0" />
             <ButtonBar>
               <buttons>
-                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteCreation" text="Delete" />
-                  <Button mnemonicParsing="false" onAction="#playCreation" prefHeight="26.0" prefWidth="85.0" text="Play" />
+                <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#deleteCreation" text="Delete" />
+                  <Button fx:id="playButton" disable="true" mnemonicParsing="false" onAction="#playCreation" prefHeight="26.0" prefWidth="85.0" text="Play" />
               </buttons>
                <HBox.margin>
                   <Insets />

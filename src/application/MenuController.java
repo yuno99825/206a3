@@ -26,6 +26,10 @@ public class MenuController {
     private ListView<String> creationListView;
     @FXML
     private Label creationListLabel;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button playButton;
 
     @FXML
     private void initialize() {
@@ -101,9 +105,14 @@ public class MenuController {
 
             if (creationList.isEmpty()) {
                 creationListLabel.setText("You have no creations.");
+                deleteButton.setDisable(true);
+                playButton.setDisable(true);
+
             } else {
                 creationListView.getSelectionModel().select(0);
                 creationListLabel.setText("Existing creations:");
+                deleteButton.setDisable(false);
+                playButton.setDisable(false);
             }
         } catch (IOException e) { }
     }
