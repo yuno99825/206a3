@@ -26,6 +26,8 @@ public class CreationPreviewController {
     private Button confirmButton;
     @FXML
     private TextField nameField;
+    @FXML
+    private Button cancelButton;
 
     @FXML
     private void initialize(){
@@ -85,6 +87,18 @@ public class CreationPreviewController {
            }
        }
 
+    }
+    @FXML
+    private void cancelButtonClicked(){
+        String cmd3 = "rm -fr ./.temp";
+        try {
+            ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd3);
+            Process process = builder.start();
+        } catch (Exception e) {
+
+        }
+        Stage thisStage = (Stage)nameField.getScene().getWindow();
+        thisStage.close();
     }
 
     @FXML
