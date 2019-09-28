@@ -34,9 +34,6 @@ public class CreationPreviewController {
         player = new MediaPlayer(video);
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
-//        Stage stage = (Stage)playPauseButton.getScene().getWindow();
-//        mediaView.fitWidthProperty().bind(stage.widthProperty());
-//        mediaView.fitHeightProperty().bind(stage.heightProperty());
     }
 
     public void confirmButtonClicked(){
@@ -60,13 +57,20 @@ public class CreationPreviewController {
            Stage thisStage = (Stage)nameField.getScene().getWindow();
            thisStage.close();
        } else {
-           Alert alert = new Alert(Alert.AlertType.NONE, "Creation: " + creationName + " already exists. Do you wish to overwrite it?", ButtonType.YES, ButtonType.NO);
+           Alert alert = new Alert(Alert.AlertType.NONE, "Creation: '" + creationName + "' already exists. Do you wish to overwrite it?", ButtonType.YES, ButtonType.NO);
            alert.setTitle("Creation already exists");
            alert.setHeight(150);
            alert.showAndWait();
 
            //
            if (alert.getResult() == ButtonType.YES) {
+               String cmd3 = "rm -fr ./creations/" + creationName;
+               try {
+                   ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd3);
+                   Process process = builder.start();
+               } catch (Exception e) {
+
+               }
                String cmd = "mv -f ./.temp ./creations/" + creationName;
                try {
                    ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
