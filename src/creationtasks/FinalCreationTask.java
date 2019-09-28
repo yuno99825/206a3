@@ -13,6 +13,9 @@ public class FinalCreationTask extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
+        if (isCancelled()) {
+            return null;
+        }
         String createCmd = "cat .temp/images/* | ffmpeg -y -framerate " + framerate + " -f image2pipe -i - -i " +
                 " .temp/creation_audio.wav -vcodec copy .temp/creation.mp4";
 //        String createCmd = "ffmpeg -framerate " + framerate +" -loop 1 -pattern_type glob -i '.temp/images/*.jpg' " +

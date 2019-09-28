@@ -10,6 +10,9 @@ public class GetAudioLengthTask extends Task<Double> {
 
     @Override
     protected Double call() throws Exception {
+        if (isCancelled()) {
+            return null;
+        }
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "soxi -D .temp/creation_audio.wav ");
         Process process = builder.start();
         InputStream stdout = process.getInputStream();

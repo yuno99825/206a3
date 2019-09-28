@@ -42,6 +42,9 @@ public class ImagesTask extends Task<Void> {
                 PhotoList<Photo> results = photos.search(params, resultsPerPage, page);
 
                 for (Photo photo: results) {
+                    if (isCancelled()) {
+                        return null;
+                    }
                     try {
                         BufferedImage image = photos.getImage(photo, Size.LARGE);
                         String filename = query.trim().replace(' ', '-')+"-"+System.currentTimeMillis()+"-"+photo.getId()+".jpg";

@@ -2,6 +2,7 @@ package application;
 
 import creationtasks.*;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,7 +47,8 @@ public class ProgressScreenController {
                 }
             });
 
-    public void setUp (ObservableList<Chunk> chunks, String searchTerm, int numberOfImages) {
+    public void setUp (ObservableList<Chunk> chunks, String searchTerm, int numberOfImages) throws IOException {
+        removeTempFolder();
         this.chunks = chunks;
         this.searchTerm = searchTerm;
         this.numberOfImages = numberOfImages;
@@ -107,11 +109,31 @@ public class ProgressScreenController {
     }
 
     @FXML
-    private void buttonClicked(){
+    private void buttonClicked() throws IOException {
+        if (cancelButton.getText().equals("Cancel")) {
+            if (synthChunksTask != null) {
+                synthChunksTask.cancel();
+            }
+            if (joinChunksTask != null) {
+                joinChunksTask.cancel();
+            }
+            if (getAudioLengthTask != null) {
+                getAudioLengthTask.cancel();
+            }
+            if (imagesTask != null) {
+                imagesTask.cancel();
+            }
+            if (finalCreationTask != null) {
+                finalCreationTask.cancel();
+            }
+            removeTempFolder();
+        }
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
-
-
+    private void removeTempFolder() throws IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp");
+        processBuilder.start();
+    }
 }

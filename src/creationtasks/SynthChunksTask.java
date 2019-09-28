@@ -17,6 +17,9 @@ public class SynthChunksTask extends Task<Void> {
     protected Void call() throws Exception {
         int i = 1;
         for (Chunk chunk : chunks) {
+            if (isCancelled()) {
+                return null;
+            }
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "festival");
             Process process = builder.start();
             PrintWriter stdin = new PrintWriter(process.getOutputStream());

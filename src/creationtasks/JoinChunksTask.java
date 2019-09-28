@@ -15,6 +15,9 @@ public class JoinChunksTask extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
+        if (isCancelled()) {
+            return null;
+        }
         String cmd = "sox";
         for (int i = 1; i <= numChunks; i++) {
             cmd = cmd.concat(" .temp/audio/" + i + ".wav");
