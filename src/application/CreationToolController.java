@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -88,28 +89,38 @@ public class CreationToolController {
     }
 
     @FXML
-    private void nextButtonClicked() throws IOException {
-           String searchTerm = searchField.getText();
-           int numberOfImages = (int) imageSlider.getValue();
-           ObservableList<Chunk> chunks = chunksListView.getItems();
+    private void nextButtonClicked() throws IOException, InterruptedException {
+        removeTempFolder();
+        String searchTerm = searchField.getText();
+        int numberOfImages = (int) imageSlider.getValue();
+        ObservableList<Chunk> chunks = chunksListView.getItems();
 
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("ProgressScreen.fxml"));
-           Parent root = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ProgressScreen.fxml"));
+        Parent root = loader.load();
+        ProgressScreenController controller = loader.getController();
+        controller.setUp(chunks, searchTerm, numberOfImages);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
 
-           ProgressScreenController controller = loader.getController();
-           controller.setUp(chunks, searchTerm, numberOfImages);
+        if (controller.isSuccess()) {
+            loader = new FXMLLoader(getClass().getResource("CreationPreview.fxml"));
+            root = loader.load();
+            stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
 
-           Stage stage = new Stage();
-           stage.setScene(new Scene(root));
-           stage.showAndWait();
+            Stage thisStage = (Stage) nextButton.getScene().getWindow();
+            thisStage.close();
+        } else {
+            removeTempFolder();
+        }
+    }
 
-           loader = new FXMLLoader(getClass().getResource("CreationPreview.fxml"));
-           root = loader.load();
-           stage = new Stage();
-           stage.setScene(new Scene(root));
-           stage.show();
-
-           Stage thisStage = (Stage) nextButton.getScene().getWindow();
-           thisStage.close();
+    private void removeTempFolder() throws IOException, InterruptedException {
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp");
+        Process process = processBuilder.start();
+        process.waitFor();
     }
 }

@@ -23,6 +23,7 @@ public class ProgressScreenController {
     private ObservableList<Chunk> chunks;
     private String searchTerm;
     private int numberOfImages;
+    private boolean success = false;
 
     // --- Tasks ---
     private SynthChunksTask synthChunksTask;
@@ -47,8 +48,7 @@ public class ProgressScreenController {
                 }
             });
 
-    public void setUp (ObservableList<Chunk> chunks, String searchTerm, int numberOfImages) throws IOException {
-        removeTempFolder();
+    public void setUp (ObservableList<Chunk> chunks, String searchTerm, int numberOfImages) throws IOException, InterruptedException {
         this.chunks = chunks;
         this.searchTerm = searchTerm;
         this.numberOfImages = numberOfImages;
@@ -57,6 +57,7 @@ public class ProgressScreenController {
 
     private void go() {
         new File(".temp/audio/").mkdirs();
+        new File(".temp/images/").mkdirs();
 
         progressBar.setProgress(0);
         progressLabel.setText("Synthesizing audio chunks...");
@@ -101,6 +102,7 @@ public class ProgressScreenController {
                             progressBar.setProgress(1.0);
                             progressLabel.setText("Success!");
                             cancelButton.setText("Done");
+                            success = true;
                         });
                     });
                 });
@@ -109,7 +111,7 @@ public class ProgressScreenController {
     }
 
     @FXML
-    private void buttonClicked() throws IOException {
+    private void buttonClicked() throws IOException, InterruptedException {
         if (cancelButton.getText().equals("Cancel")) {
             if (synthChunksTask != null) {
                 synthChunksTask.cancel();
@@ -126,14 +128,12 @@ public class ProgressScreenController {
             if (finalCreationTask != null) {
                 finalCreationTask.cancel();
             }
-            removeTempFolder();
         }
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
-    private void removeTempFolder() throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp");
-        processBuilder.start();
+    public boolean isSuccess() {
+        return success;
     }
 }
