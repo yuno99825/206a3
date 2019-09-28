@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.concurrent.ExecutionException;
 
 public class CreationToolController {
@@ -25,6 +26,10 @@ public class CreationToolController {
     private Button searchButton;
     @FXML
     private TextArea searchResultsArea;
+    @FXML
+    private Slider pitchSlider;
+    @FXML
+    private Slider speedSlider;
     @FXML
     private ToggleGroup voiceToggleGroup;
     @FXML
@@ -64,13 +69,25 @@ public class CreationToolController {
     @FXML
     private void addButtonClicked() {
         String selectedText = searchResultsArea.getSelectedText();
-        RadioButton selectedVoiceButton = (RadioButton) voiceToggleGroup.getSelectedToggle();
-        String voice = selectedVoiceButton.getText();
+        int pitch = (int) pitchSlider.getValue();
+        double speed = speedSlider.getValue();
         if (!selectedText.isEmpty()) {
-            chunksList.add(new Chunk(selectedText, voice));
-            if (searchPrompt.getText().equals("You searched: ")) {
-                nextButton.setDisable(false);
+            if (countWords(selectedText) <= 20) {
+                chunksList.add(new Chunk(selectedText, speed, pitch));
+                if (searchPrompt.getText().equals("You searched: ")) {
+                    nextButton.setDisable(false);
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.NONE, "The selected chunk is too long (max 20 words)", ButtonType.OK);
+                alert.setTitle("Chunk too long");
+                alert.setHeight(150);
+                alert.showAndWait();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.NONE, "Please select text to add/preview by highlighting.", ButtonType.OK);
+            alert.setTitle("No text selected");
+            alert.setHeight(150);
+            alert.showAndWait();
         }
     }
 
@@ -122,5 +139,13 @@ public class CreationToolController {
         ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp");
         Process process = processBuilder.start();
         process.waitFor();
+    }
+
+    private static int countWords(String text) {
+        if (text == null || text.isEmpty()) {
+            return 0;
+        }
+        StringTokenizer tokens = new StringTokenizer(text);
+        return tokens.countTokens();
     }
 }

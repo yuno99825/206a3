@@ -5,25 +5,25 @@ import javafx.beans.Observable;
 
 public class Chunk {
     private String text;
-    private String voice;
+    private double stretch;
+    private int pitch;
 
-    public Chunk(String text, String voice) {
+    public Chunk(String text, double speed, int pitch) {
         this.text = text;
-        this.voice = voice;
+        this.stretch = 1/speed;
+        this.pitch = pitch;
     }
 
     public String getText() {
         return text;
     }
 
-    public String getVoiceCommand() {
-        switch (voice) {
-            case "NZ Male":
-                return "(voice_akl_nz_jdt_diphone)";
-            case "NZ Female":
-                return "(voice_akl_nz_cw_cg_cg)";
-            default:
-                return "(voice_kal_diphone)";
-        }
+    public String getStretchCommand() {
+        return "(Parameter.set 'Duration_Stretch " + stretch + ")";
+    }
+
+    public String getPitchCommand() {
+        return "(set! duffint_params '((start " + pitch + ") (end " + (pitch - 15) + ")))\n" +
+                "(Parameter.set 'Int_Target_Method Int_Targets_Default)";
     }
 }

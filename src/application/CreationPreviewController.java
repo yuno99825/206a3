@@ -34,9 +34,6 @@ public class CreationPreviewController {
         player = new MediaPlayer(video);
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
-        //Stage stage = (Stage)playPauseButton.getScene().getWindow();
-        //mediaView.fitWidthProperty().bind(stage.widthProperty());
-        //mediaView.fitHeightProperty().bind(stage.heightProperty());
     }
 
     public void confirmButtonClicked(){
