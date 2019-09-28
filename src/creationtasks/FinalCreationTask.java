@@ -14,9 +14,12 @@ public class FinalCreationTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
         String createCmd = "cat .temp/images/* | ffmpeg -y -framerate " + framerate + " -f image2pipe -i - -i " +
-                " .temp/creation_audio.wav -acodec copy .temp/creation.mkv";
+                " .temp/creation_audio.wav -vcodec copy .temp/creation.mp4";
+//        String createCmd = "ffmpeg -framerate " + framerate +" -loop 1 -pattern_type glob -i '.temp/images/*.jpg' " +
+//                "-i .temp/creation_audio.wav -c:v libx264 -c:a aac -b:a 192k -shortest creation.mp4";
         ProcessBuilder createCmdBuilder = new ProcessBuilder("/bin/bash", "-c", createCmd);
-        createCmdBuilder.start();
+        Process process = createCmdBuilder.start();
+
         return null;
     }
 }

@@ -110,7 +110,6 @@ public class ProgressScreenController {
     private void buttonClicked(){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
-
     }
 
 
