@@ -44,4 +44,8 @@ public class VideoPlayerController {
         player.seek(Duration.ZERO);
     }
 
+    public void stopVideo() {
+        player.pause();
+    }
+
 }

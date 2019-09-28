@@ -59,6 +59,9 @@ public class MenuController {
 
         VideoPlayerController controller = loader.getController();
         controller.setUpVideo(creationName, stage);
+        stage.setOnCloseRequest(e -> {
+            controller.stopVideo();
+        });
         stage.setScene(new Scene(root, 500, 500));
         stage.setTitle(creationName);
         stage.show();
