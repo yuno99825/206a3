@@ -6,6 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.*;
 
@@ -14,8 +15,6 @@ public class CreationPreviewController {
     @FXML
     private MediaView mediaView;
     private MediaPlayer player;
-    @FXML
-    private Button playPauseButton;
     @FXML
     private Button confirmButton;
     @FXML
@@ -71,7 +70,7 @@ public class CreationPreviewController {
     }
 
     @FXML
-    private void disableButton(){
+    private void keyReleased(){
         String text = nameField.getText();
         boolean isEmpty = (text.isEmpty() || text.trim().isEmpty());
         confirmButton.setDisable(isEmpty);
@@ -81,12 +80,15 @@ public class CreationPreviewController {
     private void playPauseVid(){
         if (player.getStatus() == MediaPlayer.Status.PLAYING) {
             player.pause();
-            playPauseButton.setText("Play");
         }
         else {
             player.play();
-            playPauseButton.setText("Pause");
         }
+    }
+
+    @FXML
+    private void replayButtonClicked() {
+        player.seek(Duration.ZERO);
     }
 
     private boolean nameIsValid(String creationName) {

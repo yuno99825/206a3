@@ -9,6 +9,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -29,13 +30,18 @@ public class VideoPlayerController {
     }
 
     @FXML
-    public void playPauseVid(){
+    private void playPauseVid(){
         if (player.getStatus() == MediaPlayer.Status.PLAYING) {
             player.pause();
         }
         else {
             player.play();
         }
+    }
+
+    @FXML
+    private void replayButtonClicked() {
+        player.seek(Duration.ZERO);
     }
 
 }
