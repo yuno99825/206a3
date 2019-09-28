@@ -31,8 +31,6 @@ public class CreationToolController {
     @FXML
     private Slider speedSlider;
     @FXML
-    private ToggleGroup voiceToggleGroup;
-    @FXML
     private Button nextButton;
     @FXML
     private Slider imageSlider;
