@@ -1,5 +1,6 @@
 package application;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -40,7 +42,6 @@ public class MenuController {
         alert.setHeight(150);
         alert.showAndWait();
 
-        //
         if (alert.getResult() == ButtonType.YES) {
             String cmd = "rm -fr ./creations/\"" + creationName + "\"";
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
@@ -70,7 +71,9 @@ public class MenuController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 1048, 662));
         stage.setTitle("VARpedia Creation Tool");
-        stage.show();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        updateCreationList();
     }
 
     private void updateCreationList() {

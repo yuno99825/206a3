@@ -120,14 +120,10 @@ public class CreationToolController {
         stage.showAndWait();
 
         if (controller.isSuccess()) {
-            loader = new FXMLLoader(getClass().getResource("CreationPreview.fxml"));
-            root = loader.load();
-            stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
+            FXMLLoader creationPreviewLoader = new FXMLLoader(getClass().getResource("CreationPreview.fxml"));
+            Parent creationPreviewRoot = creationPreviewLoader.load();
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
-            thisStage.close();
+            thisStage.setScene(new Scene(creationPreviewRoot, 600, 400));
         } else {
             removeTempFolder();
         }

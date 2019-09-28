@@ -10,10 +10,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class CreationPreviewController {
 
@@ -38,52 +35,36 @@ public class CreationPreviewController {
     }
 
     @FXML
-    private void confirmButtonClicked(){
+    private void confirmButtonClicked() throws InterruptedException, IOException {
         String creationName = nameField.getText();
-        int exit = 0;
-        String cmd1 = "[ -e ./creations/\"" + creationName + "\" ]";
-        try {
-            ProcessBuilder builder1 = new ProcessBuilder("/bin/bash", "-c", cmd1);
-            Process process1 = builder1.start();
-            exit = process1.waitFor();
-        } catch( Exception e) {
+        ProcessBuilder pb = new ProcessBuilder();
+        pb.command("/bin/bash", "-c", "[ -e ./creations/\"" + creationName + "\" ]");
+        Process checkExist = pb.start();
+        int exit = checkExist.waitFor();
+
+        if (exit == 1) {
+            pb.command("/bin/bash", "-c", "mv ./.temp ./creations/" + "\"" + creationName + "\"");
+            Process moveTemp = pb.start();
+            Stage thisStage = (Stage)nameField.getScene().getWindow();
+            thisStage.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.NONE, "Creation: '" + creationName + "' already exists. Do you wish to overwrite it?", ButtonType.YES, ButtonType.NO);
+            alert.setTitle("Creation already exists");
+            alert.setHeight(150);
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.YES) {
+                pb.command("/bin/bash", "-c", "rm -fr ./creations/\"" + creationName + "\"");
+                Process removeExisting = pb.start();
+                removeExisting.waitFor();
+
+                pb.command("/bin/bash", "-c", "mv -f ./.temp ./creations/\"" + creationName + "\"");
+                pb.start();
+
+                Stage thisStage = (Stage)nameField.getScene().getWindow();
+                thisStage.close();
+            }
         }
-       if (exit == 1) {
-           String cmd = "mv ./.temp ./creations/" + creationName;
-           try {
-               ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-               Process process = builder.start();
-           } catch (Exception e) {
-
-           }
-           Stage thisStage = (Stage)nameField.getScene().getWindow();
-           thisStage.close();
-       } else {
-           Alert alert = new Alert(Alert.AlertType.NONE, "Creation: '\"" + creationName + "\"' already exists. Do you wish to overwrite it?", ButtonType.YES, ButtonType.NO);
-           alert.setTitle("Creation already exists");
-           alert.setHeight(150);
-           alert.showAndWait();
-
-           //
-           if (alert.getResult() == ButtonType.YES) {
-               String cmd3 = "rm -fr ./creations/\"" + creationName + "\"";
-               try {
-                   ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd3);
-                   Process process = builder.start();
-               } catch (Exception e) {
-
-               }
-               String cmd = "mv -f ./.temp ./creations/\"" + creationName + "\"";
-               try {
-                   ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-                   Process process = builder.start();
-               } catch (Exception e) {
-
-               }
-               Stage thisStage = (Stage)nameField.getScene().getWindow();
-               thisStage.close();
-           }
-       }
 
     }
 
