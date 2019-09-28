@@ -70,13 +70,13 @@ public class CreationToolController {
         int pitch = (int) pitchSlider.getValue();
         double speed = speedSlider.getValue();
         if (!selectedText.isEmpty()) {
-            if (countWords(selectedText) <= 20) {
+            if (countWords(selectedText) <= 50) {
                 chunksList.add(new Chunk(selectedText, speed, pitch));
                 if (searchPrompt.getText().equals("You searched: ")) {
                     nextButton.setDisable(false);
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.NONE, "The selected chunk is too long (max 20 words)", ButtonType.OK);
+                Alert alert = new Alert(Alert.AlertType.NONE, "The selected chunk is too long (max 50 words)", ButtonType.OK);
                 alert.setTitle("Chunk too long");
                 alert.setHeight(150);
                 alert.showAndWait();
