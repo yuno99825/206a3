@@ -127,7 +127,7 @@ public class CreationToolController {
             thisStage.setOnCloseRequest(e -> {
                 creationPreviewController.stopVideo();
             });
-            thisStage.setScene(new Scene(creationPreviewRoot, 600, 400));
+            thisStage.setScene(new Scene(creationPreviewRoot, 600, 600));
         } else {
             removeTempFolder();
         }
