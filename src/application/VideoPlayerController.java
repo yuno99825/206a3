@@ -23,8 +23,8 @@ public class VideoPlayerController {
         player = new MediaPlayer(video);
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
-        mediaView.fitWidthProperty().bind(stage.widthProperty());
-        mediaView.fitHeightProperty().bind(stage.heightProperty());
+//        mediaView.fitWidthProperty().bind(stage.widthProperty());
+//        mediaView.fitHeightProperty().bind(stage.heightProperty());
     }
 
     @FXML

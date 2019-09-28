@@ -81,14 +81,11 @@ public class CreationPreviewController {
 
     }
 
-
     public void disableButton(){
         String text = nameField.getText();
         boolean isEmpty = (text.isEmpty() || text.trim().isEmpty());
         confirmButton.setDisable(isEmpty);
     }
-
-
 
     @FXML
     public void playPauseVid(){
