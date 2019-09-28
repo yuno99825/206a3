@@ -15,10 +15,6 @@ public class VideoPlayerController {
     @FXML
     private MediaView mediaView;
     private MediaPlayer player;
-    @FXML
-    private Button playPauseButton;
-    @FXML
-    private BorderPane borderPane;
 
     public void setUpVideo(String creationName, Stage stage) {
         File videoURL = new File("./creations/" + creationName + "/creation.mp4");
@@ -27,18 +23,16 @@ public class VideoPlayerController {
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
         mediaView.fitWidthProperty().bind(stage.widthProperty());
-        mediaView.fitHeightProperty().bind(borderPane.heightProperty());
+        mediaView.fitHeightProperty().bind(stage.heightProperty());
     }
 
     @FXML
     public void playPauseVid(){
         if (player.getStatus() == MediaPlayer.Status.PLAYING) {
             player.pause();
-            playPauseButton.setText("Play");
         }
         else {
             player.play();
-            playPauseButton.setText("Pause");
         }
     }
 
