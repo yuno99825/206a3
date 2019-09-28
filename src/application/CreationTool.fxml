@@ -5,17 +5,15 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreationToolController">
+<HBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreationToolController">
    <children>
       <VBox spacing="10.0">
          <children>
@@ -50,20 +48,13 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
+            <Label text="Pitch" />
+            <Slider fx:id="pitchSlider" max="300.0" min="50.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="150.0" />
+            <Label text="Speed" />
+            <Slider fx:id="speedSlider" blockIncrement="0.5" majorTickUnit="0.4" max="3.0" min="0.2" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
             <HBox layoutX="15.0" layoutY="193.0" spacing="10.0">
                <children>
-                  <Label alignment="TOP_LEFT" text="Voice:" />
-                  <VBox alignment="CENTER_LEFT" spacing="10.0">
-                     <children>
-                        <RadioButton fx:id="voiceDefault" mnemonicParsing="false" selected="true" text="Default">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="voiceToggleGroup" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="voiceMale" mnemonicParsing="false" text="NZ Male" toggleGroup="$voiceToggleGroup" />
-                        <RadioButton fx:id="voiceFemale" layoutX="10.0" layoutY="38.0" mnemonicParsing="false" text="NZ Female" toggleGroup="$voiceToggleGroup" />
-                     </children>
-                  </VBox>
+                  <VBox alignment="CENTER_LEFT" spacing="10.0" />
                </children>
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

@@ -26,6 +26,10 @@ public class CreationToolController {
     @FXML
     private TextArea searchResultsArea;
     @FXML
+    private Slider pitchSlider;
+    @FXML
+    private Slider speedSlider;
+    @FXML
     private ToggleGroup voiceToggleGroup;
     @FXML
     private Button nextButton;
@@ -64,10 +68,10 @@ public class CreationToolController {
     @FXML
     private void addButtonClicked() {
         String selectedText = searchResultsArea.getSelectedText();
-        RadioButton selectedVoiceButton = (RadioButton) voiceToggleGroup.getSelectedToggle();
-        String voice = selectedVoiceButton.getText();
+        int pitch = (int) pitchSlider.getValue();
+        double speed = speedSlider.getValue();
         if (!selectedText.isEmpty()) {
-            chunksList.add(new Chunk(selectedText, voice));
+            chunksList.add(new Chunk(selectedText, speed, pitch));
             if (searchPrompt.getText().equals("You searched: ")) {
                 nextButton.setDisable(false);
             }
