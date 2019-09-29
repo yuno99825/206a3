@@ -52,14 +52,14 @@ public class ImagesTask extends Task<Void> {
                         String pathToImages = ".temp" + System.getProperty("file.separator") + "images";
                         File outputfile = new File(pathToImages,filename);
                         ImageIO.write(image, "jpg", outputfile);
-                        System.out.println("Downloaded "+filename);
+//                        System.out.println("Downloaded "+filename);
                     } catch (FlickrException fe) {
-                        System.err.println("Ignoring image " +photo.getId() +": "+ fe.getMessage());
+//                        System.err.println("Ignoring image " +photo.getId() +": "+ fe.getMessage());
                     }
                     i++;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
 
