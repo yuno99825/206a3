@@ -37,6 +37,7 @@ public class CreationPreviewController {
     private void confirmButtonClicked() throws InterruptedException, IOException {
         String creationName = nameField.getText();
         if (nameIsValid(creationName)) {
+            stopVideo();
             ProcessBuilder pb = new ProcessBuilder();
             pb.command("/bin/bash", "-c", "[ -e ./creations/\"" + creationName + "\" ]");
             Process checkExist = pb.start();
@@ -74,6 +75,7 @@ public class CreationPreviewController {
         String cmd3 = "rm -fr ./.temp";
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd3);
         builder.start();
+        stopVideo();
         Stage thisStage = (Stage)nameField.getScene().getWindow();
         thisStage.close();
     }
