@@ -22,7 +22,7 @@ public class CreationPreviewController {
     @FXML
     private Label nameErrorLabel;
     @FXML
-    private void initialize(){
+    private void initialize() throws IOException{
         File videoURL = new File("./.temp/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
         player = new MediaPlayer(video);
