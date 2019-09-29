@@ -90,6 +90,28 @@ public class CreationToolController {
     }
 
     @FXML
+    private void moveUpClicked() {
+        Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
+        if (selectedChunk != null && chunksList.indexOf(selectedChunk) > 0) {
+            int index = chunksList.indexOf(selectedChunk);
+            Chunk toSwap = chunksList.get(index - 1);
+            chunksList.set(index - 1, selectedChunk);
+            chunksList.set(index, toSwap);
+        }
+    }
+
+    @FXML
+    private void moveDownClicked() {
+        Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
+        if (selectedChunk != null && chunksList.indexOf(selectedChunk) < chunksList.size()-1) {
+            int index = chunksList.indexOf(selectedChunk);
+            Chunk toSwap = chunksList.get(index + 1);
+            chunksList.set(index + 1, selectedChunk);
+            chunksList.set(index, toSwap);
+        }
+    }
+
+    @FXML
     private void deleteButtonClicked() {
         chunksList.remove(chunksListView.getSelectionModel().getSelectedItem());
         if (chunksList.isEmpty()) {
