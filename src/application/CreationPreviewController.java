@@ -17,6 +17,8 @@ public class CreationPreviewController {
     private MediaView mediaView;
     private MediaPlayer player;
     @FXML
+    private Button replayButton;
+    @FXML
     private Button confirmButton;
     @FXML
     private TextField nameField;
@@ -27,6 +29,7 @@ public class CreationPreviewController {
         File videoURL = new File("./.temp/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
         player = new MediaPlayer(video);
+        player.setOnEndOfMedia(() -> replayButton.setVisible(true));
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
     }
@@ -108,7 +111,9 @@ public class CreationPreviewController {
 
     @FXML
     private void replayButtonClicked() {
+        replayButton.setVisible(false);
         player.seek(Duration.ZERO);
+        player.play();
     }
 
     public void stopVideo() {
