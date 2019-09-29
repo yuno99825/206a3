@@ -97,6 +97,7 @@ public class CreationToolController {
             Chunk toSwap = chunksList.get(index - 1);
             chunksList.set(index - 1, selectedChunk);
             chunksList.set(index, toSwap);
+            chunksListView.getSelectionModel().select(index - 1);
         }
     }
 
@@ -108,6 +109,7 @@ public class CreationToolController {
             Chunk toSwap = chunksList.get(index + 1);
             chunksList.set(index + 1, selectedChunk);
             chunksList.set(index, toSwap);
+            chunksListView.getSelectionModel().select(index + 1);
         }
     }
 
