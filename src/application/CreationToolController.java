@@ -49,9 +49,9 @@ public class CreationToolController {
                     setText(null);
                 } else {
                     setText(chunk.getText());
-                    setMinWidth(e.getWidth());
-                    setMaxWidth(e.getWidth());
-                    setPrefWidth(e.getWidth());
+                    setMinWidth(e.getWidth()-10);
+                    setMaxWidth(e.getWidth()-10);
+                    setPrefWidth(e.getWidth()-10);
                     setWrapText(true);
                 }
             }
