@@ -22,9 +22,6 @@ public class CreationPreviewController {
     @FXML
     private Label nameErrorLabel;
     @FXML
-    private Button cancelButton;
-
-    @FXML
     private void initialize(){
         File videoURL = new File("./.temp/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
@@ -38,12 +35,23 @@ public class CreationPreviewController {
         String creationName = nameField.getText();
         if (nameIsValid(creationName)) {
             stopVideo();
+
             ProcessBuilder pb = new ProcessBuilder();
+            pb.command("/bin/bash", "-c", "[ -d ./creations ]");
+            Process checkFolderExist = pb.start();
+            int folderExsists = checkFolderExist.waitFor();
+            if (folderExsists != 0) {
+                pb.command("/bin/bash", "-c", "mkdir creations");
+                Process makeFolder = pb.start();
+                makeFolder.waitFor();
+            }
+
+            pb = new ProcessBuilder();
             pb.command("/bin/bash", "-c", "[ -e ./creations/\"" + creationName + "\" ]");
             Process checkExist = pb.start();
-            int exit = checkExist.waitFor();
+            int creationExists = checkExist.waitFor();
 
-            if (exit == 1) {
+            if (creationExists != 0) {
                 pb.command("/bin/bash", "-c", "mv ./.temp ./creations/" + "\"" + creationName + "\"");
                 Process moveTemp = pb.start();
                 Stage thisStage = (Stage)nameField.getScene().getWindow();
