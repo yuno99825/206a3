@@ -84,12 +84,18 @@ public class CreationPreviewController {
     }
     @FXML
     private void cancelButtonClicked() throws IOException {
-        String cmd3 = "rm -fr ./.temp";
-        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd3);
-        builder.start();
         stopVideo();
-        Stage thisStage = (Stage)nameField.getScene().getWindow();
-        thisStage.close();
+        // Create confirmation alert
+        Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to cancel? All progress will be lost!.", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Cancel Creation");
+        alert.setHeight(150);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "rm -fr ./.temp");
+            builder.start();
+            Stage thisStage = (Stage)nameField.getScene().getWindow();
+            thisStage.close();
+        }
     }
 
     @FXML

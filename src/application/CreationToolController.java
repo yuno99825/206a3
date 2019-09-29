@@ -125,7 +125,7 @@ public class CreationToolController {
             Parent creationPreviewRoot = creationPreviewLoader.load();
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
             stage.setOnCloseRequest(e -> creationPreviewController.stopVideo());
-            thisStage.setScene(new Scene(creationPreviewRoot, 600, 600));
+            thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
         }
     }
 
