@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VideoPlayerController">
+<VBox alignment="TOP_CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VideoPlayerController">
    <children>
       <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#playPauseVid" VBox.vgrow="ALWAYS" />
       <Button fx:id="restartButton" alignment="CENTER" mnemonicParsing="false" onAction="#replayButtonClicked" text="Replay" />

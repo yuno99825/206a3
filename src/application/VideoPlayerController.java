@@ -23,6 +23,9 @@ public class VideoPlayerController {
         File videoURL = new File("./creations/" + creationName + "/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
         player = new MediaPlayer(video);
+        player.setOnReady(() -> {
+            stage.sizeToScene();
+        });
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
         mediaView.fitWidthProperty().bind(stage.widthProperty());

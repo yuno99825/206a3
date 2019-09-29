@@ -66,7 +66,7 @@ public class MenuController {
         stage.setOnCloseRequest(e -> {
             controller.stopVideo();
         });
-        stage.setScene(new Scene(root, 500, 500));
+        stage.setScene(new Scene(root, 500, 400));
         stage.setTitle(creationName);
         stage.show();
     }
