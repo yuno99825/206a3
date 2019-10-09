@@ -58,7 +58,7 @@ public class MenuController {
     private void playCreation() throws IOException {
         Stage stage = new Stage();
         String creationName = creationListView.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("VideoPlayer.fxml"));
+        FXMLLoader loader = new FXMLLoader(MenuController.class.getResource("/view/VideoPlayer.fxml"));
         Parent root = loader.load();
 
         VideoPlayerController controller = loader.getController();
@@ -73,7 +73,7 @@ public class MenuController {
 
     @FXML
     private void openCreationTool() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreationTool.fxml"));
+        FXMLLoader loader = new FXMLLoader(MenuController.class.getResource("/view/CreationTool.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

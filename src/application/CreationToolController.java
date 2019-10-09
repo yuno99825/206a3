@@ -134,7 +134,7 @@ public class CreationToolController {
         int numberOfImages = (int) imageSlider.getValue();
         ObservableList<Chunk> chunks = chunksListView.getItems();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ProgressScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/ProgressScreen.fxml"));
         Parent root = loader.load();
         ProgressScreenController controller = loader.getController();
         controller.setUp(chunks, searchTerm, numberOfImages);
@@ -144,7 +144,7 @@ public class CreationToolController {
         stage.showAndWait();
 
         if (controller.isSuccess()) {
-            FXMLLoader creationPreviewLoader = new FXMLLoader(getClass().getResource("CreationPreview.fxml"));
+            FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
             CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
             Parent creationPreviewRoot = creationPreviewLoader.load();
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
