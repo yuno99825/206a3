@@ -6,6 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -16,19 +17,19 @@ public class CreationPreviewController {
     private MediaView mediaView;
     private MediaPlayer player;
     @FXML
+    private Button replayButton;
+    @FXML
     private Button confirmButton;
     @FXML
     private TextField nameField;
     @FXML
     private Label nameErrorLabel;
     @FXML
-    private Button cancelButton;
-
-    @FXML
-    private void initialize(){
+    private void initialize() throws IOException{
         File videoURL = new File("./.temp/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
         player = new MediaPlayer(video);
+        player.setOnEndOfMedia(() -> replayButton.setVisible(true));
         player.setAutoPlay(true);
         mediaView.setMediaPlayer(player);
     }
@@ -37,12 +38,24 @@ public class CreationPreviewController {
     private void confirmButtonClicked() throws InterruptedException, IOException {
         String creationName = nameField.getText();
         if (nameIsValid(creationName)) {
+            stopVideo();
+
             ProcessBuilder pb = new ProcessBuilder();
+            pb.command("/bin/bash", "-c", "[ -d ./creations ]");
+            Process checkFolderExist = pb.start();
+            int folderExsists = checkFolderExist.waitFor();
+            if (folderExsists != 0) {
+                pb.command("/bin/bash", "-c", "mkdir creations");
+                Process makeFolder = pb.start();
+                makeFolder.waitFor();
+            }
+
+            pb = new ProcessBuilder();
             pb.command("/bin/bash", "-c", "[ -e ./creations/\"" + creationName + "\" ]");
             Process checkExist = pb.start();
-            int exit = checkExist.waitFor();
+            int creationExists = checkExist.waitFor();
 
-            if (exit == 1) {
+            if (creationExists != 0) {
                 pb.command("/bin/bash", "-c", "mv ./.temp ./creations/" + "\"" + creationName + "\"");
                 Process moveTemp = pb.start();
                 Stage thisStage = (Stage)nameField.getScene().getWindow();
@@ -71,11 +84,18 @@ public class CreationPreviewController {
     }
     @FXML
     private void cancelButtonClicked() throws IOException {
-        String cmd3 = "rm -fr ./.temp";
-        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd3);
-        builder.start();
-        Stage thisStage = (Stage)nameField.getScene().getWindow();
-        thisStage.close();
+        stopVideo();
+        // Create confirmation alert
+        Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to cancel? All progress will be lost!.", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Cancel Creation");
+        alert.setHeight(150);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "rm -fr ./.temp");
+            builder.start();
+            Stage thisStage = (Stage)nameField.getScene().getWindow();
+            thisStage.close();
+        }
     }
 
     @FXML
@@ -97,7 +117,9 @@ public class CreationPreviewController {
 
     @FXML
     private void replayButtonClicked() {
+        replayButton.setVisible(false);
         player.seek(Duration.ZERO);
+        player.play();
     }
 
     public void stopVideo() {

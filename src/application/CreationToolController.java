@@ -49,9 +49,9 @@ public class CreationToolController {
                     setText(null);
                 } else {
                     setText(chunk.getText());
-                    setMinWidth(e.getWidth());
-                    setMaxWidth(e.getWidth());
-                    setPrefWidth(e.getWidth());
+                    setMinWidth(e.getWidth()-10);
+                    setMaxWidth(e.getWidth()-10);
+                    setPrefWidth(e.getWidth()-10);
                     setWrapText(true);
                 }
             }
@@ -90,6 +90,30 @@ public class CreationToolController {
     }
 
     @FXML
+    private void moveUpClicked() {
+        Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
+        if (selectedChunk != null && chunksList.indexOf(selectedChunk) > 0) {
+            int index = chunksList.indexOf(selectedChunk);
+            Chunk toSwap = chunksList.get(index - 1);
+            chunksList.set(index - 1, selectedChunk);
+            chunksList.set(index, toSwap);
+            chunksListView.getSelectionModel().select(index - 1);
+        }
+    }
+
+    @FXML
+    private void moveDownClicked() {
+        Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
+        if (selectedChunk != null && chunksList.indexOf(selectedChunk) < chunksList.size()-1) {
+            int index = chunksList.indexOf(selectedChunk);
+            Chunk toSwap = chunksList.get(index + 1);
+            chunksList.set(index + 1, selectedChunk);
+            chunksList.set(index, toSwap);
+            chunksListView.getSelectionModel().select(index + 1);
+        }
+    }
+
+    @FXML
     private void deleteButtonClicked() {
         chunksList.remove(chunksListView.getSelectionModel().getSelectedItem());
         if (chunksList.isEmpty()) {
@@ -110,7 +134,7 @@ public class CreationToolController {
         int numberOfImages = (int) imageSlider.getValue();
         ObservableList<Chunk> chunks = chunksListView.getItems();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ProgressScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/ProgressScreen.fxml"));
         Parent root = loader.load();
         ProgressScreenController controller = loader.getController();
         controller.setUp(chunks, searchTerm, numberOfImages);
@@ -120,16 +144,12 @@ public class CreationToolController {
         stage.showAndWait();
 
         if (controller.isSuccess()) {
-            FXMLLoader creationPreviewLoader = new FXMLLoader(getClass().getResource("CreationPreview.fxml"));
+            FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
             CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
             Parent creationPreviewRoot = creationPreviewLoader.load();
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
-            thisStage.setOnCloseRequest(e -> {
-                creationPreviewController.stopVideo();
-            });
-            thisStage.setScene(new Scene(creationPreviewRoot, 600, 600));
-        } else {
-            removeTempFolder();
+            stage.setOnCloseRequest(e -> creationPreviewController.stopVideo());
+            thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
         }
     }
 
