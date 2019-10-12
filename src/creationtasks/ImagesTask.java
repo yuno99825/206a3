@@ -13,16 +13,16 @@ import java.io.*;
 public class ImagesTask extends Task<Void> {
 
     private String searchTerm;
-    private int numberOfImages;
 
-    public ImagesTask(String searchTerm, int numberOfImages) {
+    public ImagesTask(String searchTerm) {
         this.searchTerm = searchTerm;
-        this.numberOfImages = numberOfImages;
+        updateProgress(0, 10);
     }
 
     @Override
     protected Void call() {
         {
+            new File(".temp/images/").mkdirs();
             try {
                 String apiKey = getAPIKey("apiKey");
                 String sharedSecret = getAPIKey("sharedSecret");
@@ -30,7 +30,6 @@ public class ImagesTask extends Task<Void> {
                 Flickr flickr = new Flickr(apiKey, sharedSecret, new REST());
 
                 String query = searchTerm;
-                int resultsPerPage = numberOfImages;
                 int page = 0;
 
                 PhotosInterface photos = flickr.getPhotosInterface();
@@ -39,7 +38,7 @@ public class ImagesTask extends Task<Void> {
                 params.setMedia("photos");
                 params.setText(query);
 
-                PhotoList<Photo> results = photos.search(params, resultsPerPage, page);
+                PhotoList<Photo> results = photos.search(params, 10, page);
 
                 int i = 1;
                 for (Photo photo: results) {
@@ -52,14 +51,15 @@ public class ImagesTask extends Task<Void> {
                         String pathToImages = ".temp" + System.getProperty("file.separator") + "images";
                         File outputfile = new File(pathToImages,filename);
                         ImageIO.write(image, "jpg", outputfile);
-//                        System.out.println("Downloaded "+filename);
                     } catch (FlickrException fe) {
-//                        System.err.println("Ignoring image " +photo.getId() +": "+ fe.getMessage());
                     }
+                    updateProgress(i,10);
                     i++;
+                    if (isCancelled()) {
+                        return null;
+                    }
                 }
             } catch (Exception e) {
-//                e.printStackTrace();
             }
         }
 

@@ -90,7 +90,7 @@ public class ProgressScreenController {
                         ex.printStackTrace();
                     }
                     double framerate = numberOfImages/length;
-                    imagesTask = new ImagesTask(searchTerm, numberOfImages);
+                    imagesTask = new ImagesTask(searchTerm);
                     team.submit(imagesTask);
                     imagesTask.setOnSucceeded(h -> {
 

@@ -134,23 +134,41 @@ public class CreationToolController {
         int numberOfImages = (int) imageSlider.getValue();
         ObservableList<Chunk> chunks = chunksListView.getItems();
 
-        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/ProgressScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/DownloadingImages.fxml"));
         Parent root = loader.load();
-        ProgressScreenController controller = loader.getController();
-        controller.setUp(chunks, searchTerm, numberOfImages);
+        DownloadingImagesController downloadingImagesController = loader.getController();
+        downloadingImagesController.go(searchTerm);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
 
-        if (controller.isSuccess()) {
-            FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
-            CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
-            Parent creationPreviewRoot = creationPreviewLoader.load();
+//        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/DownloadingImages.fxml"));
+//        Parent root = loader.load();
+//        ProgressScreenController controller = loader.getController();
+//        controller.setUp(chunks, searchTerm, numberOfImages);
+//        Stage stage = new Stage();
+//        stage.setScene(new Scene(root));
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.showAndWait();
+
+        if (downloadingImagesController.isSuccess()) {
+            loader = new FXMLLoader(CreationToolController.class.getResource("/view/ImageSelection.fxml"));
+            Parent imageSelectionScreen = loader.load();
+            ImageSelectionController imageSelectionController = loader.getController();
+            imageSelectionController.go();
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
-            stage.setOnCloseRequest(e -> creationPreviewController.stopVideo());
-            thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
+            thisStage.setScene(new Scene(imageSelectionScreen));
         }
+
+//        if (controller.isSuccess()) {
+//            FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
+//            CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
+//            Parent creationPreviewRoot = creationPreviewLoader.load();
+//            Stage thisStage = (Stage) nextButton.getScene().getWindow();
+//            stage.setOnCloseRequest(e -> creationPreviewController.stopVideo());
+//            thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
+//        }
     }
 
     private void removeTempFolder() throws IOException, InterruptedException {

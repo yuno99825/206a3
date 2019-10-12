@@ -6,16 +6,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
+import java.io.File;
+
 public class ImageSelectionController {
     @FXML
     private TilePane imagesTilePane;
 
-    @FXML
-    private void initialize() {
+    public void go() {
         int i = 1;
         for (Node node: imagesTilePane.getChildren()) {
             ImageView imageView = (ImageView) node;
-            imageView.setImage(new Image(".temp/images/" + i + ".jpg"));
+            File file = new File("./.temp/images/" + i + ".jpg");
+            Image image = new Image(file.toURI().toString());
+            imageView.setImage(image);
+            i++;
         }
     }
 }
