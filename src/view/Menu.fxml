@@ -29,6 +29,7 @@
               <buttons>
                 <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#deleteCreation" text="Delete" />
                   <Button fx:id="playButton" disable="true" mnemonicParsing="false" onAction="#playCreation" prefHeight="26.0" prefWidth="85.0" text="Play" />
+                  <Button fx:id="playQuizButton" mnemonicParsing="false" onAction="#openQuizView" text="Play Quiz" />
               </buttons>
                <HBox.margin>
                   <Insets />
