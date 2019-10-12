@@ -10,11 +10,13 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImageSelectionController {
     @FXML
     private TilePane imagesTilePane;
+    private List<Integer> selectedImages = new ArrayList<Integer>();
 
     @FXML
     private void initialize() {
@@ -38,13 +40,14 @@ public class ImageSelectionController {
 
     @FXML
     private void nextButtonClicked() {
-        int i = 0;
+        int i = 1;
         int numImages = 0;
          for (Node node: imagesTilePane.getChildren()) {
             StackPane stackPane = (StackPane) node;
             VBox vBox = (VBox) stackPane.getChildren().get(1);
             if (vBox.isVisible()) {
-                //To complete
+                selectedImages.add(i);
+                numImages++;
             }
             i++;
         }
