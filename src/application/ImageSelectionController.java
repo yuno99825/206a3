@@ -79,11 +79,22 @@ public class ImageSelectionController {
 
         if (progressScreenController.isSuccess()) {
             FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
-            CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
             Parent creationPreviewRoot = creationPreviewLoader.load();
+            CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
-            stage.setOnCloseRequest(e -> creationPreviewController.stopVideo());
+            thisStage.setOnCloseRequest(e -> {
+                e.consume();
+                try {
+                    creationPreviewController.cancelButtonClicked();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
+        } else {
+            ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp/images/selected");
+            Process process = pb.start();
+            process.waitFor();
         }
     }
 }

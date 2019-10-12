@@ -77,14 +77,14 @@ public class ProgressScreenController {
 
                 // Copy selected images into a separate folder, .temp/images/selected
                 getAudioLengthTask.setOnSucceeded(g -> {
-                    progressBar.setProgress(0.4);
+                    progressBar.setProgress(0.6);
                     progressLabel.setText("Getting selected images...");
                     moveSelectedImagesTask = new MoveSelectedImagesTask(selectedImages);
                     team.submit(moveSelectedImagesTask);
 
                     // Create a slideshow of images, join this with the audio and text overlay to create the final creation
                     moveSelectedImagesTask.setOnSucceeded(h -> {
-                        double framerate = 0;
+                        double framerate;
                         try {
                             framerate = numImages / getAudioLengthTask.get();
                             progressBar.setProgress(0.8);
