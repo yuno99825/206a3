@@ -1,6 +1,5 @@
 package application;
 
-import com.fasterxml.jackson.databind.deser.CreatorProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.concurrent.ExecutionException;
 
 public class CreationToolController {
 
@@ -32,8 +30,6 @@ public class CreationToolController {
     private Slider speedSlider;
     @FXML
     private Button nextButton;
-    @FXML
-    private Slider imageSlider;
     @FXML
     private ListView<Chunk> chunksListView;
     private ObservableList<Chunk> chunksList;
@@ -131,25 +127,24 @@ public class CreationToolController {
     private void nextButtonClicked() throws IOException, InterruptedException {
         removeTempFolder();
         String searchTerm = searchField.getText();
-        int numberOfImages = (int) imageSlider.getValue();
         ObservableList<Chunk> chunks = chunksListView.getItems();
 
-        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/ProgressScreen.fxml"));
-        Parent root = loader.load();
-        ProgressScreenController controller = loader.getController();
-        controller.setUp(chunks, searchTerm, numberOfImages);
+        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/DownloadingImages.fxml"));
+        Parent downloadingImagesScreen = loader.load();
+        DownloadingImagesController downloadingImagesController = loader.getController();
+        downloadingImagesController.go(searchTerm);
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(downloadingImagesScreen));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
 
-        if (controller.isSuccess()) {
-            FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
-            CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
-            Parent creationPreviewRoot = creationPreviewLoader.load();
+        if (downloadingImagesController.isSuccess()) {
+            loader = new FXMLLoader(CreationToolController.class.getResource("/view/ImageSelection.fxml"));
+            Parent imageSelectionScreen = loader.load();
+            ImageSelectionController imageSelectionController = loader.getController();
+            imageSelectionController.setUp(searchTerm, chunks);
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
-            stage.setOnCloseRequest(e -> creationPreviewController.stopVideo());
-            thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
+            thisStage.setScene(new Scene(imageSelectionScreen));
         }
     }
 

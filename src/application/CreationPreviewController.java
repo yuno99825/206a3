@@ -38,7 +38,7 @@ public class CreationPreviewController {
     private void confirmButtonClicked() throws InterruptedException, IOException {
         String creationName = nameField.getText();
         if (nameIsValid(creationName)) {
-            stopVideo();
+            player.pause();
 
             ProcessBuilder pb = new ProcessBuilder();
             pb.command("/bin/bash", "-c", "[ -d ./creations ]");
@@ -83,8 +83,8 @@ public class CreationPreviewController {
         }
     }
     @FXML
-    private void cancelButtonClicked() throws IOException {
-        stopVideo();
+    public void cancelButtonClicked() throws IOException {
+        player.pause();
         // Create confirmation alert
         Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to cancel? All progress will be lost!.", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Cancel Creation");
@@ -120,10 +120,6 @@ public class CreationPreviewController {
         replayButton.setVisible(false);
         player.seek(Duration.ZERO);
         player.play();
-    }
-
-    public void stopVideo() {
-        player.pause();
     }
 
     private boolean nameIsValid(String creationName) {

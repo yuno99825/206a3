@@ -2,18 +2,14 @@ package application;
 
 import creationtasks.*;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,14 +18,15 @@ import java.util.concurrent.ThreadFactory;
 public class ProgressScreenController {
     private ObservableList<Chunk> chunks;
     private String searchTerm;
-    private int numberOfImages;
+    private List<Integer> selectedImages;
+    private int numImages;
     private boolean success = false;
 
     // --- Tasks ---
     private SynthChunksTask synthChunksTask;
     private JoinChunksTask joinChunksTask;
     private GetAudioLengthTask getAudioLengthTask;
-    private ImagesTask imagesTask;
+    private MoveSelectedImagesTask moveSelectedImagesTask;
     private FinalCreationTask finalCreationTask;
 
     @FXML
@@ -48,62 +45,66 @@ public class ProgressScreenController {
                 }
             });
 
-    public void setUp (ObservableList<Chunk> chunks, String searchTerm, int numberOfImages) throws IOException, InterruptedException {
+    public void go (ObservableList<Chunk> chunks, String searchTerm, List<Integer> selectedImages) throws IOException, InterruptedException {
         this.chunks = chunks;
         this.searchTerm = searchTerm;
-        this.numberOfImages = numberOfImages;
-        go();
-    }
+        this.selectedImages = selectedImages;
+        numImages = selectedImages.size();
 
-    private void go() {
         new File(".temp/audio/").mkdirs();
-        new File(".temp/images/").mkdirs();
+        new File(".temp/images/selected").mkdirs();
 
+        // Synthesize each audio chunk into a wav file, in the folder "audio"
         progressBar.setProgress(0);
         progressLabel.setText("Synthesizing audio chunks...");
-
         synthChunksTask = new SynthChunksTask(chunks);
         team.submit(synthChunksTask);
-        synthChunksTask.setOnSucceeded(e -> {
 
+        // Once audio chunks are all synthesized, combine them into a single audio file, creation_audio.wav
+        synthChunksTask.setOnSucceeded(e -> {
             progressBar.setProgress(0.2);
             progressLabel.setText("Combining chunks...");
             int numChunks = chunks.size();
             joinChunksTask = new JoinChunksTask(numChunks);
             team.submit(joinChunksTask);
-            joinChunksTask.setOnSucceeded(f -> {
 
+            // Get the length of the creation_audio.wav file
+            joinChunksTask.setOnSucceeded(f -> {
                 progressBar.setProgress(0.4);
                 progressLabel.setText("Getting length of audio...");
                 getAudioLengthTask = new GetAudioLengthTask();
                 team.submit(getAudioLengthTask);
+
+                // Copy selected images into a separate folder, .temp/images/selected
                 getAudioLengthTask.setOnSucceeded(g -> {
-
                     progressBar.setProgress(0.6);
-                    progressLabel.setText("Downloading images...");
-                    double length = 0;
-                    try {
-                        length = getAudioLengthTask.get();
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    } catch (ExecutionException ex) {
-                        ex.printStackTrace();
-                    }
-                    double framerate = numberOfImages/length;
-                    imagesTask = new ImagesTask(searchTerm, numberOfImages);
-                    team.submit(imagesTask);
-                    imagesTask.setOnSucceeded(h -> {
+                    progressLabel.setText("Getting selected images...");
+                    moveSelectedImagesTask = new MoveSelectedImagesTask(selectedImages);
+                    team.submit(moveSelectedImagesTask);
 
-                        progressBar.setProgress(0.8);
-                        progressLabel.setText("Finalising...");
-                        finalCreationTask = new FinalCreationTask(framerate, searchTerm);
-                        team.submit(finalCreationTask);
-                        finalCreationTask.setOnSucceeded(i -> {
-                            progressBar.setProgress(1.0);
-                            progressLabel.setText("Success!");
-                            cancelButton.setText("Done");
-                            success = true;
-                        });
+                    // Create a slideshow of images, join this with the audio and text overlay to create the final creation
+                    moveSelectedImagesTask.setOnSucceeded(h -> {
+                        double framerate;
+                        try {
+                            framerate = numImages / getAudioLengthTask.get();
+                            progressBar.setProgress(0.8);
+                            progressLabel.setText("Finalising...");
+                            finalCreationTask = new FinalCreationTask(framerate, searchTerm);
+                            team.submit(finalCreationTask);
+
+                            // Once finished, allow user to progress to creation preview screen via "done" button
+                            finalCreationTask.setOnSucceeded(i -> {
+                                progressBar.setProgress(1.0);
+                                progressLabel.setText("Success!");
+                                cancelButton.setText("Done");
+                                success = true;
+                            });
+
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        } catch (ExecutionException ex) {
+                            ex.printStackTrace();
+                        }
                     });
                 });
             });
@@ -122,9 +123,6 @@ public class ProgressScreenController {
             if (getAudioLengthTask != null) {
                 getAudioLengthTask.cancel();
             }
-            if (imagesTask != null) {
-                imagesTask.cancel();
-            }
             if (finalCreationTask != null) {
                 finalCreationTask.cancel();
             }
@@ -132,7 +130,6 @@ public class ProgressScreenController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
-
     public boolean isSuccess() {
         return success;
     }
