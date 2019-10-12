@@ -1,6 +1,5 @@
 package application;
 
-import com.fasterxml.jackson.databind.deser.CreatorProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.concurrent.ExecutionException;
 
 public class CreationToolController {
 
@@ -32,8 +30,6 @@ public class CreationToolController {
     private Slider speedSlider;
     @FXML
     private Button nextButton;
-    @FXML
-    private Slider imageSlider;
     @FXML
     private ListView<Chunk> chunksListView;
     private ObservableList<Chunk> chunksList;
@@ -131,7 +127,6 @@ public class CreationToolController {
     private void nextButtonClicked() throws IOException, InterruptedException {
         removeTempFolder();
         String searchTerm = searchField.getText();
-        int numberOfImages = (int) imageSlider.getValue();
         ObservableList<Chunk> chunks = chunksListView.getItems();
 
         FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/DownloadingImages.fxml"));
