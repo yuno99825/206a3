@@ -13,6 +13,14 @@
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.QuizViewController">
    <children>
+      <HBox>
+         <children>
+            <Button mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
       <HBox spacing="15.0">
          <children>
             <Region HBox.hgrow="ALWAYS" />
@@ -35,18 +43,28 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <StackPane>
+      <StackPane fx:id="stackPane">
          <children>
             <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonClicked" text="Start" />
             <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#playPauseVid" />
             <Button fx:id="replayButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#replayButtonClicked" text="Replay" visible="false" />
+            <Label fx:id="correctLabel" text="Correct!">
+               <font>
+                  <Font size="44.0" />
+               </font>
+            </Label>
+            <Label fx:id="wrongLabel" text="Incorrect!">
+               <font>
+                  <Font size="46.0" />
+               </font>
+            </Label>
          </children>
       </StackPane>
       <HBox spacing="15.0">
          <children>
             <Region HBox.hgrow="ALWAYS" />
-            <TextField />
-            <Button mnemonicParsing="false" text="Submit" />
+            <TextField fx:id="answerField" onKeyReleased="#keyReleased" />
+            <Button fx:id="submitButton" disable="true" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" />
             <Region HBox.hgrow="ALWAYS" />
          </children>
          <padding>

@@ -33,6 +33,16 @@ public class FinalCreationTask extends Task<Void> {
         }
         makeVid.waitFor();
 
+
+        pb.command("/bin/bash", "-c", "echo '" + searchTerm + "' > ./.temp/searchTerm.txt");
+        Process createTextFile = pb.start();
+        if (isCancelled()) {
+            createTextFile.destroy();
+        }
+        createTextFile.waitFor();
+
+
+
         pb.command("/bin/bash", "-c", "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./CaviarDreams.ttf:fontsize=100: " +
                 "fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='" + searchTerm + "'\" ./.temp/video_with_text.mp4");
         Process addText = pb.start();
