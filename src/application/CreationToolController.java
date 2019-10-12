@@ -135,38 +135,22 @@ public class CreationToolController {
         ObservableList<Chunk> chunks = chunksListView.getItems();
 
         FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/DownloadingImages.fxml"));
-        Parent root = loader.load();
+        Parent downloadingImagesScreen = loader.load();
         DownloadingImagesController downloadingImagesController = loader.getController();
         downloadingImagesController.go(searchTerm);
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(downloadingImagesScreen));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
-
-//        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/DownloadingImages.fxml"));
-//        Parent root = loader.load();
-//        ProgressScreenController controller = loader.getController();
-//        controller.setUp(chunks, searchTerm, numberOfImages);
-//        Stage stage = new Stage();
-//        stage.setScene(new Scene(root));
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        stage.showAndWait();
 
         if (downloadingImagesController.isSuccess()) {
             loader = new FXMLLoader(CreationToolController.class.getResource("/view/ImageSelection.fxml"));
             Parent imageSelectionScreen = loader.load();
+            ImageSelectionController imageSelectionController = loader.getController();
+            imageSelectionController.setUp(searchTerm, chunks);
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
             thisStage.setScene(new Scene(imageSelectionScreen));
         }
-
-//        if (controller.isSuccess()) {
-//            FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
-//            CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
-//            Parent creationPreviewRoot = creationPreviewLoader.load();
-//            Stage thisStage = (Stage) nextButton.getScene().getWindow();
-//            stage.setOnCloseRequest(e -> creationPreviewController.stopVideo());
-//            thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
-//        }
     }
 
     private void removeTempFolder() throws IOException, InterruptedException {

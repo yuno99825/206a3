@@ -172,7 +172,7 @@
       </TilePane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#nextButtonClicked" text="Next" />
+          <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextButtonClicked" text="Next" />
         </buttons>
       </ButtonBar>
    </children>
