@@ -155,8 +155,6 @@ public class CreationToolController {
         if (downloadingImagesController.isSuccess()) {
             loader = new FXMLLoader(CreationToolController.class.getResource("/view/ImageSelection.fxml"));
             Parent imageSelectionScreen = loader.load();
-            ImageSelectionController imageSelectionController = loader.getController();
-            imageSelectionController.go();
             Stage thisStage = (Stage) nextButton.getScene().getWindow();
             thisStage.setScene(new Scene(imageSelectionScreen));
         }
