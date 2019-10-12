@@ -21,6 +21,7 @@ public class VideoPlayerController {
     @FXML
     private Button replayButton;
 
+
     public void setUpVideo(String creationName, Stage stage) {
         File videoURL = new File("./creations/" + creationName + "/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
