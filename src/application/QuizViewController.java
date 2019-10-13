@@ -69,7 +69,7 @@ public class QuizViewController {
             _questionNumber++;
             questionNumberLabel.setText("Question " + _questionNumber + "!");
 
-            File videoURL = new File("./creations/" + _creationToPlay + "/creation.mp4");
+            File videoURL = new File("./creations/" + _creationToPlay + "/quiz.mp4");
             Media video = new Media(videoURL.toURI().toString());
             player = new MediaPlayer(video);
             player.setOnEndOfMedia(() -> replayButton.setVisible(true));

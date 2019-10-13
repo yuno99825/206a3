@@ -33,7 +33,6 @@ public class FinalCreationTask extends Task<Void> {
         }
         makeVid.waitFor();
 
-
         pb.command("/bin/bash", "-c", "echo '" + searchTerm + "' > ./.temp/searchTerm.txt");
         Process createTextFile = pb.start();
         if (isCancelled()) {
@@ -41,7 +40,12 @@ public class FinalCreationTask extends Task<Void> {
         }
         createTextFile.waitFor();
 
-
+        pb.command("/bin/bash", "-c", "ffmpeg -y -i ./.temp/video.mp4 -i ./.temp/creation_audio.wav -c:v copy -c:a aac -strict experimental ./.temp/quiz.mp4");
+        Process createQuiz = pb.start();
+        if (isCancelled()) {
+            createQuiz.destroy();
+        }
+        createQuiz.waitFor();
 
         pb.command("/bin/bash", "-c", "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./CaviarDreams.ttf:fontsize=100: " +
                 "fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='" + searchTerm + "'\" ./.temp/video_with_text.mp4");
