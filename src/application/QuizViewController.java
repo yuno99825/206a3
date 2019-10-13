@@ -55,14 +55,6 @@ public class QuizViewController {
         this._stage = stage;
     }
 
-    @FXML
-    private void initialize() {
-        startButton.toFront();
-        correctLabel.setVisible(false);
-        wrongLabel.setVisible(false);
-        questionNumberLabel.setVisible(false);
-    }
-
     private void playQuizMedia(){
         int numberOfCreations = _creationsList.size();
         System.out.println(numberOfCreations);
@@ -75,19 +67,14 @@ public class QuizViewController {
             _creationToPlay = _creationsList.get(randomCreation);
             _searchTerm = getTermFromTxtFile();
             _questionNumber++;
-            questionNumberLabel.setText("Question " + _questionNumber + "...");
+            questionNumberLabel.setText("Question " + _questionNumber + "!");
 
             File videoURL = new File("./creations/" + _creationToPlay + "/creation.mp4");
             Media video = new Media(videoURL.toURI().toString());
             player = new MediaPlayer(video);
-            player.setOnReady(() -> {
-                _stage.sizeToScene();
-            });
             player.setOnEndOfMedia(() -> replayButton.setVisible(true));
             player.setAutoPlay(true);
             mediaView.setMediaPlayer(player);
-            mediaView.fitWidthProperty().bind(_stage.widthProperty());
-            //mediaView.fitHeightProperty().bind(_stage.heightProperty());
 
             List<String> temp = new ArrayList<String>();
             for (int i = 0; i < _creationsList.size(); i++) {
@@ -100,7 +87,7 @@ public class QuizViewController {
     }
 
     private String getTermFromTxtFile(){
-        String cmd = "cat ./creations/\'" + _creationToPlay + "/searchTerm.txt'";
+        String cmd = "cat ./creations/\"" + _creationToPlay + "\"/searchTerm.txt";
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
         Process process = null;
         try {

@@ -11,7 +11,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.QuizViewController">
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.QuizViewController">
    <children>
       <HBox>
          <children>
@@ -21,7 +21,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <HBox spacing="15.0">
+      <HBox>
          <children>
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Creation Quiz!">
@@ -37,7 +37,7 @@
       </HBox>
       <HBox>
          <children>
-            <Label fx:id="questionNumberLabel" text="Question 1:" />
+            <Label fx:id="questionNumberLabel" text="Question 1:" visible="false" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -45,19 +45,19 @@
       </HBox>
       <StackPane fx:id="stackPane">
          <children>
-            <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonClicked" text="Start" />
-            <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#playPauseVid" />
+            <MediaView fx:id="mediaView" fitHeight="300.0" fitWidth="450.0" onMouseClicked="#playPauseVid" />
             <Button fx:id="replayButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#replayButtonClicked" text="Replay" visible="false" />
-            <Label fx:id="correctLabel" text="Correct!">
+            <Label fx:id="correctLabel" text="Correct!" visible="false">
                <font>
                   <Font size="44.0" />
                </font>
             </Label>
-            <Label fx:id="wrongLabel" text="Incorrect!">
+            <Label fx:id="wrongLabel" text="Incorrect!" visible="false">
                <font>
                   <Font size="46.0" />
                </font>
             </Label>
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonClicked" text="Start" />
          </children>
       </StackPane>
       <HBox spacing="15.0">

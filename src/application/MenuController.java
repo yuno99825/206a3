@@ -88,7 +88,7 @@ public class MenuController {
         stage.setOnCloseRequest(e -> {
             controller.stopVideo();
         });
-        stage.setScene(new Scene(root, 500, 400));
+        stage.setScene(new Scene(root));
         stage.setTitle("Quiz");
         stage.show();
     }
