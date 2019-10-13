@@ -57,7 +57,6 @@ public class QuizViewController {
 
     private void playQuizMedia(){
         int numberOfCreations = _creationsList.size();
-        System.out.println(numberOfCreations);
         questionNumberLabel.setVisible(true);
         if (numberOfCreations > 0) {
             if (!(mediaView.isVisible())) {
@@ -112,7 +111,6 @@ public class QuizViewController {
 
     @FXML
     private void submitButtonClicked(){
-        System.out.println(_searchTerm);
         if((answerField.getText().equals(_searchTerm))||(answerField.getText().trim().equals(_searchTerm.trim()))){
             numberOfCorrect++;
             mediaView.setVisible(false);
