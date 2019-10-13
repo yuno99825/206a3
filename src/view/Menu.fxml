@@ -6,34 +6,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="750.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+<VBox alignment="CENTER" prefWidth="750.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
    <children>
       <Label text="Welcome to VARpedia">
          <font>
             <Font name="System Bold" size="46.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
       </Label>
-      <HBox alignment="BOTTOM_CENTER">
+      <HBox alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="creationListLabel" text="Existing creations:">
+            <Label fx:id="creationListLabel" prefWidth="130.0" text="Existing creations:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Region prefHeight="26.0" prefWidth="282.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" spacing="200.0">
+         <children>
             <ButtonBar>
               <buttons>
                 <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#deleteCreation" text="Delete" />
                   <Button fx:id="playButton" disable="true" mnemonicParsing="false" onAction="#playCreation" prefHeight="26.0" prefWidth="85.0" text="Play" />
                   <Button fx:id="playQuizButton" mnemonicParsing="false" onAction="#openQuizView" text="Play Quiz" />
               </buttons>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
             </ButtonBar>
          </children>
          <VBox.margin>
