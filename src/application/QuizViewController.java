@@ -83,6 +83,8 @@ public class QuizViewController {
                 }
             }
             _creationsList = temp;
+        } else {
+            _stage.close();
         }
     }
 
@@ -140,10 +142,7 @@ public class QuizViewController {
             delay.play();
             answerField.setText("");
             return;
-
-
         }
-
     }
 
 
