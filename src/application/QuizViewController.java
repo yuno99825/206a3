@@ -51,6 +51,8 @@ public class QuizViewController {
     private Label titleLabel;
     @FXML
     private Label recapMessageLabel;
+    @FXML
+    private Label accuracyPercentLabel;
 
     private List<String> _creationsList;
     private Stage _stage;
@@ -111,10 +113,13 @@ public class QuizViewController {
         answerField.setVisible(false);
         submitButton.setVisible(false);
         statisticsScreen.setVisible(true);
+        String percent;
         if (numberOfCorrect == 0){
             practiseLabel.setVisible(true);
+            percent = "0";
         } else {
             double ratio = (numberOfCorrect*1.00)/(_questionNumber*1.00);
+            percent = Double.toString(ratio*100);
             if (ratio >= 0.8) {
                 wellDoneLabel.setVisible(true);
             } else if (ratio >= 0.5) {
@@ -125,6 +130,8 @@ public class QuizViewController {
         }
         recapMessageLabel.setText("You got " + Integer.toString(numberOfCorrect) + " answer(s) correct out of " + Integer.toString(_questionNumber));
         recapMessageLabel.setVisible(true);
+        accuracyPercentLabel.setText(percent + "%");
+        accuracyPercentLabel.setVisible(true);
     }
 
 
@@ -199,11 +206,13 @@ public class QuizViewController {
             return;
         }
     }
-    
+
 
     @FXML
     private void startButtonClicked(){
         startButton.setVisible(false);
+        answerField.setVisible(true);
+        submitButton.setVisible(true);
         playQuizMedia();
     }
 

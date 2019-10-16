@@ -87,6 +87,19 @@
                         <Label fx:id="recapMessageLabel" text="Label" visible="false" />
                      </children>
                   </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <HBox>
+                     <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="accuracyPercentLabel" text="Label" visible="false">
+                           <font>
+                              <Font size="96.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>
@@ -94,8 +107,8 @@
       <HBox spacing="15.0">
          <children>
             <Region HBox.hgrow="ALWAYS" />
-            <TextField fx:id="answerField" onAction="#submitButtonClicked" onKeyReleased="#keyReleased" />
-            <Button fx:id="submitButton" disable="true" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" />
+            <TextField fx:id="answerField" onAction="#submitButtonClicked" onKeyReleased="#keyReleased" visible="false" />
+            <Button fx:id="submitButton" disable="true" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" visible="false" />
             <Region HBox.hgrow="ALWAYS" />
          </children>
          <padding>
