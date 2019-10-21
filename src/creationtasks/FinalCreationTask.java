@@ -22,7 +22,6 @@ public class FinalCreationTask extends Task<Void> {
             return null;
         }
         ProcessBuilder pb = new ProcessBuilder();
-//        pb.command("/bin/bash", "-c", "ffmpeg -f image2 -r " + framerate + " -i './.temp/images/%1d.jpg' -r 30 -y ./.temp/video.mp4");
         pb.command("bash", "-c", "cat ./.temp/images/selected/*.jpg | ffmpeg -f image2pipe -framerate "+framerate+
                 " -i - -c:v libx264 -pix_fmt yuv420p -vf \"scale=w=1080:h=720:force_original_aspect_ratio=1,pad=1080:720:(ow-iw)/2:(oh-ih)/2\" -r 25 -y ./.temp/video.mp4");
         Process makeVid = pb.start();
@@ -37,6 +36,7 @@ public class FinalCreationTask extends Task<Void> {
         Process createTextFile = pb.start();
         if (isCancelled()) {
             createTextFile.destroy();
+            return null;
         }
         createTextFile.waitFor();
 
@@ -44,6 +44,7 @@ public class FinalCreationTask extends Task<Void> {
         Process createQuiz = pb.start();
         if (isCancelled()) {
             createQuiz.destroy();
+            return null;
         }
         createQuiz.waitFor();
 
@@ -52,15 +53,28 @@ public class FinalCreationTask extends Task<Void> {
         Process addText = pb.start();
         if (isCancelled()) {
             addText.destroy();
+            return null;
         }
         addText.waitFor();
 
-        pb.command("/bin/bash", "-c", "ffmpeg -y -i ./.temp/video_with_text.mp4 -i ./.temp/creation_audio.wav -c:v copy -c:a aac -strict experimental ./.temp/creation.mp4");
-        Process createFinal = pb.start();
+        pb.command("/bin/bash", "-c", "ffmpeg -y -i ./.temp/video_with_text.mp4 -i ./.temp/creation_audio.wav -c:v copy " +
+                "-c:a aac -strict experimental ./.temp/creation_no_music.mp4");
+        Process creationNoMusic= pb.start();
         if (isCancelled()) {
-            createFinal.destroy();
+            creationNoMusic.destroy();
+            return null;
         }
-        createFinal.waitFor();
+        creationNoMusic.waitFor();
+
+        pb.command("/bin/bash", "-c", "ffmpeg -i ./.temp/creation_no_music.mp4 -i ./src/resources/music/ambient.mp3 -c:v copy -filter_complex" +
+                " \"[0:a]aformat=fltp:44100:stereo,apad[0a];[1]aformat=fltp:44100:stereo,volume=1.5[1a];[0a][1a]amerge[a]\" -map 0:v -map \"[a]\" " +
+                "-ac 2 -shortest ./.temp/creation.mp4");
+        Process addMusic = pb.start();
+        if (isCancelled()) {
+            addMusic.destroy();
+            return null;
+        }
+        addMusic.waitFor();
 
         return null;
     }

@@ -108,7 +108,7 @@ public class MenuController {
 
     private void updateCreationList() {
         try{
-            String cmd = "bash ./scripts/listCreations.sh";
+            String cmd = "bash ./src/resources/scripts/listCreations.sh";
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
             Process process = builder.start();
             InputStream stdout = process.getInputStream();
