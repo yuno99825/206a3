@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -38,6 +39,20 @@ public class QuizViewController {
     private Label wrongLabel;
     @FXML
     private StackPane stackPane;
+    @FXML
+    private VBox statisticsScreen;
+    @FXML
+    private Label wellDoneLabel;
+    @FXML
+    private Label gettingThereLabel;
+    @FXML
+    private Label practiseLabel;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label recapMessageLabel;
+    @FXML
+    private Label accuracyPercentLabel;
 
     private List<String> _creationsList;
     private Stage _stage;
@@ -45,6 +60,8 @@ public class QuizViewController {
     private String _creationToPlay;
     private String _searchTerm = "";
     private int numberOfCorrect = 0;
+    private int attemptNumber = 1;
+
 
 
     public void setCreationsList(List<String> creationsList) {
@@ -83,9 +100,40 @@ public class QuizViewController {
             }
             _creationsList = temp;
         } else {
-            _stage.close();
+            dispStatsScreen();
         }
     }
+
+    private void dispStatsScreen(){
+
+        mediaView.setVisible(false);
+        replayButton.setVisible(false);
+        titleLabel.setVisible(false);
+        questionNumberLabel.setVisible(false);
+        answerField.setVisible(false);
+        submitButton.setVisible(false);
+        statisticsScreen.setVisible(true);
+        String percent;
+        if (numberOfCorrect == 0){
+            practiseLabel.setVisible(true);
+            percent = "0";
+        } else {
+            double ratio = (numberOfCorrect*1.00)/(_questionNumber*1.00);
+            percent = Double.toString(ratio*100);
+            if (ratio >= 0.8) {
+                wellDoneLabel.setVisible(true);
+            } else if (ratio >= 0.5) {
+                gettingThereLabel.setVisible(true);
+            } else {
+                practiseLabel.setVisible(true);
+            }
+        }
+        recapMessageLabel.setText("You got " + Integer.toString(numberOfCorrect) + " answer(s) correct out of " + Integer.toString(_questionNumber));
+        recapMessageLabel.setVisible(true);
+        accuracyPercentLabel.setText(percent + "%");
+        accuracyPercentLabel.setVisible(true);
+    }
+
 
     private String getTermFromTxtFile(){
         String cmd = "cat ./creations/\"" + _creationToPlay + "\"/searchTerm.txt";
@@ -111,33 +159,49 @@ public class QuizViewController {
 
     @FXML
     private void submitButtonClicked(){
+        mediaView.setVisible(false);
+        replayButton.setVisible(false);
+        submitButton.setDisable(true);
         if((answerField.getText().equals(_searchTerm))||(answerField.getText().trim().equals(_searchTerm.trim()))){
             numberOfCorrect++;
-            mediaView.setVisible(false);
-            replayButton.setVisible(false);
+            attemptNumber = 1;
             correctLabel.setVisible(true);
             player.pause();
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished( event -> {
                 correctLabel.setVisible(false);
+                submitButton.setDisable(false);
                 playQuizMedia();
             } );
             delay.play();
             answerField.setText("");
             return;
+
         } else {
-            mediaView.setVisible(false);
-            replayButton.setVisible(false);
+
             wrongLabel.setVisible(true);
             player.pause();
-            PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished( event -> {
-                wrongLabel.setVisible(false);
-                player.seek(Duration.ZERO);
-                player.play();
-                mediaView.setVisible(true);
-            } );
-            delay.play();
+            if (attemptNumber < 2) {
+                attemptNumber++;
+                PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                delay.setOnFinished(event -> {
+                    wrongLabel.setVisible(false);
+                    player.seek(Duration.ZERO);
+                    player.play();
+                    mediaView.setVisible(true);
+                    submitButton.setDisable(false);
+                });
+                delay.play();
+            } else {
+                attemptNumber = 1;
+                PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                delay.setOnFinished(event -> {
+                    wrongLabel.setVisible(false);
+                    submitButton.setDisable(false);
+                    playQuizMedia();
+                });
+                delay.play();
+            }
             answerField.setText("");
             return;
         }
@@ -147,6 +211,8 @@ public class QuizViewController {
     @FXML
     private void startButtonClicked(){
         startButton.setVisible(false);
+        answerField.setVisible(true);
+        submitButton.setVisible(true);
         playQuizMedia();
     }
 

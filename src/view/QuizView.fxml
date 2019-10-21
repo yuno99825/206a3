@@ -24,11 +24,30 @@
       <HBox>
          <children>
             <Region HBox.hgrow="ALWAYS" />
-            <Label text="Creation Quiz!">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Label>
+            <StackPane>
+               <children>
+                  <Label fx:id="wellDoneLabel" text="Well Done!" visible="false">
+                     <font>
+                        <Font size="39.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="gettingThereLabel" text="Getting There!" visible="false">
+                     <font>
+                        <Font size="39.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="practiseLabel" text="You need practise!" visible="false">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="titleLabel" text="Creation Quiz!">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
             <Region HBox.hgrow="ALWAYS" />
          </children>
          <padding>
@@ -58,13 +77,38 @@
                </font>
             </Label>
             <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonClicked" text="Start" />
+            <VBox fx:id="statisticsScreen" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <HBox>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <Label fx:id="recapMessageLabel" text="Label" visible="false" />
+                     </children>
+                  </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <HBox>
+                     <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="accuracyPercentLabel" text="Label" visible="false">
+                           <font>
+                              <Font size="96.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
          </children>
       </StackPane>
       <HBox spacing="15.0">
          <children>
             <Region HBox.hgrow="ALWAYS" />
-            <TextField fx:id="answerField" onKeyReleased="#keyReleased" />
-            <Button fx:id="submitButton" disable="true" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" />
+            <TextField fx:id="answerField" onAction="#submitButtonClicked" onKeyReleased="#keyReleased" visible="false" />
+            <Button fx:id="submitButton" disable="true" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" visible="false" />
             <Region HBox.hgrow="ALWAYS" />
          </children>
          <padding>
