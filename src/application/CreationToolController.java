@@ -56,8 +56,10 @@ public class CreationToolController {
 
     @FXML
     private void searchButtonClicked() {
-        SearchController searchController = new SearchController(searchField,searchButton,searchResultsArea,searchPrompt);
-        searchController.go();
+        if (!searchButton.isDisabled()) {
+            SearchController searchController = new SearchController(searchField,searchButton,searchResultsArea,searchPrompt);
+            searchController.go();
+        }
     }
 
     @FXML
