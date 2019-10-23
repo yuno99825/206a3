@@ -1,4 +1,4 @@
-package controllers;
+package application.scenes;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;

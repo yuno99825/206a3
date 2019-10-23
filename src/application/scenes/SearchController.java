@@ -1,4 +1,4 @@
-package controllers;
+package application.scenes;
 
 import application.SearchTask;
 import javafx.scene.control.Button;

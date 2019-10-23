@@ -1,4 +1,4 @@
-package controllers;
+package application.scenes;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;

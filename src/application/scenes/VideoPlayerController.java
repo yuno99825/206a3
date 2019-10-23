@@ -1,4 +1,4 @@
-package controllers;
+package application.scenes;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;

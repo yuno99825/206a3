@@ -1,4 +1,4 @@
-package controllers;
+package application.scenes;
 
 import creationtasks.ImagesTask;
 import javafx.fxml.FXML;

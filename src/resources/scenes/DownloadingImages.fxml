@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DownloadingImagesController">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scenes.DownloadingImagesController">
     <children>
         <Label fx:id="progressLabel" text="Downloading Images ..." />
         <ProgressBar fx:id="progressBar" prefWidth="300.0" progress="0.0" />
