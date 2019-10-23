@@ -17,7 +17,7 @@ public class Main extends Application {
         menuController.setStage(primaryStage);
 
         primaryStage.setTitle("VARpedia");
-        primaryStage.setScene(new Scene(root, 1000 , 750));
+        primaryStage.setScene(new Scene(root, PrimaryScene.APP_WIDTH , PrimaryScene.APP_HEIGHT));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

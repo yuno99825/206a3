@@ -1,11 +1,16 @@
 package application.scenes;
 
+import application.CreationListCell;
+import application.Main;
 import application.PrimaryScene;
 import application.SceneType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -30,6 +35,25 @@ public class MenuController extends PrimaryScene {
     @FXML
     private void initialize() {
         updateCreationList();
+        creationListView.setCellFactory(cell -> {
+            return new ListCell<String>() {
+                @Override
+                protected void updateItem(String creation, boolean empty) {
+                    super.updateItem(creation, empty);
+                    if (creation != null) {
+                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/CreationListCell.fxml"));
+                        try {
+                            Parent parent = loader.load();
+                            CreationListCell creationListCell = loader.getController();
+                            creationListCell.setText(creation);
+                            setGraphic(parent);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+        });
     }
 
     public void setStage(Stage stage) {
