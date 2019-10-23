@@ -1,5 +1,6 @@
-package application;
+package controllers;
 
+import application.Chunk;
 import javafx.scene.control.*;
 
 import java.io.*;

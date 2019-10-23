@@ -1,4 +1,4 @@
-package application;
+package controllers;
 
 import creationtasks.ImagesTask;
 import javafx.fxml.FXML;

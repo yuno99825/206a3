@@ -1,5 +1,6 @@
-package application;
+package controllers;
 
+import application.Chunk;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

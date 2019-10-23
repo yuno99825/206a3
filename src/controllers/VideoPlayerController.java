@@ -1,4 +1,4 @@
-package application;
+package controllers;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
