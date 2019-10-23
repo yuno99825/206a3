@@ -10,9 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(Main.class.getResource("/view/Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Menu.fxml"));
         primaryStage.setTitle("VARpedia");
         primaryStage.setScene(new Scene(root, 750 , 662));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
