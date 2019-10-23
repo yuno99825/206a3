@@ -53,6 +53,8 @@ public class QuizViewController {
     private Label recapMessageLabel;
     @FXML
     private Label accuracyPercentLabel;
+    @FXML
+    private Label labelWithAnswer;
 
     private List<String> _creationsList;
     private Stage _stage;
@@ -88,7 +90,10 @@ public class QuizViewController {
             File videoURL = new File("./creations/" + _creationToPlay + "/quiz.mp4");
             Media video = new Media(videoURL.toURI().toString());
             player = new MediaPlayer(video);
-            player.setOnEndOfMedia(() -> replayButton.setVisible(true));
+            player.setOnEndOfMedia(() -> {
+                replayButton.toFront();
+                replayButton.setVisible(true);
+            });
             player.setAutoPlay(true);
             mediaView.setMediaPlayer(player);
 
@@ -119,7 +124,9 @@ public class QuizViewController {
             percent = "0";
         } else {
             double ratio = (numberOfCorrect*1.00)/(_questionNumber*1.00);
-            percent = Double.toString(ratio*100);
+            ratio = ratio*100.0;
+            percent = String.format("%.1f",ratio);
+            //percent = Double.toString(ratio);
             if (ratio >= 0.8) {
                 wellDoneLabel.setVisible(true);
             } else if (ratio >= 0.5) {
@@ -159,6 +166,8 @@ public class QuizViewController {
 
     @FXML
     private void submitButtonClicked(){
+        if (submitButton.isDisabled()) {return;}
+
         mediaView.setVisible(false);
         replayButton.setVisible(false);
         submitButton.setDisable(true);
@@ -183,20 +192,26 @@ public class QuizViewController {
             player.pause();
             if (attemptNumber < 2) {
                 attemptNumber++;
+                labelWithAnswer.setText("Try Again!");
+                labelWithAnswer.setVisible(true);
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
                 delay.setOnFinished(event -> {
                     wrongLabel.setVisible(false);
                     player.seek(Duration.ZERO);
                     player.play();
                     mediaView.setVisible(true);
+                    labelWithAnswer.setVisible(false);
                     submitButton.setDisable(false);
                 });
                 delay.play();
             } else {
                 attemptNumber = 1;
-                PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                labelWithAnswer.setText("Correct answer was: " + _searchTerm);
+                labelWithAnswer.setVisible(true);
+                PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
                 delay.setOnFinished(event -> {
                     wrongLabel.setVisible(false);
+                    labelWithAnswer.setVisible(false);
                     submitButton.setDisable(false);
                     playQuizMedia();
                 });
@@ -229,6 +244,7 @@ public class QuizViewController {
 
     @FXML
     private void replayButtonClicked() {
+        mediaView.toFront();
         replayButton.setVisible(false);
         player.seek(Duration.ZERO);
         player.play();
