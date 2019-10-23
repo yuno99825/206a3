@@ -1,17 +1,18 @@
 package application.scenes;
 
+import application.PrimaryScene;
+import application.SceneType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.io.*;
 
-public class CreationPreviewController {
+public class CreationPreviewController extends PrimaryScene {
 
     @FXML
     private MediaView mediaView;
@@ -72,10 +73,10 @@ public class CreationPreviewController {
                     removeExisting.waitFor();
 
                     pb.command("/bin/bash", "-c", "mv -f ./.temp ./creations/\"" + creationName + "\"");
-                    pb.start();
+                    Process moveTemp = pb.start();
+                    moveTemp.waitFor();
 
-                    Stage thisStage = (Stage)nameField.getScene().getWindow();
-                    thisStage.close();
+                    setScene(SceneType.MENU, stage);
                 }
             }
         } else {
@@ -83,7 +84,7 @@ public class CreationPreviewController {
         }
     }
     @FXML
-    public void cancelButtonClicked() throws IOException {
+    public void cancelButtonClicked() throws IOException, InterruptedException {
         player.pause();
         // Create confirmation alert
         Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to cancel? All progress will be lost!.", ButtonType.YES, ButtonType.NO);
@@ -92,9 +93,9 @@ public class CreationPreviewController {
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "rm -fr ./.temp");
-            builder.start();
-            Stage thisStage = (Stage)nameField.getScene().getWindow();
-            thisStage.close();
+            Process delete = builder.start();
+            delete.waitFor();
+            setScene(SceneType.MENU, stage);
         }
     }
 

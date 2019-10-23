@@ -1,28 +1,21 @@
 package application.scenes;
 
-import javafx.application.Application;
+import application.PrimaryScene;
+import application.SceneType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class MenuController {
+public class MenuController extends PrimaryScene {
     @FXML
     private ListView<String> creationListView;
     @FXML
@@ -37,6 +30,10 @@ public class MenuController {
     @FXML
     private void initialize() {
         updateCreationList();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML
@@ -59,51 +56,28 @@ public class MenuController {
 
     @FXML
     private void playCreation() throws IOException {
-        Stage stage = new Stage();
         String creationName = creationListView.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader(MenuController.class.getResource("/view/VideoPlayer.fxml"));
-        Parent root = loader.load();
-
-        VideoPlayerController controller = loader.getController();
+        VideoPlayerController controller = (VideoPlayerController) setScene(SceneType.VIDEO_PLAYER, stage);
         controller.setUpVideo(creationName, stage);
         stage.setOnCloseRequest(e -> {
             controller.stopVideo();
         });
-        stage.setScene(new Scene(root, 500, 400));
-        stage.setTitle(creationName);
-        stage.show();
     }
 
     @FXML
     private void openQuizView() throws IOException {
-        Stage stage = new Stage();
         List<String> creationNames = creationListView.getItems();
-        FXMLLoader loader = new FXMLLoader(MenuController.class.getResource("/view/QuizView.fxml"));
-        Parent root = loader.load();
-
-        QuizViewController controller = loader.getController();
+        QuizViewController controller = (QuizViewController) setScene(SceneType.QUIZ, stage);
         controller.setCreationsList(creationNames);
-        controller.setStage(stage);
-
         stage.setOnCloseRequest(e -> {
             controller.stopVideo();
         });
-        stage.setScene(new Scene(root));
-        stage.setTitle("Quiz");
-        stage.show();
     }
 
 
     @FXML
     private void openCreationTool() throws IOException {
-        FXMLLoader loader = new FXMLLoader(MenuController.class.getResource("/view/CreationTool.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("VARpedia Creation Tool");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        updateCreationList();
+        setScene(SceneType.CREATION_TOOL, stage);
     }
 
     private void updateCreationList() {

@@ -1,6 +1,8 @@
 package application.scenes;
 
 import application.Chunk;
+import application.PrimaryScene;
+import application.SceneType;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -22,7 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSelectionController {
+public class ImageSelectionController extends PrimaryScene {
     @FXML
     private TilePane imagesTilePane;
     @FXML
@@ -79,19 +81,7 @@ public class ImageSelectionController {
         stage.showAndWait();
 
         if (progressScreenController.isSuccess()) {
-            FXMLLoader creationPreviewLoader = new FXMLLoader(CreationToolController.class.getResource("/view/CreationPreview.fxml"));
-            Parent creationPreviewRoot = creationPreviewLoader.load();
-            CreationPreviewController creationPreviewController = creationPreviewLoader.getController();
-            Stage thisStage = (Stage) nextButton.getScene().getWindow();
-            thisStage.setOnCloseRequest(e -> {
-                e.consume();
-                try {
-                    creationPreviewController.cancelButtonClicked();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
-            thisStage.setScene(new Scene(creationPreviewRoot, 460, 557));
+            setScene(SceneType.CREATION_PREVIEW, this.stage);
         } else {
             ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp/images/selected");
             Process process = pb.start();

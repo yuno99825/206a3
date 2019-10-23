@@ -1,10 +1,8 @@
 package application.scenes;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
+import application.PrimaryScene;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -13,7 +11,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-public class VideoPlayerController {
+public class VideoPlayerController extends PrimaryScene {
 
     @FXML
     private MediaView mediaView;

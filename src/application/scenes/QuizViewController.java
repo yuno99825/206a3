@@ -1,5 +1,7 @@
 package application.scenes;
 
+import application.PrimaryScene;
+import application.SceneType;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,10 +17,9 @@ import javafx.util.Duration;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class QuizViewController {
+public class QuizViewController extends PrimaryScene {
 
     @FXML
     private MediaView mediaView;
@@ -55,7 +56,6 @@ public class QuizViewController {
     private Label accuracyPercentLabel;
 
     private List<String> _creationsList;
-    private Stage _stage;
     private int _questionNumber = 0;
     private String _creationToPlay;
     private String _searchTerm = "";
@@ -66,10 +66,6 @@ public class QuizViewController {
 
     public void setCreationsList(List<String> creationsList) {
         _creationsList = creationsList;
-    }
-
-    public void setStage(Stage stage) {
-        this._stage = stage;
     }
 
     private void playQuizMedia(){
@@ -235,8 +231,8 @@ public class QuizViewController {
     }
 
     @FXML
-    private void backButtonClicked(){
-        _stage.close();
+    private void backButtonClicked() throws IOException {
+        setScene(SceneType.MENU, stage);
     }
 
     @FXML

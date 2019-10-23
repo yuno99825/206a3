@@ -1,6 +1,8 @@
 package application.scenes;
 
 import application.Chunk;
+import application.PrimaryScene;
+import application.SceneType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class CreationToolController {
+public class CreationToolController extends PrimaryScene {
 
     @FXML
     private Label searchPrompt;
@@ -132,22 +134,18 @@ public class CreationToolController {
         String searchTerm = searchField.getText();
         ObservableList<Chunk> chunks = chunksListView.getItems();
 
-        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/DownloadingImages.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/scenes/DownloadingImages.fxml"));
         Parent downloadingImagesScreen = loader.load();
         DownloadingImagesController downloadingImagesController = loader.getController();
         downloadingImagesController.go(searchTerm);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(downloadingImagesScreen));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+        Stage downloadImagesStage = new Stage();
+        downloadImagesStage.setScene(new Scene(downloadingImagesScreen));
+        downloadImagesStage.initModality(Modality.APPLICATION_MODAL);
+        downloadImagesStage.showAndWait();
 
         if (downloadingImagesController.isSuccess()) {
-            loader = new FXMLLoader(CreationToolController.class.getResource("/view/ImageSelection.fxml"));
-            Parent imageSelectionScreen = loader.load();
-            ImageSelectionController imageSelectionController = loader.getController();
+            ImageSelectionController imageSelectionController = (ImageSelectionController) setScene(SceneType.IMAGE_SELECTION, stage);
             imageSelectionController.setUp(searchTerm, chunks);
-            Stage thisStage = (Stage) nextButton.getScene().getWindow();
-            thisStage.setScene(new Scene(imageSelectionScreen));
         }
     }
 

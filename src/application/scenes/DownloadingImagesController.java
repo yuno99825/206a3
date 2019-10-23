@@ -1,6 +1,6 @@
 package application.scenes;
 
-import creationtasks.ImagesTask;
+import application.tasks.ImagesTask;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
