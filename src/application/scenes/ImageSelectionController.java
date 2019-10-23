@@ -1,6 +1,7 @@
 package application.scenes;
 
 import application.Chunk;
+import application.Main;
 import application.PrimaryScene;
 import application.SceneType;
 import javafx.collections.ObservableList;
@@ -32,6 +33,7 @@ public class ImageSelectionController extends PrimaryScene {
     private String searchTerm;
     private ObservableList<Chunk> chunks;
     private List<Integer> selectedImages = new ArrayList<Integer>();
+    int numImages = 0;
 
     @FXML
     private void initialize() {
@@ -55,37 +57,47 @@ public class ImageSelectionController extends PrimaryScene {
     private void imageClicked(Event event) {
         StackPane stackPane = (StackPane) event.getSource();
         VBox vBox = (VBox) stackPane.getChildren().get(1);
+        if (vBox.isVisible()) {
+            numImages--;
+        } else {
+            numImages++;
+        }
         vBox.setVisible(!vBox.isVisible());
+        if (numImages <= 0) {
+            nextButton.setDisable(true);
+        } else {
+            nextButton.setDisable(false);
+        }
     }
 
     @FXML
     private void nextButtonClicked() throws IOException, InterruptedException {
-        int i = 1;
-        int numImages = 0;
-         for (Node node: imagesTilePane.getChildren()) {
-            StackPane stackPane = (StackPane) node;
-            VBox vBox = (VBox) stackPane.getChildren().get(1);
-            if (vBox.isVisible()) {
-                selectedImages.add(i);
-                numImages++;
+        if (!nextButton.isDisabled()) {
+            int i = 1;
+            for (Node node: imagesTilePane.getChildren()) {
+                StackPane stackPane = (StackPane) node;
+                VBox vBox = (VBox) stackPane.getChildren().get(1);
+                if (vBox.isVisible()) {
+                    selectedImages.add(i);
+                }
+                i++;
             }
-            i++;
-        }
-        FXMLLoader loader = new FXMLLoader(CreationToolController.class.getResource("/view/ProgressScreen.fxml"));
-        Parent root = loader.load();
-        ProgressScreenController progressScreenController = loader.getController();
-        progressScreenController.go(chunks, searchTerm, selectedImages);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/scenes/ProgressScreen.fxml"));
+            Parent root = loader.load();
+            ProgressScreenController progressScreenController = loader.getController();
+            progressScreenController.go(chunks, searchTerm, selectedImages);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
 
-        if (progressScreenController.isSuccess()) {
-            setScene(SceneType.CREATION_PREVIEW, this.stage);
-        } else {
-            ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp/images/selected");
-            Process process = pb.start();
-            process.waitFor();
+            if (progressScreenController.isSuccess()) {
+                setScene(SceneType.CREATION_PREVIEW, this.stage);
+            } else {
+                ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp/images/selected");
+                Process process = pb.start();
+                process.waitFor();
+            }
         }
     }
 }
