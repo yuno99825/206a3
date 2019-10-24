@@ -1,4 +1,4 @@
-package application.scenes;
+package application.scenes.chunkselection;
 
 import application.Chunk;
 import javafx.scene.control.*;

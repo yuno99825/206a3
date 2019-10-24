@@ -42,7 +42,7 @@ public class MenuController extends PrimaryScene {
 
     @FXML
     private void openCreationTool() throws IOException {
-        setScene(SceneType.CREATION_TOOL, stage);
+        setScene(SceneType.CHUNK_SELECTION, stage);
     }
 
     public void updateList() {

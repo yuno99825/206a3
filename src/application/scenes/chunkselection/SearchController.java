@@ -1,4 +1,4 @@
-package application.scenes;
+package application.scenes.chunkselection;
 
 import application.SearchTask;
 import javafx.scene.control.Button;

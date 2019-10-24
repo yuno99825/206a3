@@ -1,8 +1,10 @@
-package application.scenes;
+package application.scenes.chunkselection;
 
 import application.Chunk;
 import application.PrimaryScene;
 import application.SceneType;
+import application.scenes.DownloadingImagesController;
+import application.scenes.ImageSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class CreationToolController extends PrimaryScene {
+public class ChunkSelectionController extends PrimaryScene {
 
     @FXML
     private Label searchPrompt;
