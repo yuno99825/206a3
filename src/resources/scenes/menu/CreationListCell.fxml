@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox fx:id="hBox" alignment="CENTER_LEFT" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreationListCell">
+<HBox alignment="CENTER_LEFT" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scenes.menu.CreationListCell">
    <children>
       <Label fx:id="creationNameLabel">
          <font>
@@ -18,20 +17,20 @@
          </font>
       </Label>
       <Region HBox.hgrow="ALWAYS" />
-    <Button mnemonicParsing="false">
+      <Button layoutX="112.0" layoutY="18.0" mnemonicParsing="false" onAction="#deleteCreation">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icons/play.png" />
+                  <Image url="@../../icons/trashcan.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="112.0" layoutY="18.0" mnemonicParsing="false">
+    <Button mnemonicParsing="false" onAction="#playCreation">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icons/trashcan.png" />
+                  <Image url="@../../icons/play.png" />
                </image>
             </ImageView>
          </graphic>
