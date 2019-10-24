@@ -120,8 +120,8 @@ public class ChunkSelectionController extends PrimaryScene {
 
     @FXML
     private void previewButtonClicked() throws IOException {
-        PreviewController previewController = new PreviewController(chunksListView);
-        previewController.go();
+        Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
+        PreviewController.preview(selectedChunk);
     }
 
     @FXML

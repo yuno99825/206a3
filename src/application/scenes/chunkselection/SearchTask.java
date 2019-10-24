@@ -1,4 +1,4 @@
-package application;
+package application.scenes.chunkselection;
 
 import javafx.concurrent.Task;
 

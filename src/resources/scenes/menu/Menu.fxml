@@ -68,7 +68,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <ListView fx:id="creationListView" maxHeight="500.0" maxWidth="600.0" minHeight="500.0" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" />
+                  <ListView fx:id="creationListView" disable="true" maxHeight="500.0" maxWidth="600.0" minHeight="500.0" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" />
                </children>
             </VBox>
          </children>

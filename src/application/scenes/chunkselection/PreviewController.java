@@ -6,18 +6,12 @@ import javafx.scene.control.*;
 import java.io.*;
 
 public class PreviewController {
-    private ListView<Chunk> chunkListView;
 
-    public PreviewController(ListView<Chunk> chunkListView) {
-        this.chunkListView = chunkListView;
-    }
-
-    public void go() throws IOException {
-        Chunk selectedChunk = chunkListView.getSelectionModel().getSelectedItem();
-        if (selectedChunk != null) {
-            String text = selectedChunk.getText().replace("\"", "");
-            String stretchCommand = selectedChunk.getStretchCommand();
-            String pitchCommand = selectedChunk.getPitchCommand();
+    public static void preview(Chunk chunk) throws IOException {
+        if (chunk != null) {
+            String text = chunk.getText().replace("\"", "");
+            String stretchCommand = chunk.getStretchCommand();
+            String pitchCommand = chunk.getPitchCommand();
 
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "festival");
             Process process = builder.start();
