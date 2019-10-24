@@ -3,6 +3,8 @@ package application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,5 +23,12 @@ public abstract class PrimaryScene {
         PrimaryScene primaryScene = loader.getController();
         primaryScene.stage = stage;
         return primaryScene;
+    }
+
+    public void createAlert(String title, String alertText) {
+        Alert alert = new Alert(Alert.AlertType.NONE, alertText, ButtonType.OK);
+        alert.setTitle(title);
+        alert.setHeight(150);
+        alert.showAndWait();
     }
 }

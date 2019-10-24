@@ -34,8 +34,7 @@ public class SearchController {
         this.prompt = prompt;
     }
 
-    public void go() {
-        boolean success = false;
+    public void search() {
         String searchTerm = searchField.getText();
         if (validateSearchTerm(searchTerm)) {
             searchTask = new SearchTask(searchTerm);
@@ -54,18 +53,16 @@ public class SearchController {
                     }
                     else {
                         searchResultsArea.setText(searchResults);
+                        searchResultsArea.setEditable(true);
                         prompt.setText("You searched: ");
                     }
-
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 } catch (ExecutionException ex) {
                     ex.printStackTrace();
                 }
             });
-
             team.submit(searchTask);
-
         } else {
             prompt.setText("Invalid, please enter a search term:");
         }

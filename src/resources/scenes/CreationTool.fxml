@@ -8,12 +8,14 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scenes.CreationToolController">
+<HBox maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scenes.CreationToolController">
    <children>
       <VBox spacing="10.0">
          <children>
@@ -32,14 +34,21 @@
                         <Insets bottom="5.0" left="5.0" top="5.0" />
                      </padding>
                   </TextField>
-                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="26.0" prefWidth="74.0" text="Search">
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchButtonClicked" text="Search">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/magnifying_glass.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </HBox>
-            <TextArea fx:id="searchResultsArea" prefHeight="281.0" prefWidth="400.0" wrapText="true" />
+            <TextArea fx:id="searchResultsArea" editable="false" prefHeight="326.0" prefWidth="517.0" wrapText="true" />
             <Label text="Create audio chunk from selection:">
                <VBox.margin>
                   <Insets top="10.0" />

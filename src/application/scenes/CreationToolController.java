@@ -61,7 +61,7 @@ public class CreationToolController extends PrimaryScene {
     private void searchButtonClicked() {
         if (!searchButton.isDisabled()) {
             SearchController searchController = new SearchController(searchField,searchButton,searchResultsArea,searchPrompt);
-            searchController.go();
+            searchController.search();
         }
     }
 
@@ -77,16 +77,18 @@ public class CreationToolController extends PrimaryScene {
                     nextButton.setDisable(false);
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.NONE, "The selected chunk is too long (max 50 words)", ButtonType.OK);
-                alert.setTitle("Chunk too long");
-                alert.setHeight(150);
-                alert.showAndWait();
+                createAlert("Chunk too long", "The selected chunk is too long (max 50 words)");
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.NONE, "Please select text to add/preview by highlighting.", ButtonType.OK);
-            alert.setTitle("No text selected");
-            alert.setHeight(150);
-            alert.showAndWait();
+            createAlert("No text selected", "Please select text to add/preview by highlighting.");
+        }
+    }
+
+    @FXML
+    private void deleteButtonClicked() {
+        chunksList.remove(chunksListView.getSelectionModel().getSelectedItem());
+        if (chunksList.isEmpty()) {
+            nextButton.setDisable(true);
         }
     }
 
@@ -111,14 +113,6 @@ public class CreationToolController extends PrimaryScene {
             chunksList.set(index + 1, selectedChunk);
             chunksList.set(index, toSwap);
             chunksListView.getSelectionModel().select(index + 1);
-        }
-    }
-
-    @FXML
-    private void deleteButtonClicked() {
-        chunksList.remove(chunksListView.getSelectionModel().getSelectedItem());
-        if (chunksList.isEmpty()) {
-            nextButton.setDisable(true);
         }
     }
 
