@@ -1,5 +1,7 @@
 .root{
     -fx-background-color: #080808;
+    -fx-pref-width: 1000px;
+    -fx-pref-height: 750px;
 }
 
 .menu-button{
@@ -15,6 +17,25 @@
     -fx-control-inner-background: #111 ;
     -fx-control-inner-background-alt: derive(-fx-control-inner-background, 10%);
 }
+
+.creation-region {
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
+/*.gradient-region {*/
+/*    -fx-background-color: linear-gradient(rgba(0,0,0, 0.5), rgba(255,255,255,0.1));*/
+/*}*/
+
+/*.dark-region {*/
+/*    -fx-background-color: rgba(255,255,255,0.1);*/
+/*}*/
+
+/*.light-region {*/
+/*    -fx-background-color: rgba(0,0,0,0.5);*/
+/*}*/
 
 /****************************************************************
 
