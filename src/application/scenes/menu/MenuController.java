@@ -16,8 +16,6 @@ public class MenuController extends PrimaryScene {
     @FXML
     private ListView<String> creationListView;
     @FXML
-    private Label creationListLabel;
-    @FXML
     private Button playQuizButton;
     private CreationListController creationListController;
 
@@ -41,16 +39,14 @@ public class MenuController extends PrimaryScene {
     }
 
     @FXML
-    private void openCreationTool() throws IOException {
+    private void newCreation() throws IOException {
         setScene(SceneType.CHUNK_SELECTION, stage);
     }
 
     public void updateList() {
         if (creationListController.update()) {
-            creationListLabel.setText("Existing creations:");
             playQuizButton.setDisable(false);
         } else {
-            creationListLabel.setText("You have no creations.");
             playQuizButton.setDisable(true);
         }
     }

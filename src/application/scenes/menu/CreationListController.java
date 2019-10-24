@@ -41,6 +41,9 @@ public class CreationListController {
                 }
             };
         });
+        creationListView.setOnMouseClicked(e -> {
+            e.consume();
+        });
     }
 
     public boolean update() {

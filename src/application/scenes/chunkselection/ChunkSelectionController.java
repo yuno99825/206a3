@@ -128,7 +128,7 @@ public class ChunkSelectionController extends PrimaryScene {
     private void nextButtonClicked() throws IOException, InterruptedException {
         removeTempFolder();
         String searchTerm = searchField.getText();
-        ObservableList<Chunk> chunks = chunksListView.getItems();
+        ObservableList<Chunk> selectedChunks = chunksListView.getItems();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/scenes/DownloadingImages.fxml"));
         Parent downloadingImagesScreen = loader.load();
@@ -141,7 +141,7 @@ public class ChunkSelectionController extends PrimaryScene {
 
         if (downloadingImagesController.isSuccess()) {
             ImageSelectionController imageSelectionController = (ImageSelectionController) setScene(SceneType.IMAGE_SELECTION, stage);
-            imageSelectionController.setUp(searchTerm, chunks);
+            imageSelectionController.setUp(searchTerm, selectedChunks);
         }
     }
 
