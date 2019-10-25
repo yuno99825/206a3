@@ -1,21 +1,22 @@
-.root{
+.root {
     -fx-background-color: #080808;
     -fx-pref-width: 1000px;
     -fx-pref-height: 750px;
+    -creation-color: #03dac5;
+    -dark-creation-color: derive(-creation-color, 30%);
+    -quiz-color: #bb86fc;
 }
 
-.menu-button{
+.menu-button {
     -fx-background-radius: 40 40 40 40;
 }
 
-.list-view {
-    -fx-background-color: #080808;
-    -fx-border-color: #080808;
+.creation-button {
+    -fx-background-color: linear-gradient(to bottom,-creation-color,-dark-creation-color);
 }
 
-.list-cell {
-    -fx-control-inner-background: #111 ;
-    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 10%);
+.creation-button:hover {
+    -fx-background-color: derive(-creation-color, 45%);
 }
 
 .creation-region {
@@ -25,17 +26,33 @@
     -fx-background-color: rgba(255,255,255,0.1);
 }
 
-/*.gradient-region {*/
-/*    -fx-background-color: linear-gradient(rgba(0,0,0, 0.5), rgba(255,255,255,0.1));*/
-/*}*/
+.list-view {
+    -fx-background-color: #111;
+    -fx-border-color: #111;
+}
 
-/*.dark-region {*/
-/*    -fx-background-color: rgba(255,255,255,0.1);*/
-/*}*/
+.list-cell {
+    -fx-control-inner-background: #111 ;
+    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 10%);
+}
 
-/*.light-region {*/
-/*    -fx-background-color: rgba(0,0,0,0.5);*/
-/*}*/
+.text-area {
+    -fx-background-color: #111;
+    -fx-control-inner-background: #111;
+    -fx-text-fill: white;
+}
+
+.text-area .content {
+    -fx-background-radius: 0 ;
+}
+
+.quiz-button {
+    -fx-background-color: derive(-quiz-color, 0%);
+}
+
+.quiz-button:hover {
+    -fx-background-color: derive(-quiz-color, 30%);
+}
 
 /****************************************************************
 

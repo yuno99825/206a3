@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -59,7 +60,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="playQuizButton" maxHeight="120.0" maxWidth="120.0" minHeight="120.0" minWidth="120.0" mnemonicParsing="false" onAction="#openQuizView" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: rgba(255, 255, 255, 0.7);" styleClass="menu-button">
+                        <Button fx:id="playQuizButton" maxHeight="120.0" maxWidth="120.0" minHeight="120.0" minWidth="120.0" mnemonicParsing="false" onAction="#openQuizView" prefHeight="120.0" prefWidth="120.0">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -67,9 +68,13 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <styleClass>
+                              <String fx:value="menu-button" />
+                              <String fx:value="quiz-button" />
+                           </styleClass>
                         </Button>
                         <Region prefHeight="200.0" prefWidth="200.0" />
-                        <Button maxHeight="120.0" maxWidth="120.0" minHeight="120.0" minWidth="120.0" mnemonicParsing="false" onAction="#newCreation" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #0cdac5;" styleClass="menu-button">
+                        <Button maxHeight="120.0" maxWidth="120.0" minHeight="120.0" minWidth="120.0" mnemonicParsing="false" onAction="#newCreation" prefHeight="120.0" prefWidth="120.0">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -77,6 +82,10 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <styleClass>
+                              <String fx:value="menu-button" />
+                              <String fx:value="creation-button" />
+                           </styleClass>
                         </Button>
                      </children>
                   </VBox>
