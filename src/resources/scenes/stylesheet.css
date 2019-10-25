@@ -1,14 +1,42 @@
 .root {
     -fx-background-color: #080808;
+    -text-color:#DDD;
     -fx-pref-width: 1000px;
     -fx-pref-height: 750px;
+    -fx-min-width: 1000px;
+    -fx-min-height: 750px;
+    -fx-max-width: 1000px;
+    -fx-max-height: 750px;
     -creation-color: #03dac5;
     -dark-creation-color: derive(-creation-color, 30%);
     -quiz-color: #bb86fc;
+    -fx-alignment: top-center;
+    -fx-spacing: 20;
+}
+
+.main-container {
+    -fx-pref-width: 1000px;
+    -fx-pref-height: 750px;
+    -fx-min-width: 1000px;
+    -fx-min-height: 750px;
+    -fx-max-width: 1000px;
+    -fx-max-height: 750px;
+    -fx-spacing: 20;
+    -fx-padding: 20;
+}
+
+.image-container {
+    -fx-background-color: #080808;
+    -fx-opacity: 0.3;
 }
 
 .menu-button {
     -fx-background-radius: 40 40 40 40;
+}
+
+.help-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .creation-button {
@@ -19,11 +47,19 @@
     -fx-background-color: derive(-creation-color, 45%);
 }
 
+.creation-title {
+    -fx-text-fill: -text-color;
+}
+
 .creation-region {
     -fx-background-radius: 10;
     -fx-padding: 20;
     -fx-spacing: 10;
     -fx-background-color: rgba(255,255,255,0.1);
+}
+
+.creation-region .label {
+    -fx-text-fill: -text-color;
 }
 
 .list-view {
@@ -34,16 +70,34 @@
 .list-cell {
     -fx-control-inner-background: #111 ;
     -fx-control-inner-background-alt: derive(-fx-control-inner-background, 10%);
+    -fx-text-fill: -text-color;
 }
 
 .text-area {
     -fx-background-color: #111;
     -fx-control-inner-background: #111;
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .text-area .content {
     -fx-background-radius: 0 ;
+}
+
+.images-tile-pane {
+    -fx-control-inner-background:#111;
+    -fx-background-color: #111;
+}
+
+.images-scroll-pane {
+    -fx-control-inner-background:#111;
+    -fx-background-color: #111;
+    -fx-border-width: 0;
+}
+
+.replay-button {
+    -fx-background-color: #DDD;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
 }
 
 .quiz-button {

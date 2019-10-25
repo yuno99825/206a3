@@ -4,7 +4,7 @@ import application.Chunk;
 import application.PrimaryScene;
 import application.SceneType;
 import application.scenes.DownloadingImagesController;
-import application.scenes.ImageSelectionController;
+import application.scenes.MediaSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -81,7 +81,7 @@ public class ChunkSelectionController extends PrimaryScene {
             } else {
                 createAlert("Chunk too long", "The selected chunk is too long (max 50 words)");
             }
-        } else {
+        } else if (searchResultsArea.isEditable()) {
             createAlert("No text selected", "Please select text to add/preview by highlighting.");
         }
     }
@@ -140,8 +140,8 @@ public class ChunkSelectionController extends PrimaryScene {
         downloadImagesStage.showAndWait();
 
         if (downloadingImagesController.isSuccess()) {
-            ImageSelectionController imageSelectionController = (ImageSelectionController) setScene(SceneType.IMAGE_SELECTION, stage);
-            imageSelectionController.setUp(searchTerm, selectedChunks);
+            MediaSelectionController mediaSelectionController = (MediaSelectionController) setScene(SceneType.MEDIA_SELECTION, stage);
+            mediaSelectionController.setUp(searchTerm, selectedChunks);
         }
     }
 

@@ -18,22 +18,22 @@
 
 <StackPane stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scenes.chunkselection.ChunkSelectionController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" visible="false">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="image-container">
          <children>
-            <ImageView opacity="0.44" pickOnBounds="true" preserveRatio="true">
+            <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../icons/background.jpg" />
                </image>
             </ImageView>
          </children>
       </VBox>
-      <VBox maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" spacing="20.0">
+      <VBox maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" spacing="20.0" styleClass="main-container">
          <children>
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <Label text="Step 1: Choose Text" textFill="WHITE">
+                  <Label styleClass="creation-title" text="Step 1: Choose Text" textFill="WHITE">
                      <font>
-                        <Font size="44.0" />
+                        <Font name="System Bold" size="44.0" />
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
@@ -62,12 +62,16 @@
                      <children>
                         <VBox>
                            <children>
-                              <Label fx:id="searchPrompt" text="Search Wikipedia:" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <HBox spacing="10.0">
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="searchPrompt" text="Search Wikipedia:" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                                  <children>
                                     <TextField fx:id="searchField" onAction="#searchButtonClicked">
                                        <HBox.margin>
@@ -89,6 +93,16 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Button mnemonicParsing="false" styleClass="help-button">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/help.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </HBox>
                               <TextArea fx:id="searchResultsArea" editable="false" prefHeight="343.0" prefWidth="512.0" wrapText="true" />
@@ -100,11 +114,25 @@
                         </VBox>
                         <VBox>
                            <children>
-                              <Label text="Create audio from selection:" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label text="Create audio from selection:" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Button mnemonicParsing="false" styleClass="help-button">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/help.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
                               <Label text="Pitch" textFill="WHITE" />
                               <Slider fx:id="pitchSlider" max="300.0" min="50.0" prefHeight="38.0" prefWidth="378.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="150.0" />
                               <Label text="Speed" textFill="WHITE" />
@@ -132,13 +160,26 @@
                   </VBox>
                   <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                            <children>
                               <Label text="Audio to include:" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="13.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" styleClass="help-button">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/help.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets right="40.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
                         <HBox spacing="10.0" VBox.vgrow="ALWAYS">

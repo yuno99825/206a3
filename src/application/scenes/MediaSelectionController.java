@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -25,11 +26,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSelectionController extends PrimaryScene {
+public class MediaSelectionController extends PrimaryScene {
     @FXML
     private TilePane imagesTilePane;
     @FXML
     private Button nextButton;
+    @FXML
+    private ComboBox<String> musicComboBox;
     private String searchTerm;
     private ObservableList<Chunk> chunks;
     private List<Integer> selectedImages = new ArrayList<Integer>();
@@ -46,6 +49,13 @@ public class ImageSelectionController extends PrimaryScene {
             imageView.setImage(image);
             i++;
         }
+        musicComboBox.getItems().addAll(
+                "No music",
+                "Ambient",
+                "Lofi",
+                "Upbeat"
+        );
+        musicComboBox.setValue("No music");
     }
 
     public void setUp(String searchTerm, ObservableList<Chunk> chunks) {
