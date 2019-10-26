@@ -36,7 +36,7 @@ public class MakeCreationTask extends Task<Void> {
         joinChunksCmd = joinChunksCmd.concat(" .temp/creation_audio.wav");
         creationCmds.add(joinChunksCmd);
         creationCmds.addAll(new ArrayList<String> (Arrays.asList(
-                "echo \" + searchTerm + \" > ./.temp/searchTerm.txt",
+                "echo \"" + searchTerm + "\" > ./.temp/searchTerm.txt",
                 "bash ./resources/scripts/createSlideShow.sh",
                 "ffmpeg -y -i ./.temp/video.mp4 -i ./.temp/creation_audio.wav -c:v copy -c:a aac -strict experimental ./.temp/quiz.mp4",
                 "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./CaviarDreams.ttf:fontsize=100: " +
