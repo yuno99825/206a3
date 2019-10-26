@@ -25,8 +25,9 @@ public class CreationPreviewController extends PrimaryScene {
     private TextField nameField;
     @FXML
     private Label nameErrorLabel;
+
     @FXML
-    private void initialize() throws IOException{
+    private void initialize() throws IOException {
         File videoURL = new File("./.temp/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
         player = new MediaPlayer(video);
@@ -40,28 +41,11 @@ public class CreationPreviewController extends PrimaryScene {
         String creationName = nameField.getText();
         if (nameIsValid(creationName)) {
             player.pause();
-
             ProcessBuilder pb = new ProcessBuilder();
-            pb.command("/bin/bash", "-c", "[ -d ./creations ]");
-            Process checkFolderExist = pb.start();
-            int folderExsists = checkFolderExist.waitFor();
-            if (folderExsists != 0) {
-                pb.command("/bin/bash", "-c", "mkdir creations");
-                Process makeFolder = pb.start();
-                makeFolder.waitFor();
-            }
-
-            pb = new ProcessBuilder();
-            pb.command("/bin/bash", "-c", "[ -e ./creations/\"" + creationName + "\" ]");
-            Process checkExist = pb.start();
-            int creationExists = checkExist.waitFor();
-
-            if (creationExists != 0) {
-                pb.command("/bin/bash", "-c", "mv ./.temp ./creations/" + "\"" + creationName + "\"");
-                Process moveTemp = pb.start();
-                moveTemp.waitFor();
-                setScene(SceneType.MENU, stage);
-            } else {
+            pb.command("/bin/bash", "-c", "bash moveTempFolder.sh \"" + creationName + "\"");
+            Process process = pb.start();
+            int exitStatus = process.waitFor();
+            if (exitStatus == 1) {
                 Alert alert = new Alert(Alert.AlertType.NONE, "Creation: '" + creationName + "' already exists. Do you wish to overwrite it?", ButtonType.YES, ButtonType.NO);
                 alert.setTitle("Creation already exists");
                 alert.setHeight(150);
@@ -126,5 +110,4 @@ public class CreationPreviewController extends PrimaryScene {
     private boolean nameIsValid(String creationName) {
         return creationName.matches("[A-Za-z0-9_\\-][A-Za-z0-9_\\- ]*");
     }
-
 }
