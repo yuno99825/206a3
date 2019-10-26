@@ -1,6 +1,6 @@
 package application.scenes;
 
-import application.tasks.ImagesTask;
+import application.DownloadImagesTask;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +22,7 @@ public class DownloadingImagesController {
 
     private String searchTerm;
     private boolean success = false;
-    private ImagesTask imagesTask;
+    private DownloadImagesTask downloadImagesTask;
 
     private ExecutorService team = Executors.newFixedThreadPool(1,
             new ThreadFactory() {
@@ -36,11 +36,11 @@ public class DownloadingImagesController {
     public void go (String searchTerm) {
         progressBar.setProgress(0);
         this.searchTerm = searchTerm;
-        imagesTask = new ImagesTask(searchTerm);
-        team.submit(imagesTask);
-        progressBar.progressProperty().bind(imagesTask.progressProperty());
+        downloadImagesTask = new DownloadImagesTask(searchTerm);
+        team.submit(downloadImagesTask);
+        progressBar.progressProperty().bind(downloadImagesTask.progressProperty());
 
-        imagesTask.setOnSucceeded(e -> {
+        downloadImagesTask.setOnSucceeded(e -> {
             progressLabel.setText("Success!");
             cancelButton.setText("Done");
             success = true;
@@ -50,8 +50,8 @@ public class DownloadingImagesController {
     @FXML
     private void buttonClicked() throws IOException, InterruptedException {
         if (cancelButton.getText().equals("Cancel")) {
-            if (imagesTask != null) {
-                imagesTask.cancel();
+            if (downloadImagesTask != null) {
+                downloadImagesTask.cancel();
             }
         }
         Stage stage = (Stage) cancelButton.getScene().getWindow();
