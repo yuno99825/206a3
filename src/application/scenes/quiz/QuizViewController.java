@@ -1,4 +1,4 @@
-package application.scenes;
+package application.scenes.quiz;
 
 import application.PrimaryScene;
 import application.SceneType;
@@ -53,12 +53,9 @@ public class QuizViewController extends PrimaryScene {
     private int numberOfCorrect = 0;
     private int attemptNumber = 1;
 
-
-
     public void setCreationsList(List<String> creationsList) {
         _creationsList = creationsList;
     }
-
 
     private void playQuizMedia() {
         int numberOfCreations = _creationsList.size();
@@ -96,7 +93,6 @@ public class QuizViewController extends PrimaryScene {
         }
     }
 
-
     private void dispStatsScreen(){
         try {
             QuizStatsController controller = (QuizStatsController) setScene(SceneType.QUIZ_STATS, stage);
@@ -109,7 +105,6 @@ public class QuizViewController extends PrimaryScene {
             e.printStackTrace();
         }
     }
-
 
     private String getTermFromTxtFile(){
         String cmd = "cat ./creations/\"" + _creationToPlay + "\"/searchTerm.txt";
@@ -136,7 +131,6 @@ public class QuizViewController extends PrimaryScene {
     @FXML
     private void submitButtonClicked(){
         if (submitButton.isDisabled()) {return;}
-
         mediaView.setVisible(false);
         replayButton.setVisible(false);
         submitButton.setDisable(true);
@@ -157,7 +151,6 @@ public class QuizViewController extends PrimaryScene {
             return;
 
         } else {
-
             wrongLabel.setVisible(true);
             player.pause();
             if (attemptNumber < 2) {

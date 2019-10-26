@@ -2,7 +2,7 @@ package application.scenes.menu;
 
 import application.PrimaryScene;
 import application.SceneType;
-import application.scenes.QuizViewController;
+import application.scenes.quiz.QuizViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;

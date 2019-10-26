@@ -1,4 +1,4 @@
-package application.scenes;
+package application.scenes.quiz;
 
 import application.PrimaryScene;
 import application.SceneType;
@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Stack;
 
 public class QuizStatsController extends PrimaryScene {
-
 
     @FXML
     private Label recapMessageLabel;
@@ -94,7 +93,6 @@ public class QuizStatsController extends PrimaryScene {
         }
 
     }
-
 
     @FXML
     private void backButtonClicked() throws IOException {
