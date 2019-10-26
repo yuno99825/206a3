@@ -1,5 +1,6 @@
-package application;
+package application.scenes.mediaselection;
 
+import application.Chunk;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
@@ -84,10 +85,12 @@ public class MakeCreationTask extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
+        double numCmds = 2 + creationCmds.size();
+        updateProgress(0,numCmds);
         cleanUp();
         new File(".temp/audio/").mkdirs();
         new File(".temp/images/selected").mkdirs();
-        double numCmds = 2 + creationCmds.size();
+        
         synthChunks();
         updateProgress(1, numCmds);
         moveSelectedImages();

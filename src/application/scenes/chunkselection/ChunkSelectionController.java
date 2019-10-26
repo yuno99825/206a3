@@ -1,10 +1,9 @@
 package application.scenes.chunkselection;
 
 import application.Chunk;
-import application.DownloadImagesTask;
 import application.PrimaryScene;
 import application.SceneType;
-import application.scenes.MediaSelectionController;
+import application.scenes.mediaselection.MediaSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;

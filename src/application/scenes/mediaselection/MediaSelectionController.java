@@ -1,4 +1,4 @@
-package application.scenes;
+package application.scenes.mediaselection;
 
 import application.*;
 import javafx.collections.ObservableList;
