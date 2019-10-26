@@ -59,8 +59,8 @@ public class CreationPreviewController extends PrimaryScene {
             if (creationExists != 0) {
                 pb.command("/bin/bash", "-c", "mv ./.temp ./creations/" + "\"" + creationName + "\"");
                 Process moveTemp = pb.start();
-                Stage thisStage = (Stage)nameField.getScene().getWindow();
-                thisStage.close();
+                moveTemp.waitFor();
+                setScene(SceneType.MENU, stage);
             } else {
                 Alert alert = new Alert(Alert.AlertType.NONE, "Creation: '" + creationName + "' already exists. Do you wish to overwrite it?", ButtonType.YES, ButtonType.NO);
                 alert.setTitle("Creation already exists");

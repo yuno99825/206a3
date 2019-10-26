@@ -90,7 +90,7 @@ public class MakeCreationTask extends Task<Void> {
         cleanUp();
         new File(".temp/audio/").mkdirs();
         new File(".temp/images/selected").mkdirs();
-        
+
         synthChunks();
         updateProgress(1, numCmds);
         moveSelectedImages();
