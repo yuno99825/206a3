@@ -5,7 +5,8 @@ public enum SceneType {
     CHUNK_SELECTION("/resources/scenes/chunkselection/ChunkSelection.fxml"),
     MEDIA_SELECTION("/resources/scenes/MediaSelection.fxml"),
     CREATION_PREVIEW("/resources/scenes/CreationPreview.fxml"),
-    QUIZ("/resources/scenes/QuizView.fxml");
+    QUIZ("/resources/scenes/QuizView.fxml"),
+    QUIZ_STATS("/resources/scenes/QuizStatsScreen.fxml");
 
     private String pathToFXML;
 

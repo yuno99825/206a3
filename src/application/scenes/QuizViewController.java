@@ -39,25 +39,14 @@ public class QuizViewController extends PrimaryScene {
     @FXML
     private Label wrongLabel;
     @FXML
-    private StackPane stackPane;
-    @FXML
-    private VBox statisticsScreen;
-    @FXML
-    private Label wellDoneLabel;
-    @FXML
-    private Label gettingThereLabel;
-    @FXML
-    private Label practiseLabel;
-    @FXML
     private Label titleLabel;
-    @FXML
-    private Label recapMessageLabel;
-    @FXML
-    private Label accuracyPercentLabel;
+
     @FXML
     private Label labelWithAnswer;
 
     private List<String> _creationsList;
+    private List<String> _creationsInOrder = new ArrayList<String>();
+    private List<String> _userAnswers = new ArrayList<String>();
     private int _questionNumber = 0;
     private String _creationToPlay;
     private String _searchTerm = "";
@@ -70,7 +59,8 @@ public class QuizViewController extends PrimaryScene {
         _creationsList = creationsList;
     }
 
-    private void playQuizMedia(){
+
+    private void playQuizMedia() {
         int numberOfCreations = _creationsList.size();
         questionNumberLabel.setVisible(true);
         if (numberOfCreations > 0) {
@@ -80,6 +70,7 @@ public class QuizViewController extends PrimaryScene {
             int randomCreation = (int) (Math.random() * numberOfCreations);
             _creationToPlay = _creationsList.get(randomCreation);
             _searchTerm = getTermFromTxtFile();
+            _creationsInOrder.add(_searchTerm);
             _questionNumber++;
             questionNumberLabel.setText("Question " + _questionNumber + "!");
 
@@ -101,40 +92,22 @@ public class QuizViewController extends PrimaryScene {
             }
             _creationsList = temp;
         } else {
-            dispStatsScreen();
+           dispStatsScreen();
         }
     }
 
-    private void dispStatsScreen(){
 
-        mediaView.setVisible(false);
-        replayButton.setVisible(false);
-        titleLabel.setVisible(false);
-        questionNumberLabel.setVisible(false);
-        answerField.setVisible(false);
-        submitButton.setVisible(false);
-        statisticsScreen.setVisible(true);
-        String percent;
-        if (numberOfCorrect == 0){
-            practiseLabel.setVisible(true);
-            percent = "0";
-        } else {
-            double ratio = (numberOfCorrect*1.00)/(_questionNumber*1.00);
-            ratio = ratio*100.0;
-            percent = String.format("%.1f",ratio);
-            //percent = Double.toString(ratio);
-            if (ratio >= 0.8) {
-                wellDoneLabel.setVisible(true);
-            } else if (ratio >= 0.5) {
-                gettingThereLabel.setVisible(true);
-            } else {
-                practiseLabel.setVisible(true);
-            }
+    private void dispStatsScreen(){
+        try {
+            QuizStatsController controller = (QuizStatsController) setScene(SceneType.QUIZ_STATS, stage);
+            controller.setNumberOfCorrect(numberOfCorrect);
+            controller.setQuestionNumber(_questionNumber);
+            controller.setCreationsInOrder(_creationsInOrder);
+            controller.setUserAnswers(_userAnswers);
+            controller.setStats();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        recapMessageLabel.setText("You got " + Integer.toString(numberOfCorrect) + " answer(s) correct out of " + Integer.toString(_questionNumber));
-        recapMessageLabel.setVisible(true);
-        accuracyPercentLabel.setText(percent + "%");
-        accuracyPercentLabel.setVisible(true);
     }
 
 
@@ -170,6 +143,7 @@ public class QuizViewController extends PrimaryScene {
         if((answerField.getText().equals(_searchTerm))||(answerField.getText().trim().equals(_searchTerm.trim()))){
             numberOfCorrect++;
             attemptNumber = 1;
+            _userAnswers.add(answerField.getText());
             correctLabel.setVisible(true);
             player.pause();
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
@@ -202,6 +176,7 @@ public class QuizViewController extends PrimaryScene {
                 delay.play();
             } else {
                 attemptNumber = 1;
+                _userAnswers.add(answerField.getText());
                 labelWithAnswer.setText("Correct answer was: " + _searchTerm);
                 labelWithAnswer.setVisible(true);
                 PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
