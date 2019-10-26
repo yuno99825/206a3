@@ -55,7 +55,7 @@ public class MediaSelectionController extends PrimaryScene {
                 "Lofi",
                 "Upbeat"
         );
-        musicComboBox.setValue("No music");
+        musicComboBox.getSelectionModel().selectFirst();
     }
 
     public void setUp(String searchTerm, ObservableList<Chunk> chunks) {

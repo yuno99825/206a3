@@ -37,7 +37,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" styleClass="creation-button">
+                  <Button mnemonicParsing="false" onAction="#homeButtonClicked" styleClass="creation-button">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

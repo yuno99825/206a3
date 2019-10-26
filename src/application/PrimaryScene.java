@@ -1,6 +1,7 @@
 package application;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,5 +32,16 @@ public abstract class PrimaryScene {
         alert.setTitle(title);
         alert.setHeight(150);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void homeButtonClicked() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.NONE, "Are you sure you want to return to menu?\nAll progress will be lost!", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Return home");
+        alert.setHeight(150);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            setScene(SceneType.MENU, stage);
+        }
     }
 }

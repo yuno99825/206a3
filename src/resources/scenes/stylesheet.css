@@ -94,6 +94,11 @@
     -fx-border-width: 0;
 }
 
+.combo-box .list-cell {
+    -fx-background-color: #111;
+    -fx-border-color: #111;
+}
+
 .replay-button {
     -fx-background-color: #DDD;
     -fx-background-radius: 10px;
