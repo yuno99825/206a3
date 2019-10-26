@@ -31,7 +31,7 @@ public class MenuController extends PrimaryScene {
     private void openQuizView() throws IOException {
         List<String> creationNames = creationListView.getItems();
         QuizViewController controller = (QuizViewController) setScene(SceneType.QUIZ, stage);
-        controller.setCreationsList(creationNames);
+        controller.setCreations(creationNames);
         stage.setOnCloseRequest(e -> {
             controller.stopVideo();
         });

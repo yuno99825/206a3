@@ -33,6 +33,10 @@ public class QuizStatsController extends PrimaryScene {
     private List<Label> _creationsInOrderForGrid = new ArrayList<Label>();
     private List<Label> _userAnswersForGrid = new ArrayList<Label>();
 
+    public void setStats() {
+
+    }
+
     public void setNumberOfCorrect(int numberOfCorrect) {
         this._numberOfCorrect = numberOfCorrect;
     }
@@ -46,7 +50,7 @@ public class QuizStatsController extends PrimaryScene {
         this._userAnswers = userAnswers;
     }
 
-    void setStats(){
+    void setStats2(){
 
         String percent;
         if (_numberOfCorrect == 0){
