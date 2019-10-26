@@ -51,7 +51,7 @@ public class MediaSelectionController extends PrimaryScene {
                 "No music",
                 "Ambient",
                 "Lofi",
-                "Upbeat"
+                "Downbeat"
         );
         musicComboBox.getSelectionModel().selectFirst();
     }

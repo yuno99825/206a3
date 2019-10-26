@@ -65,6 +65,12 @@
 .list-view {
     -fx-background-color: #111;
     -fx-border-color: #111;
+    -fx-selection-bar:-creation-color;
+    -fx-selection-bar-non-focused: derive(-creation-color, 40%);
+}
+
+.list-view .list-cell:selected {
+    -fx-text-fill: #111;
 }
 
 .list-cell {
@@ -83,6 +89,11 @@
     -fx-background-radius: 0 ;
 }
 
+.text-input {
+    -fx-highlight-fill: -creation-color;
+    -fx-highlight-text-fill: #111;
+}
+
 .images-tile-pane {
     -fx-control-inner-background:#111;
     -fx-background-color: #111;
@@ -97,6 +108,11 @@
 .combo-box .list-cell {
     -fx-background-color: #111;
     -fx-border-color: #111;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-color: #DDD;
+    -fx-text-fill: #080808;
 }
 
 .replay-button {
