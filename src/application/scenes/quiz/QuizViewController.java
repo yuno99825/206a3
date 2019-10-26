@@ -7,12 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -29,7 +26,7 @@ public class QuizViewController extends PrimaryScene {
     @FXML
     private Button startButton;
     @FXML
-    private Label questionNumberLabel;
+    private Label questionLabel;
     @FXML
     private Button submitButton;
     @FXML
@@ -38,8 +35,6 @@ public class QuizViewController extends PrimaryScene {
     private Label correctLabel;
     @FXML
     private Label wrongLabel;
-    @FXML
-    private Label titleLabel;
 
     @FXML
     private Label labelWithAnswer;
@@ -57,19 +52,27 @@ public class QuizViewController extends PrimaryScene {
         _creationsList = creationsList;
     }
 
-    private void playQuizMedia() {
+    @FXML
+    private void startButtonClicked(){
+        startButton.setVisible(false);
+        answerField.setVisible(true);
+        submitButton.setVisible(true);
+        startQuiz();
+    }
+
+    private void startQuiz() {
         int numberOfCreations = _creationsList.size();
-        questionNumberLabel.setVisible(true);
+        questionLabel.setVisible(true);
         if (numberOfCreations > 0) {
             if (!(mediaView.isVisible())) {
                 mediaView.setVisible(true);
             }
             int randomCreation = (int) (Math.random() * numberOfCreations);
             _creationToPlay = _creationsList.get(randomCreation);
-            _searchTerm = getTermFromTxtFile();
+            _searchTerm = getSearchTerm();
             _creationsInOrder.add(_searchTerm);
             _questionNumber++;
-            questionNumberLabel.setText("Question " + _questionNumber + "!");
+            questionLabel.setText("Question " + _questionNumber + "!");
 
             File videoURL = new File("./creations/" + _creationToPlay + "/quiz.mp4");
             Media video = new Media(videoURL.toURI().toString());
@@ -106,7 +109,7 @@ public class QuizViewController extends PrimaryScene {
         }
     }
 
-    private String getTermFromTxtFile(){
+    private String getSearchTerm(){
         String cmd = "cat ./creations/\"" + _creationToPlay + "\"/searchTerm.txt";
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
         Process process = null;
@@ -144,7 +147,7 @@ public class QuizViewController extends PrimaryScene {
             delay.setOnFinished( event -> {
                 correctLabel.setVisible(false);
                 submitButton.setDisable(false);
-                playQuizMedia();
+                startQuiz();
             } );
             delay.play();
             answerField.setText("");
@@ -177,22 +180,13 @@ public class QuizViewController extends PrimaryScene {
                     wrongLabel.setVisible(false);
                     labelWithAnswer.setVisible(false);
                     submitButton.setDisable(false);
-                    playQuizMedia();
+                    startQuiz();
                 });
                 delay.play();
             }
             answerField.setText("");
             return;
         }
-    }
-
-
-    @FXML
-    private void startButtonClicked(){
-        startButton.setVisible(false);
-        answerField.setVisible(true);
-        submitButton.setVisible(true);
-        playQuizMedia();
     }
 
     @FXML
@@ -212,11 +206,6 @@ public class QuizViewController extends PrimaryScene {
         replayButton.setVisible(false);
         player.seek(Duration.ZERO);
         player.play();
-    }
-
-    @FXML
-    private void backButtonClicked() throws IOException {
-        setScene(SceneType.MENU, stage);
     }
 
     @FXML
