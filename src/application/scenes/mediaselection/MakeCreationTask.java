@@ -43,10 +43,10 @@ public class MakeCreationTask extends Task<Void> {
                         "fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='" + searchTerm + "'\" ./.temp/video_with_text.mp4",
                 "ffmpeg -y -i ./.temp/video_with_text.mp4 -i ./.temp/creation_audio.wav -c:v copy " +
                         "-c:a aac -strict experimental ./.temp/creation_no_music.mp4",
-                "ffmpeg -i " + pathToMusic + " -i ./.temp/video_with_text.mp4 -filter_complex \"[0:a][1:a]amerge,pan=stereo|c0<c0+c2|c1<c1+c3[out]\" -map 1:v -map \"[out]\" -c:v copy -shortest ./.temp/creation.mp4"
-//                "ffmpeg -i ./.temp/creation_no_music.mp4 -i " + pathToMusic + " -c:v copy -filter_complex" +
-//                        " \"[0:a]aformat=fltp:44100:stereo,apad[0a];[1]aformat=fltp:44100:stereo,volume=1.5[1a];[0a][1a]amerge[a]\" -map 0:v -map \"[a]\" " +
-//                        "-ac 2 -shortest ./.temp/creation.mp4"
+//                "ffmpeg -i " + pathToMusic + " -i ./.temp/creation_no_music.mp4 -filter_complex \"[0:a][1:a]amerge,pan=stereo|c0<c0+c2|c1<c1+c3[out]\" -map 1:v -map \"[out]\" -c:v copy -shortest ./.temp/creation.mp4"
+                "ffmpeg -i ./.temp/creation_no_music.mp4 -i " + pathToMusic + " -c:v copy -filter_complex" +
+                        " \"[0:a]aformat=fltp:44100:stereo,apad[0a];[1]aformat=fltp:44100:stereo,volume=1.5[1a];[0a][1a]amerge[a]\" -map 0:v -map \"[a]\" " +
+                        "-ac 2 -shortest ./.temp/creation.mp4"
         )));
     }
 
