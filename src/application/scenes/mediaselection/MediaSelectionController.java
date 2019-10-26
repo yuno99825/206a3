@@ -90,7 +90,8 @@ public class MediaSelectionController extends PrimaryScene {
                 }
                 i++;
             }
-            Task<Void> task = new MakeCreationTask(searchTerm, chunks, selectedImages);
+            String pathToMusic = "\"./resources/music/" + musicComboBox.getValue().toLowerCase() + ".mp3\"";
+            Task<Void> task = new MakeCreationTask(searchTerm, chunks, selectedImages, pathToMusic);
             if (showLoadingScreen("Creating creation", task)) {
                 setScene(SceneType.CREATION_PREVIEW, stage);
             }

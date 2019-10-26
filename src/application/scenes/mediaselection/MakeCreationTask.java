@@ -15,13 +15,16 @@ public class MakeCreationTask extends Task<Void> {
     private String searchTerm;
     private ObservableList<Chunk> chunks;
     private List<Integer> selectedImages;
+    private String pathToMusic;
+
     private ProcessBuilder pb = new ProcessBuilder();
     private List<String> creationCmds = new ArrayList<String>();
 
-    public MakeCreationTask(String searchTerm, ObservableList<Chunk> chunks, List<Integer> selectedImages) {
+    public MakeCreationTask(String searchTerm, ObservableList<Chunk> chunks, List<Integer> selectedImages, String pathToMusic) {
         this.chunks = chunks;
         this.searchTerm = searchTerm;
         this.selectedImages = selectedImages;
+        this.pathToMusic = pathToMusic;
         setUpCmds();
     }
 
@@ -34,15 +37,16 @@ public class MakeCreationTask extends Task<Void> {
         creationCmds.add(joinChunksCmd);
         creationCmds.addAll(new ArrayList<String> (Arrays.asList(
                 "echo \" + searchTerm + \" > ./.temp/searchTerm.txt",
-                "bash ./scripts/createSlideShow.sh",
+                "bash ./resources/scripts/createSlideShow.sh",
                 "ffmpeg -y -i ./.temp/video.mp4 -i ./.temp/creation_audio.wav -c:v copy -c:a aac -strict experimental ./.temp/quiz.mp4",
                 "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./CaviarDreams.ttf:fontsize=100: " +
                         "fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='" + searchTerm + "'\" ./.temp/video_with_text.mp4",
                 "ffmpeg -y -i ./.temp/video_with_text.mp4 -i ./.temp/creation_audio.wav -c:v copy " +
                         "-c:a aac -strict experimental ./.temp/creation_no_music.mp4",
-                "ffmpeg -i ./.temp/creation_no_music.mp4 -i ./src/resources/music/ambient.mp3 -c:v copy -filter_complex" +
-                        " \"[0:a]aformat=fltp:44100:stereo,apad[0a];[1]aformat=fltp:44100:stereo,volume=1.5[1a];[0a][1a]amerge[a]\" -map 0:v -map \"[a]\" " +
-                        "-ac 2 -shortest ./.temp/creation.mp4"
+                "ffmpeg -i " + pathToMusic + " -i ./.temp/video_with_text.mp4 -filter_complex \"[0:a][1:a]amerge,pan=stereo|c0<c0+c2|c1<c1+c3[out]\" -map 1:v -map \"[out]\" -c:v copy -shortest ./.temp/creation.mp4"
+//                "ffmpeg -i ./.temp/creation_no_music.mp4 -i " + pathToMusic + " -c:v copy -filter_complex" +
+//                        " \"[0:a]aformat=fltp:44100:stereo,apad[0a];[1]aformat=fltp:44100:stereo,volume=1.5[1a];[0a][1a]amerge[a]\" -map 0:v -map \"[a]\" " +
+//                        "-ac 2 -shortest ./.temp/creation.mp4"
         )));
     }
 
@@ -78,7 +82,7 @@ public class MakeCreationTask extends Task<Void> {
     }
 
     private void cleanUp() throws IOException, InterruptedException {
-        pb.command("/bin/bash", "-c", "bash deleteExceptImages.sh");
+        pb.command("/bin/bash", "-c", "bash ./resources/scripts/deleteExceptImages.sh");
         Process process = pb.start();
         process.waitFor();
     }

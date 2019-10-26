@@ -42,7 +42,7 @@ public class CreationPreviewController extends PrimaryScene {
         if (nameIsValid(creationName)) {
             player.pause();
             ProcessBuilder pb = new ProcessBuilder();
-            pb.command("/bin/bash", "-c", "bash moveTempFolder.sh \"" + creationName + "\"");
+            pb.command("/bin/bash", "-c", "bash ./resources/scripts/moveTempFolder.sh \"" + creationName + "\"");
             Process process = pb.start();
             int exitStatus = process.waitFor();
             if (exitStatus == 1) {
