@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scenes.menu.MenuController">
+   <children>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <ImageView fitHeight="750.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/background.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <HBox style="-fx-background-color: rgba(255, 255, 255, 0.2);">
+               <VBox.margin>
+                  <Insets bottom="120.0" />
+               </VBox.margin>
+               <children>
+                  <Label text="VARpedia" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="70.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="80.0" right="80.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Label text="Creations" textFill="WHITE">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <Button mnemonicParsing="false" styleClass="help-button">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/help.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets right="80.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="60.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="playQuizButton" maxHeight="120.0" maxWidth="120.0" minHeight="120.0" minWidth="120.0" mnemonicParsing="false" onAction="#openQuizView" prefHeight="120.0" prefWidth="120.0">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/quiz.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="menu-button" />
+                              <String fx:value="quiz-button" />
+                           </styleClass>
+                        </Button>
+                        <Region prefHeight="200.0" prefWidth="200.0" />
+                        <Button maxHeight="120.0" maxWidth="120.0" minHeight="120.0" minWidth="120.0" mnemonicParsing="false" onAction="#newCreation" prefHeight="120.0" prefWidth="120.0">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/plus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="menu-button" />
+                              <String fx:value="creation-button" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" opacity="0.89" style="-fx-border-radius: 15 15 0 0; -fx-background-radius: 15 15 0 0;" />
+                        <ListView fx:id="creationListView" maxHeight="300.0" maxWidth="600.0" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ListView>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="80.0" right="80.0" />
+               </padding>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="70.0" />
+         </padding>
+      </VBox>
+   </children>
+</StackPane>

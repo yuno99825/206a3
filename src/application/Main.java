@@ -1,18 +1,26 @@
 package application;
 
+import application.scenes.menu.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(Main.class.getResource("/view/Menu.fxml"));
+        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/resources/scenes/menu/Menu.fxml"));
+        Parent root = loader.load();
+        MenuController menuController = loader.getController();
+        menuController.setStage(primaryStage);
+
         primaryStage.setTitle("VARpedia");
-        primaryStage.setScene(new Scene(root, 750 , 662));
+        primaryStage.setScene(new Scene(root, PrimaryScene.APP_WIDTH , PrimaryScene.APP_HEIGHT));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

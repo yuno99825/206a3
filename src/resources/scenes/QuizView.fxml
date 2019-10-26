@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scenes.QuizViewController">
+   <children>
+      <HBox>
+         <children>
+            <Button mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <HBox>
+         <children>
+            <Region HBox.hgrow="ALWAYS" />
+            <StackPane>
+               <children>
+                  <Label fx:id="wellDoneLabel" text="Well Done!" visible="false">
+                     <font>
+                        <Font size="39.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="gettingThereLabel" text="Getting There!" visible="false">
+                     <font>
+                        <Font size="39.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="practiseLabel" text="You need practise!" visible="false">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="titleLabel" text="Creation Quiz!">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <Region HBox.hgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </HBox>
+      <HBox>
+         <children>
+            <Label fx:id="questionNumberLabel" text="Question 1:" visible="false" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="20.0" top="5.0" />
+         </padding>
+      </HBox>
+      <StackPane fx:id="stackPane">
+         <children>
+            <MediaView fx:id="mediaView" fitHeight="300.0" fitWidth="450.0" onMouseClicked="#playPauseVid" />
+            <Button fx:id="replayButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#replayButtonClicked" text="Replay" visible="false" />
+            <Label fx:id="correctLabel" text="Correct!" visible="false">
+               <font>
+                  <Font size="44.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <children>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <HBox>
+                     <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="wrongLabel" text="Incorrect!" visible="false">
+                           <font>
+                              <Font size="46.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="labelWithAnswer" visible="false">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonClicked" text="Start" />
+            <VBox fx:id="statisticsScreen" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <HBox>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <Label fx:id="recapMessageLabel" text="Label" visible="false" />
+                     </children>
+                  </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <HBox>
+                     <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="accuracyPercentLabel" text="Label" visible="false">
+                           <font>
+                              <Font size="96.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <HBox spacing="15.0">
+         <children>
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="answerField" onAction="#submitButtonClicked" onKeyReleased="#keyReleased" visible="false" />
+            <Button fx:id="submitButton" disable="true" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" visible="false" />
+            <Region HBox.hgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
