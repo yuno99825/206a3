@@ -4,6 +4,7 @@ import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.FlickrException;
 import com.flickr4java.flickr.REST;
 import com.flickr4java.flickr.photos.*;
+import com.sun.scenario.effect.impl.prism.PrCropPeer;
 import javafx.concurrent.Task;
 
 import javax.imageio.ImageIO;
@@ -21,8 +22,10 @@ public class DownloadImagesTask extends Task<Void> {
 
     @Override
     protected Void call() {
-        new File(".temp/images/").mkdirs();
         try {
+            removeTempFolder();
+            new File(".temp/images/").mkdirs();
+
             String apiKey = getAPIKey("apiKey");
             String sharedSecret = getAPIKey("sharedSecret");
             Flickr flickr = new Flickr(apiKey, sharedSecret, new REST());
@@ -37,6 +40,7 @@ public class DownloadImagesTask extends Task<Void> {
             int i = 1;
             for (Photo photo: results) {
                 if (isCancelled()) {
+                    removeTempFolder();
                     return null;
                 }
                 try {
@@ -50,16 +54,16 @@ public class DownloadImagesTask extends Task<Void> {
                 updateProgress(i,10);
                 i++;
                 if (isCancelled()) {
+                    removeTempFolder();
                     return null;
                 }
             }
         } catch (Exception e) {
         }
-
         return null;
     }
 
-    public static String getAPIKey(String key) throws Exception {
+    private static String getAPIKey(String key) throws Exception {
         String config = System.getProperty("user.dir")
                 + System.getProperty("file.separator")+ "flickr-api-keys.txt";
         File file = new File(config);
@@ -74,5 +78,11 @@ public class DownloadImagesTask extends Task<Void> {
         }
         br.close();
         throw new RuntimeException("Couldn't find " + key +" in config file "+file.getName());
+    }
+
+    private void removeTempFolder() throws IOException, InterruptedException {
+        ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp");
+        Process process = pb.start();
+        process.waitFor();
     }
 }

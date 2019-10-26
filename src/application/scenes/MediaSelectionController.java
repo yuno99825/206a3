@@ -1,10 +1,8 @@
 package application.scenes;
 
-import application.Chunk;
-import application.Main;
-import application.PrimaryScene;
-import application.SceneType;
+import application.*;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,21 +90,9 @@ public class MediaSelectionController extends PrimaryScene {
                 }
                 i++;
             }
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/resources/scenes/ProgressScreen.fxml"));
-            Parent root = loader.load();
-            ProgressScreenController progressScreenController = loader.getController();
-            progressScreenController.go(chunks, searchTerm, selectedImages);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-
-            if (progressScreenController.isSuccess()) {
-                setScene(SceneType.CREATION_PREVIEW, this.stage);
-            } else {
-                ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp/images/selected");
-                Process process = pb.start();
-                process.waitFor();
+            Task<Void> task = new MakeCreationTask(searchTerm, chunks, selectedImages);
+            if (showLoadingScreen("Creating creation", task)) {
+                setScene(SceneType.CREATION_PREVIEW, stage);
             }
         }
     }

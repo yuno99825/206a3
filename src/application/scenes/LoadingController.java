@@ -18,8 +18,7 @@ public class LoadingController {
     private ProgressBar progressBar;
     @FXML
     private Button cancelButton;
-
-    private boolean wasSuccessful;
+    private boolean success;
     private Task<Void> task;
     private ExecutorService team = Executors.newFixedThreadPool(1,
             new ThreadFactory() {
@@ -31,13 +30,13 @@ public class LoadingController {
             });
 
     public void start(String labelText, Task<Void> toDo) {
-        wasSuccessful = false;
+        success = false;
         label.setText(labelText + ", please wait...");
         task = toDo;
         team.submit(this.task);
         progressBar.progressProperty().bind(task.progressProperty());
         task.setOnSucceeded(e -> {
-            wasSuccessful = true;
+            success = true;
             label.setText("Success!");
             cancelButton.setText("Next");
         });
@@ -51,10 +50,16 @@ public class LoadingController {
         if (cancelButton.getText().equals("Cancel")) {
             if (task != null) {
                 task.cancel();
+                progressBar.progressProperty().unbind();
+                progressBar.setProgress(0);
             }
         }
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
+    }
+
+    public boolean wasSuccessful() {
+        return success;
     }
 
 }

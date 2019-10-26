@@ -3,6 +3,7 @@ package application;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class MakeCreationTask extends Task<Void> {
     private ObservableList<Chunk> chunks;
     private List<Integer> selectedImages;
     private ProcessBuilder pb = new ProcessBuilder();
-    private List<String> commands = new ArrayList<String>();
+    private List<String> creationCmds = new ArrayList<String>();
 
     public MakeCreationTask(String searchTerm, ObservableList<Chunk> chunks, List<Integer> selectedImages) {
         this.chunks = chunks;
@@ -29,8 +30,9 @@ public class MakeCreationTask extends Task<Void> {
             joinChunksCmd = joinChunksCmd.concat(" .temp/audio/" + i + ".wav");
         }
         joinChunksCmd = joinChunksCmd.concat(" .temp/creation_audio.wav");
-        commands.add(joinChunksCmd);
-        commands.addAll(new ArrayList<String> (Arrays.asList(
+        creationCmds.add(joinChunksCmd);
+        creationCmds.addAll(new ArrayList<String> (Arrays.asList(
+                "echo \" + searchTerm + \" > ./.temp/searchTerm.txt",
                 "bash ./scripts/createSlideShow.sh",
                 "ffmpeg -y -i ./.temp/video.mp4 -i ./.temp/creation_audio.wav -c:v copy -c:a aac -strict experimental ./.temp/quiz.mp4",
                 "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./CaviarDreams.ttf:fontsize=100: " +
@@ -74,18 +76,34 @@ public class MakeCreationTask extends Task<Void> {
         }
     }
 
+    private void cleanUp() throws IOException, InterruptedException {
+        pb.command("/bin/bash", "-c", "bash deleteExceptImages.sh");
+        Process process = pb.start();
+        process.waitFor();
+    }
+
     @Override
     protected Void call() throws Exception {
+        cleanUp();
+        new File(".temp/audio/").mkdirs();
+        new File(".temp/images/selected").mkdirs();
+        double numCmds = 2 + creationCmds.size();
         synthChunks();
+        updateProgress(1, numCmds);
         moveSelectedImages();
-        for (String cmd : commands) {
-            pb.command(cmd);
+        updateProgress(2, numCmds);
+        double i = 2;
+        for (String cmd : creationCmds) {
+            pb.command("/bin/bash", "-c", cmd);
             Process process = pb.start();
             if (isCancelled()) {
                 process.destroy();
+                cleanUp();
                 return null;
             }
             process.waitFor();
+            i++;
+            updateProgress(i, numCmds);
         }
         return null;
     }

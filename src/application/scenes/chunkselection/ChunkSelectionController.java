@@ -1,12 +1,15 @@
 package application.scenes.chunkselection;
 
 import application.Chunk;
+import application.DownloadImagesTask;
 import application.PrimaryScene;
 import application.SceneType;
 import application.scenes.DownloadingImagesController;
+import application.scenes.LoadingController;
 import application.scenes.MediaSelectionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -125,30 +128,15 @@ public class ChunkSelectionController extends PrimaryScene {
     }
 
     @FXML
-    private void nextButtonClicked() throws IOException, InterruptedException {
-        removeTempFolder();
+    private void nextButtonClicked() throws IOException {
         String searchTerm = searchField.getText();
         ObservableList<Chunk> selectedChunks = chunksListView.getItems();
+        Task<Void> task = new DownloadImagesTask(searchTerm);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/scenes/DownloadingImages.fxml"));
-        Parent downloadingImagesScreen = loader.load();
-        DownloadingImagesController downloadingImagesController = loader.getController();
-        downloadingImagesController.go(searchTerm);
-        Stage downloadImagesStage = new Stage();
-        downloadImagesStage.setScene(new Scene(downloadingImagesScreen));
-        downloadImagesStage.initModality(Modality.APPLICATION_MODAL);
-        downloadImagesStage.showAndWait();
-
-        if (downloadingImagesController.isSuccess()) {
+        if (showLoadingScreen("Downloading images", task)) {
             MediaSelectionController mediaSelectionController = (MediaSelectionController) setScene(SceneType.MEDIA_SELECTION, stage);
             mediaSelectionController.setUp(searchTerm, selectedChunks);
         }
-    }
-
-    private void removeTempFolder() throws IOException, InterruptedException {
-        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp");
-        Process process = processBuilder.start();
-        process.waitFor();
     }
 
     private static int countWords(String text) {

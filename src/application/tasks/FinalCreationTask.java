@@ -32,7 +32,7 @@ public class FinalCreationTask extends Task<Void> {
         }
         makeVid.waitFor();
 
-        pb.command("/bin/bash", "-c", "echo '" + searchTerm + "' > ./.temp/searchTerm.txt");
+        pb.command("/bin/bash", "-c", "echo \"" + searchTerm + "\" > ./.temp/searchTerm.txt");
         Process createTextFile = pb.start();
         if (isCancelled()) {
             createTextFile.destroy();
