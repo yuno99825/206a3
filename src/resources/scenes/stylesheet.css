@@ -129,6 +129,45 @@
     -fx-background-color: derive(-quiz-color, 30%);
 }
 
+.creation-region .quiz-label {
+    -fx-text-fill: -quiz-color;
+}
+
+.grid {
+    -fx-background-color: #080808;
+    -fx-border-color: #080808;
+}
+
+.stats-scroll-pane {
+    -fx-background-color: #080808;
+    -fx-border-width: 0;
+}
+
+.stats-title .label {
+    -fx-text-fill: -quiz-color;
+}
+
+.stats-h-box {
+    -fx-alignment: center;
+    -fx-pref-width: 290;
+    -fx-min-width: 290;
+    -fx-max-width: 290;
+    -fx-pref-height: 68;
+    -fx-min-height: 68;
+    -fx-max-height: 68;
+}
+
+.stats-h-box .label {
+    -fx-font-size: 20px;
+}
+
+.stats-incorrect .label {
+    -fx-text-fill: #cf6679;
+}
+
+.stats-correct .label {
+    -fx-text-fill: #90ee90;
+}
 /****************************************************************
 
   ScrollBar Skin

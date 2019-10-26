@@ -3,17 +3,12 @@ package application.scenes.quiz;
 import application.PrimaryScene;
 import application.SceneType;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class QuizStatsController extends PrimaryScene {
 
@@ -26,50 +21,25 @@ public class QuizStatsController extends PrimaryScene {
     @FXML
     private GridPane gridPane;
 
-    private int _numberOfCorrect;
-    private int _questionNumber;
-    private List<String> _creationsInOrder = new ArrayList<String>();
-    private List<String> _userAnswers = new ArrayList<String>();
-    private List<Label> _creationsInOrderForGrid = new ArrayList<Label>();
-    private List<Label> _userAnswersForGrid = new ArrayList<Label>();
+    private List<String> correctAnswers = new ArrayList<String>();
+    private List<String> userAnswers = new ArrayList<String>();
+    private int numQuestions;
 
-    public void setStats() {
+    public void setStats(List<String> correctAnswers, List<String> userAnswers, int numCorrect) {
+        this.correctAnswers = correctAnswers;
+        this.userAnswers = userAnswers;
+        this.numQuestions = correctAnswers.size();
 
-    }
-
-    public void setNumberOfCorrect(int numberOfCorrect) {
-        this._numberOfCorrect = numberOfCorrect;
-    }
-    public void setQuestionNumber(int numberOfQuestions){
-        this._questionNumber = numberOfQuestions;
-    }
-    public void setCreationsInOrder(List<String> creationsInOrder){
-        this._creationsInOrder = creationsInOrder;
-    }
-    public void setUserAnswers(List<String> userAnswers){
-        this._userAnswers = userAnswers;
-    }
-
-    void setStats2(){
-
-        String percent;
-        if (_numberOfCorrect == 0){
-            congratulationsLabel.setText("You need Practise!");
-            percent = "0";
+        double ratio = ((double)numCorrect)/numQuestions * 100;
+        String percent = String.format("%.1f",ratio);
+        if (ratio >= 0.8) {
+            congratulationsLabel.setText("Well Done!");
+        } else if (ratio >= 0.5) {
+            congratulationsLabel.setText("Getting There!");
         } else {
-            double ratio = (_numberOfCorrect*1.00)/(_questionNumber*1.00);
-            ratio = ratio*100.0;
-            percent = String.format("%.1f",ratio);
-            //percent = Double.toString(ratio);
-            if (ratio >= 0.8) {
-                congratulationsLabel.setText("Well Done!");
-            } else if (ratio >= 0.5) {
-                congratulationsLabel.setText("Getting There!");
-            } else {
-                congratulationsLabel.setText("You need Practise!");
-            }
+            congratulationsLabel.setText("You need Practice!");
         }
-        recapMessageLabel.setText("You got " + Integer.toString(_numberOfCorrect) + " answer(s) correct out of " + Integer.toString(_questionNumber));
+        recapMessageLabel.setText("You got " + Integer.toString(numCorrect) + " answer(s) correct out of " + Integer.toString(numQuestions) + ".");
         recapMessageLabel.setVisible(true);
         accuracyPercentLabel.setText(percent + "%");
         accuracyPercentLabel.setVisible(true);
@@ -78,24 +48,23 @@ public class QuizStatsController extends PrimaryScene {
     }
 
     private void setUpGrid(){
-        //Color red = Color.RED;
-        //Color green = Color.GREEN;
+        for (int i = 0; i < numQuestions; i++){
+            HBox correctAnswer = new HBox();
+            correctAnswer.getStyleClass().add("stats-h-box");
+            correctAnswer.getChildren().add(new Label(correctAnswers.get(i)));
+            HBox userAnswer = new HBox();
+            userAnswer.getStyleClass().add("stats-h-box");
+            userAnswer.getChildren().add(new Label(userAnswers.get(i)));
 
-        for (int i = 0; i < _creationsInOrder.size(); i++){
-
-            _creationsInOrderForGrid.add(new Label(_creationsInOrder.get(i)));
-            _userAnswersForGrid.add(new Label(_userAnswers.get(i)));
-           /** if(((_creationsInOrder.get(i).equals(_userAnswers.get(i))) || _creationsInOrder.get(i).trim().equals(_userAnswers.get(i).trim()))){
-                _creationsInOrderForGrid.get(i).setBackground(new Background(new BackgroundFill(green, CornerRadii.EMPTY, Insets.EMPTY)));
-                _userAnswersForGrid.get(i).setBackground(new Background(new BackgroundFill(green, CornerRadii.EMPTY, Insets.EMPTY)));
+            if (userAnswers.get(i).equalsIgnoreCase(correctAnswers.get(i))) {
+                userAnswer.getStyleClass().add("stats-correct");
             } else {
-                _creationsInOrderForGrid.get(i).setBackground(new Background(new BackgroundFill(red, CornerRadii.EMPTY, Insets.EMPTY)));
-                _userAnswersForGrid.get(i).setBackground(new Background(new BackgroundFill(red, CornerRadii.EMPTY, Insets.EMPTY)));
-            }**/
-            gridPane.add(_creationsInOrderForGrid.get(i),0,i+1);
-            gridPane.add(_userAnswersForGrid.get(i),1,i+1);
-        }
+                userAnswer.getStyleClass().add("stats-incorrect");
+            }
 
+            gridPane.add(correctAnswer,0,i+1);
+            gridPane.add(userAnswer,1,i+1);
+        }
     }
 
     @FXML

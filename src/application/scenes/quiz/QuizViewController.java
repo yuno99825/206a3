@@ -36,6 +36,7 @@ public class QuizViewController extends PrimaryScene {
     private Label answerLabel;
 
     private List<String> creations;
+    private List<String> correctAnswers = new ArrayList<>();
     private List<String> userAnswers = new ArrayList<String>();
     private int questionNum = 1;
     private String searchTerm;
@@ -57,24 +58,25 @@ public class QuizViewController extends PrimaryScene {
     private void startQuestion() throws IOException {
         if (questionNum > creations.size()) {
             dispStatsScreen();
+        } else {
+            questionLabel.setText("Question " + questionNum + "!");
+            submitButton.setDisable(false);
+            mediaView.setVisible(true);
+            answerField.setText("");
+            answerLabel.setVisible(false);
+
+            String creationName = creations.get(questionNum-1);
+            searchTerm = getSearchTerm(creationName);
+
+            File videoURL = new File("./creations/" + creationName + "/quiz.mp4");
+            Media video = new Media(videoURL.toURI().toString());
+            player = new MediaPlayer(video);
+            player.setOnEndOfMedia(() -> {
+                replayButton.setVisible(true);
+            });
+            player.setAutoPlay(true);
+            mediaView.setMediaPlayer(player);
         }
-        questionLabel.setText("Question " + questionNum + "!");
-        submitButton.setDisable(false);
-        mediaView.setVisible(true);
-        answerField.setText("");
-        answerLabel.setVisible(false);
-
-        String creationName = creations.get(questionNum-1);
-        searchTerm = getSearchTerm(creationName);
-
-        File videoURL = new File("./creations/" + creationName + "/quiz.mp4");
-        Media video = new Media(videoURL.toURI().toString());
-        player = new MediaPlayer(video);
-        player.setOnEndOfMedia(() -> {
-            replayButton.setVisible(true);
-        });
-        player.setAutoPlay(true);
-        mediaView.setMediaPlayer(player);
     }
 
     @FXML
@@ -88,20 +90,22 @@ public class QuizViewController extends PrimaryScene {
                 answerLabel.setText("Correct!");
                 numCorrect++;
                 attemptNumber = 1;
+                correctAnswers.add(searchTerm);
                 userAnswers.add(answerField.getText());
                 questionNum++;
             } else if (attemptNumber < 2) {
                 answerLabel.setText("Incorrect, try again.");
                 attemptNumber++;
             } else {
-                answerLabel.setText("Incorrect. The correct answer was: " + searchTerm + ".");
+                answerLabel.setText("Incorrect.\nThe correct answer was: " + searchTerm + ".");
                 attemptNumber = 1;
+                correctAnswers.add(searchTerm);
                 userAnswers.add(answerField.getText());
                 questionNum++;
             }
             answerLabel.setVisible(true);
             player.pause();
-            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> {
                 try {
                     startQuestion();
@@ -115,11 +119,7 @@ public class QuizViewController extends PrimaryScene {
     private void dispStatsScreen(){
         try {
             QuizStatsController controller = (QuizStatsController) setScene(SceneType.QUIZ_STATS, stage);
-            controller.setNumberOfCorrect(numCorrect);
-            controller.setQuestionNumber(questionNum);
-            controller.setCreationsInOrder(creations);
-            controller.setUserAnswers(userAnswers);
-            controller.setStats();
+            controller.setStats(correctAnswers,userAnswers,numCorrect);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -59,9 +59,11 @@ public class CreationPreviewController extends PrimaryScene {
                     pb.command("/bin/bash", "-c", "mv -f ./.temp ./creations/\"" + creationName + "\"");
                     Process moveTemp = pb.start();
                     moveTemp.waitFor();
+                    setScene(SceneType.MENU, stage);
                 }
+            } else {
+                setScene(SceneType.MENU, stage);
             }
-            setScene(SceneType.MENU, stage);
         } else {
             nameErrorLabel.setVisible(true);
         }
