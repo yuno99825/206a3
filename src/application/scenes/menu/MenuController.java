@@ -12,10 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+
 import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +54,8 @@ public class MenuController extends PrimaryScene {
                 }
             };
         });;
+        setToolTip(helpButton, "The creations you have made will appear here.\nCreations are educational videos with audio and images." +
+                "\n\n귀하가 만드신 영상물은 여기에 있습니다.\n파일은 교육적인 음성과 화면이 포함된 비디오 영상입니다.");
     }
 
     public void setStage(Stage stage) {

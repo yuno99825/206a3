@@ -34,6 +34,8 @@ public class QuizViewController extends PrimaryScene {
     private TextField answerField;
     @FXML
     private Label answerLabel;
+    @FXML
+    private Button helpButton;
 
     private List<String> creations;
     private List<String> correctAnswers = new ArrayList<>();
@@ -42,6 +44,12 @@ public class QuizViewController extends PrimaryScene {
     private String searchTerm;
     private int numCorrect = 0;
     private int attemptNumber = 1;
+
+    @FXML
+    private void initialize() {
+        setToolTip(helpButton, "Guess the word! Make sure to spell it correctly.\n\n" +
+                "낱말을 맞춰보세요! 맞춤법이 맞는지 확인하세요.");
+    }
 
     public void setCreations(List<String> creations) {
         Collections.shuffle(creations);

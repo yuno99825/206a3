@@ -31,6 +31,10 @@ public class MediaSelectionController extends PrimaryScene {
     private Button nextButton;
     @FXML
     private ComboBox<String> musicComboBox;
+    @FXML
+    private Button imgsHelpButton;
+    @FXML
+    private Button musicHelpButton;
     private String searchTerm;
     private ObservableList<Chunk> chunks;
     private List<Integer> selectedImages = new ArrayList<Integer>();
@@ -54,6 +58,10 @@ public class MediaSelectionController extends PrimaryScene {
                 "Downbeat"
         );
         musicComboBox.getSelectionModel().selectFirst();
+        setToolTip(imgsHelpButton, "Select at least 1 image to include in your creation.\n\n" +
+                "영상물에 삽입할 이미지를 한가지 이상 선택하세요.");
+        setToolTip(musicHelpButton, "You can choose to include music in your creation.\n\n" +
+                "영상물에 삽입할 음악을 선택할 수 있습니다.");
     }
 
     public void setUp(String searchTerm, ObservableList<Chunk> chunks) {

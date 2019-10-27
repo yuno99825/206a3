@@ -31,6 +31,13 @@ public class ChunkSelectionController extends PrimaryScene {
     @FXML
     private Button nextButton;
     @FXML
+    private Button searchHelpButton;
+    @FXML
+    private Button addHelpButton;
+    @FXML
+    private Button chunksHelpButton;
+
+    @FXML
     private ListView<Chunk> chunksListView;
     private ObservableList<Chunk> chunksList;
 
@@ -52,6 +59,12 @@ public class ChunkSelectionController extends PrimaryScene {
                 }
             }
         });
+        setToolTip(searchHelpButton, "Search Wikipedia for something you want to learn about.\nThe information will appear below.\n\n" +
+                "위키백과로 귀하가 배우고자 하는 것을 찾아 보십시오.\n그 정보는 여기에 있습니다. ");
+        setToolTip(addHelpButton, "Highlight text and add it to your creation as audio.\nYou can also change the speed and pitch of the audio.\n\n" +
+                "텍스트를 선택하시고 그것을 영상물에 추가 하세요.\n오디오의 속도와 음높이를 바꿀 수 있습니다.");
+        setToolTip(chunksHelpButton, "Audio included your creation will appear here.\nYou can preview and change the order of the audio.\n\n" +
+                "영상물에 필요한음성 파일은 여기에 있습니다.\n미리보기 와 음성 순서 수정이 가능합니다.");
     }
 
     @FXML

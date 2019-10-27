@@ -168,6 +168,13 @@
 .stats-correct .label {
     -fx-text-fill: #90ee90;
 }
+
+.korean {
+    -fx-font-family: "Noto Sans CJK KR Regular";
+    -fx-font-size: 16px;
+    -fx-wrap-text: true;
+}
+
 /****************************************************************
 
   ScrollBar Skin

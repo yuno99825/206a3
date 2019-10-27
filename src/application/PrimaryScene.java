@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -58,5 +60,11 @@ public abstract class PrimaryScene {
         loadingStage.initModality(Modality.APPLICATION_MODAL);
         loadingStage.showAndWait();
         return loadingController.wasSuccessful();
+    }
+
+    protected void setToolTip(Button helpButton, String text) {
+        Tooltip tooltip = new Tooltip(text);
+        tooltip.getStyleClass().add("korean");
+        helpButton.setTooltip(tooltip);
     }
 }

@@ -34,6 +34,15 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="helpButton" mnemonicParsing="false" styleClass="help-button">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/help.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#homeButtonClicked" styleClass="quiz-button">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

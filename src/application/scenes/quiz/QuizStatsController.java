@@ -37,7 +37,7 @@ public class QuizStatsController extends PrimaryScene {
         } else if (ratio >= 0.5) {
             congratulationsLabel.setText("Getting There!");
         } else {
-            congratulationsLabel.setText("You need Practice!");
+            congratulationsLabel.setText("You Need Practice!");
         }
         recapMessageLabel.setText("You got " + Integer.toString(numCorrect) + " answer(s) correct out of " + Integer.toString(numQuestions) + ".");
         recapMessageLabel.setVisible(true);

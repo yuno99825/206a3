@@ -94,7 +94,7 @@
                                        </graphic>
                                     </Button>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <Button mnemonicParsing="false" styleClass="help-button">
+                                    <Button fx:id="searchHelpButton" mnemonicParsing="false" styleClass="help-button">
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -122,7 +122,7 @@
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <Button mnemonicParsing="false" styleClass="help-button">
+                                    <Button fx:id="addHelpButton" mnemonicParsing="false" styleClass="help-button">
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -168,7 +168,7 @@
                                  </font>
                               </Label>
                               <Region HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" styleClass="help-button">
+                              <Button fx:id="chunksHelpButton" mnemonicParsing="false" styleClass="help-button">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

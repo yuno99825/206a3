@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,7 +20,8 @@ public class Main extends Application {
         menuController.setStage(primaryStage);
 
         primaryStage.setTitle("VARpedia");
-        primaryStage.setScene(new Scene(root, PrimaryScene.APP_WIDTH , PrimaryScene.APP_HEIGHT));
+        Scene scene = new Scene(root, PrimaryScene.APP_WIDTH , PrimaryScene.APP_HEIGHT);
+        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }

@@ -58,7 +58,7 @@
                                  </font>
                               </Label>
                               <Region HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" styleClass="help-button">
+                              <Button fx:id="imgsHelpButton" mnemonicParsing="false" styleClass="help-button">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -234,7 +234,7 @@
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <Button mnemonicParsing="false" styleClass="help-button">
+                                    <Button fx:id="musicHelpButton" mnemonicParsing="false" styleClass="help-button">
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
