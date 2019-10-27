@@ -11,14 +11,13 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-public class VideoPlayerController extends PrimaryScene {
+public class VideoPlayerController {
 
     @FXML
     private MediaView mediaView;
     private MediaPlayer player;
     @FXML
     private Button replayButton;
-
 
     public void setUpVideo(String creationName, Stage stage) {
         File videoURL = new File("./creations/" + creationName + "/creation.mp4");
