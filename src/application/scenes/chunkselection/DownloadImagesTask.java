@@ -72,7 +72,7 @@ public class DownloadImagesTask extends Task<Void> {
 
     private static String getAPIKey(String key) throws Exception {
         String config = System.getProperty("user.dir")
-                + System.getProperty("file.separator")+ "flickr-api-keys.txt";
+                + "/resources/flickr-api-keys.txt";
         File file = new File(config);
         BufferedReader br = new BufferedReader(new FileReader(file));
 

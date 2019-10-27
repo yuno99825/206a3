@@ -50,7 +50,7 @@ public class MakeCreationTask extends Task<Void> {
                 // Create the quiz
                 "ffmpeg -y -i ./.temp/video.mp4 -i ./.temp/creation_audio.wav -c:v copy -c:a aac -strict experimental ./.temp/quiz.mp4",
                 // Superimpose the search term onto the slideshow
-                "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./CaviarDreams.ttf:fontsize=100: " +
+                "ffmpeg -i \"./.temp/video.mp4\" -vf \"drawtext=fontfile=./resources/CaviarDreams.ttf:fontsize=100: " +
                         "fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='" + searchTerm + "'\" ./.temp/video_with_text.mp4",
                 // Merge the slideshow with the audio chunks
                 "ffmpeg -y -i ./.temp/video_with_text.mp4 -i ./.temp/creation_audio.wav -c:v copy " +
