@@ -12,6 +12,9 @@ import javafx.util.Duration;
 import java.io.File;
 
 public class VideoPlayerController {
+    /**
+     * This Class displays a specific Creation (video) to the user, allowing the user to pause , play and replay.
+     */
 
     @FXML
     private MediaView mediaView;
@@ -19,6 +22,12 @@ public class VideoPlayerController {
     @FXML
     private Button replayButton;
 
+    /**
+     * This method takes a Creation name and then finds the corresponding Creation in the creations folder.
+     * It then plays the creation.
+     * @param creationName
+     * @param stage
+     */
     public void setUpVideo(String creationName, Stage stage) {
         File videoURL = new File("./creations/" + creationName + "/creation.mp4");
         Media video = new Media(videoURL.toURI().toString());
