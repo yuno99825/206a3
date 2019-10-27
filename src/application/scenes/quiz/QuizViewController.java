@@ -17,6 +17,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This Class manages the quiz section of the application and is the controller of the QuizView fxml file.
+ * This class is responsible for displaying the quiz videos (Creations), recording user answers and alerting users of
+ * their success or failure for each question
+ */
+
 public class QuizViewController extends PrimaryScene {
 
     @FXML
@@ -51,6 +57,10 @@ public class QuizViewController extends PrimaryScene {
                 "낱말을 맞춰보세요! 맞춤법이 맞는지 확인하세요.");
     }
 
+    /**
+     * randomizes the order of the Creations for the quiz
+     * @param creations
+     */
     public void setCreations(List<String> creations) {
         Collections.shuffle(creations);
         this.creations = creations;
@@ -63,6 +73,13 @@ public class QuizViewController extends PrimaryScene {
         startQuestion();
     }
 
+    /**
+     * Displays the Creation in the media view. Each time it is called, this method displays the next question (Creation).
+     * Sets the label which tells user which question it is. If they're no more questions left it calls for the
+     * statistics of the quiz to be displayed
+     *
+     * @throws IOException
+     */
     private void startQuestion() throws IOException {
         if (questionNum > creations.size()) {
             dispStatsScreen();
@@ -87,6 +104,12 @@ public class QuizViewController extends PrimaryScene {
         }
     }
 
+    /**
+     * Checks if the user's answer is correct, and if so it briefly notifies the user they were
+     * correct and then calls the next question. If the user is incorrect it checks whether it is their
+     * first attempt or second. If it is their first try it allows for a second try. If it is their second try
+     * it tells them the correct answer and continues to the next question.
+     */
     @FXML
     private void submitButtonClicked(){
         if (!submitButton.isDisabled()) {
@@ -124,6 +147,9 @@ public class QuizViewController extends PrimaryScene {
         }
     }
 
+    /**
+     * Changes the scene to that of the quiz statistics screen
+     */
     private void dispStatsScreen(){
         try {
             QuizStatsController controller = (QuizStatsController) setScene(SceneType.QUIZ_STATS, stage);
@@ -133,6 +159,13 @@ public class QuizViewController extends PrimaryScene {
         }
     }
 
+    /**
+     * Takes the Creation name for the given question and looks in the text file associated with that
+     * Creation. It then retrieves the search term for that Creation and returns it.
+     * @param creationName
+     * @return the term that was searched for the specific Creation passed in.
+     * @throws IOException
+     */
     private String getSearchTerm(String creationName) throws IOException {
         String cmd = "cat ./creations/\"" + creationName + "\"/searchTerm.txt";
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);

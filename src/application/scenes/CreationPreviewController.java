@@ -7,10 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
+
+/**
+ * This class displays the Creation that is being made, giving the user an opportunity to preview it,
+ * confirm it is correct and then name it.
+ */
 
 public class CreationPreviewController extends PrimaryScene {
 
@@ -26,6 +30,10 @@ public class CreationPreviewController extends PrimaryScene {
     @FXML
     private Label nameErrorLabel;
 
+    /**
+     * Get the temporary Creation and play it automatically
+     * @throws IOException
+     */
     @FXML
     private void initialize() throws IOException {
         File videoURL = new File("./.temp/creation.mp4");
@@ -36,6 +44,13 @@ public class CreationPreviewController extends PrimaryScene {
         mediaView.setMediaPlayer(player);
     }
 
+    /**
+     * This method looks at the Creation name entered by the user and if it is valid it moves the temporary version to
+     * the Creations folder and renames it to the submitted Creation name. If the name is not valid, it sends a warning
+     * to the user. If the name already exists it gives the user the opportunity to overwrite.
+     * @throws InterruptedException
+     * @throws IOException
+     */
     @FXML
     private void confirmButtonClicked() throws InterruptedException, IOException {
         String creationName = nameField.getText();
@@ -68,6 +83,13 @@ public class CreationPreviewController extends PrimaryScene {
             nameErrorLabel.setVisible(true);
         }
     }
+
+    /**
+     * This method warns the user that if they cancel the Creation process, all progress will be lost. It then allows
+     * them to decide if they wish to cancel or not.
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @FXML
     public void cancelButtonClicked() throws IOException, InterruptedException {
         player.pause();

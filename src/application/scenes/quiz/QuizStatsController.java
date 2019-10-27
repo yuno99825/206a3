@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This Class manages the statistics component of the quiz and is the controller for the QuizStats fxml file.
+ * This Class is responsible for displaying the users statistics for a single quiz. This occurs directly after
+ * a quiz takes place.
+ */
+
 public class QuizStatsController extends PrimaryScene {
 
     @FXML
@@ -25,6 +31,14 @@ public class QuizStatsController extends PrimaryScene {
     private List<String> userAnswers = new ArrayList<String>();
     private int numQuestions;
 
+    /**
+     * This method compares the correct quiz answers with the answers provided by the user and displays appropriate
+     * percentages and congratulations messages. It also calls for the correct answers to be displayed next to the
+     * users answers in a grid.
+     * @param correctAnswers
+     * @param userAnswers
+     * @param numCorrect
+     */
     public void setStats(List<String> correctAnswers, List<String> userAnswers, int numCorrect) {
         this.correctAnswers = correctAnswers;
         this.userAnswers = userAnswers;
@@ -47,6 +61,10 @@ public class QuizStatsController extends PrimaryScene {
         setUpGrid();
     }
 
+    /**
+     * This method creates a table that presents the correct answers along side the answers submitted by
+     * the user. It colours correct answers green and incorrect answers red.
+     */
     private void setUpGrid(){
         for (int i = 0; i < numQuestions; i++){
             HBox correctAnswer = new HBox();
