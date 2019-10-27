@@ -2,16 +2,12 @@ package application.scenes.menu;
 
 import application.Main;
 import application.scenes.VideoPlayerController;
-import javafx.event.Event;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,11 +15,13 @@ import java.io.IOException;
 public class CreationListCell {
     @FXML
     private Label creationNameLabel;
-    private MenuController menuController;
+    private ObservableList<String> creationList;
+    private Button quizButton;
 
-    public void setUp(String text, MenuController menuController) {
+    public void setUp(String text, ObservableList<String> creationList, Button quizButton) {
         creationNameLabel.setText(text);
-        this.menuController = menuController;
+        this.creationList = creationList;
+        this.quizButton = quizButton;
     }
 
     @FXML
@@ -56,7 +54,9 @@ public class CreationListCell {
             ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
             Process deleteProcess = builder.start();
             deleteProcess.waitFor();
-            menuController.updateList();
+            creationList.remove(creationName);
+            System.out.println(creationList);
+            quizButton.setDisable(creationList.isEmpty());
         }
     }
 

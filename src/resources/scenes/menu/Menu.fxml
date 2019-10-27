@@ -52,7 +52,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </padding>
                   </Label>
-                  <Button mnemonicParsing="false" styleClass="help-button">
+                  <Button fx:id="helpButton" mnemonicParsing="false" styleClass="help-button">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

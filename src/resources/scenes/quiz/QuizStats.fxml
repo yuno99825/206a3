@@ -91,10 +91,10 @@
                      <children>
                         <ScrollPane hbarPolicy="NEVER" maxHeight="337.0" maxWidth="602.0" minHeight="337.0" minWidth="602.0" prefHeight="337.0" prefWidth="602.0" styleClass="stats-scroll-pane">
                            <content>
-                              <GridPane fx:id="gridPane" gridLinesVisible="true" hgap="2.0" maxHeight="350.0" maxWidth="583.0" minHeight="350.0" minWidth="583.0" prefHeight="350.0" prefWidth="583.0" styleClass="grid" vgap="2.0">
+                              <GridPane fx:id="gridPane" gridLinesVisible="true" hgap="2.0" maxHeight="350.0" maxWidth="584.0" minHeight="350.0" minWidth="584.0" prefHeight="350.0" prefWidth="584.0" styleClass="grid" vgap="2.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="290.0" prefWidth="290.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="290.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="290.0" prefWidth="290.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
