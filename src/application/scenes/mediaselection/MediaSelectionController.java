@@ -1,14 +1,13 @@
 package application.scenes.mediaselection;
 
-import application.*;
+import application.Chunk;
+import application.PrimaryScene;
+import application.SceneType;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -16,14 +15,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FXML controller class for the scene in which user selects which media (images and music) to include in creation.
+ * Handles the application logic of this scene.
+ */
 public class MediaSelectionController extends PrimaryScene {
     @FXML
     private TilePane imagesTilePane;
@@ -43,6 +44,7 @@ public class MediaSelectionController extends PrimaryScene {
     @FXML
     private void initialize() {
         int i = 1;
+        // Set the images to display in the tile pane
         for (Node node: imagesTilePane.getChildren()) {
             StackPane stackPane = (StackPane) node;
             ImageView imageView = (ImageView) stackPane.getChildren().get(0);
@@ -51,6 +53,7 @@ public class MediaSelectionController extends PrimaryScene {
             imageView.setImage(image);
             i++;
         }
+        // Set up the music combo box
         musicComboBox.getItems().addAll(
                 "No music",
                 "Ambient",
@@ -69,6 +72,9 @@ public class MediaSelectionController extends PrimaryScene {
         this.chunks = chunks;
     }
 
+    /**
+     * When an image is clicked, toggle whether it is selected or not.
+     */
     @FXML
     private void imageClicked(Event event) {
         StackPane stackPane = (StackPane) event.getSource();
@@ -86,8 +92,13 @@ public class MediaSelectionController extends PrimaryScene {
         }
     }
 
+    /**
+     * Called when the user clicks the next button.
+     * Create a new window with a loading screen, concurrently creating the creation from paramters.
+     * If creation is successful, change the scene of the main window to the creation preview screen.
+     */
     @FXML
-    private void nextButtonClicked() throws IOException, InterruptedException {
+    private void nextButtonClicked() throws IOException {
         if (!nextButton.isDisabled()) {
             int i = 1;
             for (Node node: imagesTilePane.getChildren()) {

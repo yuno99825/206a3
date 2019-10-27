@@ -1,5 +1,8 @@
 package application;
 
+/**
+ * Represents the different types of scenes that can be shown on the main window.
+ */
 public enum SceneType {
     MENU("/resources/scenes/menu/Menu.fxml"),
     CHUNK_SELECTION("/resources/scenes/chunkselection/ChunkSelection.fxml"),

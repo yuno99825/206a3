@@ -14,8 +14,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+/**
+ * FXML controller class for the scene in which users search for text and create audio chunks.
+ * Handles the application logic of this scene.
+ */
 public class ChunkSelectionController extends PrimaryScene {
-
     @FXML
     private Label searchPrompt;
     @FXML
@@ -45,6 +48,7 @@ public class ChunkSelectionController extends PrimaryScene {
     private void initialize() {
         chunksList = FXCollections.observableArrayList(new ArrayList<Chunk>());
         chunksListView.setItems(chunksList);
+        // Set the style of the cells of the list of chunks
         chunksListView.setCellFactory(e -> new ListCell<Chunk>(){
             protected void updateItem(Chunk chunk, boolean empty) {
                 super.updateItem(chunk, empty);
@@ -67,6 +71,10 @@ public class ChunkSelectionController extends PrimaryScene {
                 "영상물에 필요한음성 파일은 여기에 있습니다.\n미리보기 와 음성 순서 수정이 가능합니다.");
     }
 
+    /**
+     * Called when a search is made.
+     * Creates a search controller object to concurrently do the wikipedia search.
+     */
     @FXML
     private void searchButtonClicked() {
         if (!searchButton.isDisabled()) {
@@ -75,12 +83,18 @@ public class ChunkSelectionController extends PrimaryScene {
         }
     }
 
+    /**
+     * Called when the user attempts to add an audio chunk from selected text.
+     */
     @FXML
     private void addButtonClicked() {
         String selectedText = searchResultsArea.getSelectedText();
         int pitch = (int) pitchSlider.getValue();
         double speed = speedSlider.getValue();
+
+        // Selected text should not be empty
         if (!selectedText.isEmpty()) {
+            // Selected text shohuld not be over 50 words
             if (countWords(selectedText) <= 50) {
                 chunksList.add(new Chunk(selectedText, speed, pitch));
                 if (searchPrompt.getText().equals("You searched: ")) {
@@ -94,6 +108,9 @@ public class ChunkSelectionController extends PrimaryScene {
         }
     }
 
+    /**
+     * Removes a selected chunk from inclusion in the creation.
+     */
     @FXML
     private void deleteButtonClicked() {
         chunksList.remove(chunksListView.getSelectionModel().getSelectedItem());
@@ -102,6 +119,9 @@ public class ChunkSelectionController extends PrimaryScene {
         }
     }
 
+    /**
+     * Moves a selected chunk up in the order of included creation audio chunks.
+     */
     @FXML
     private void moveUpClicked() {
         Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
@@ -114,6 +134,9 @@ public class ChunkSelectionController extends PrimaryScene {
         }
     }
 
+    /**
+     * Moves a selected chunk down in the order of included creation audio chunks.
+     */
     @FXML
     private void moveDownClicked() {
         Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
@@ -126,12 +149,19 @@ public class ChunkSelectionController extends PrimaryScene {
         }
     }
 
+    /**
+     * Plays the audio of a selected chunk.
+     */
     @FXML
     private void previewButtonClicked() throws IOException {
         Chunk selectedChunk = chunksListView.getSelectionModel().getSelectedItem();
         PreviewController.preview(selectedChunk);
     }
 
+    /**
+     * Creates a new loading screen in a new window which downloads images.
+     * If the download is successfully completed, sets the scene of the main window to the media selection screen.
+     */
     @FXML
     private void nextButtonClicked() throws IOException {
         String searchTerm = searchField.getText();

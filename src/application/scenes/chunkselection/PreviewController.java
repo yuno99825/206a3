@@ -1,14 +1,21 @@
 package application.scenes.chunkselection;
 
 import application.Chunk;
-import javafx.scene.control.*;
 
 import java.io.*;
 
-public class PreviewController {
+/**
+ * Class to handle the application logic of previewing an audio chunk in the chunk selection screen.
+ */
+class PreviewController {
 
-    public static void preview(Chunk chunk) throws IOException {
+    /**
+     * Uses a bash process to preview the audio chunk.
+     * @param chunk The chunk to preview
+     */
+    static void preview(Chunk chunk) throws IOException {
         if (chunk != null) {
+            // Need to remove speech marks from the text in order for festival to work
             String text = chunk.getText().replace("\"", "");
             String stretchCommand = chunk.getStretchCommand();
             String pitchCommand = chunk.getPitchCommand();

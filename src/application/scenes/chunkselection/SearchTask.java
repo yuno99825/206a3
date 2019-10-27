@@ -8,8 +8,12 @@ import java.io.InputStreamReader;
 import java.text.BreakIterator;
 import java.util.Locale;
 
+/**
+ * Class representing the work done to search a term on wikipedia.
+ */
 public class SearchTask extends Task<String> {
     private String searchTerm;
+
 
     public SearchTask(String searchTerm) {
         this.searchTerm = searchTerm;
@@ -36,6 +40,9 @@ public class SearchTask extends Task<String> {
         return separateSentences(results);
     }
 
+    /**
+     * Separates sentences of specified text on to separate lines.
+     */
     private static String separateSentences(String text) {
         String sentences = "";
         BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);

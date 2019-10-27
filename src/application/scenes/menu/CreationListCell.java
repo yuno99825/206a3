@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The FXML controller class for a cell of the list view containing the list of creations in the main menu.
+ * Handles the application logic of the scene.
+ */
 public class CreationListCell {
     @FXML
     private Label creationNameLabel;
@@ -24,6 +28,10 @@ public class CreationListCell {
         this.quizButton = quizButton;
     }
 
+    /**
+     * Called when the user presses the play button.
+     * Opens a new window containing a video player to play the creation.
+     */
     @FXML
     private void playCreation() throws IOException {
         String creationName = creationNameLabel.getText();
@@ -40,6 +48,11 @@ public class CreationListCell {
         stage.show();
     }
 
+    /**
+     * Called when the user presses the delete button.
+     * Once confirmed, uses a bash process to delete the specified creation folder and all contents.
+     * Then updates the list of creations accordingly.
+     */
     @FXML
     private void deleteCreation() throws IOException, InterruptedException {
         String creationName = creationNameLabel.getText();

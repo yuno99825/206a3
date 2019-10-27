@@ -1,8 +1,8 @@
 package application;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-
+/**
+ * Represents an audio chunk created by the user.
+ */
 public class Chunk {
     private String text;
     private double stretch;

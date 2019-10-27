@@ -12,14 +12,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-
-import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * FXML controller class for the main menu scene.
+ * Handles the application logic of the scene.
+ */
 public class MenuController extends PrimaryScene {
     @FXML
     private ListView<String> creationListView;
@@ -32,6 +34,7 @@ public class MenuController extends PrimaryScene {
     @FXML
     private void initialize() {
         setUpCreationList();
+        // Sets the list view to use the custom list cell class specified by CreationListCell
         creationListView.setCellFactory(cell -> {
             return new ListCell<String>() {
                 @Override
@@ -62,6 +65,9 @@ public class MenuController extends PrimaryScene {
         this.stage = stage;
     }
 
+    /**
+     * Called when user presses the play quiz button.
+     */
     @FXML
     private void openQuizView() throws IOException {
         List<String> creationNames = creationListView.getItems();
@@ -72,11 +78,18 @@ public class MenuController extends PrimaryScene {
         });
     }
 
+    /**
+     * Called when user presses the new creation button.
+     */
     @FXML
     private void newCreation() throws IOException {
         setScene(SceneType.CHUNK_SELECTION, stage);
     }
 
+    /**
+     * Retrieve the list of existing creations using a bash process.
+     * Updates the creation list view to match this.
+     */
     private void setUpCreationList() {
         try {
             String cmd = "bash ./resources/scripts/listCreations.sh";
@@ -97,6 +110,7 @@ public class MenuController extends PrimaryScene {
             creationList.sort(String::compareTo);
             creationListView.setItems(creationList);
         } catch (IOException e) { }
-        playQuizButton.setDisable(creationListView.getItems().isEmpty());;
+        //quizButton should be disabled when no creations exist
+        playQuizButton.setDisable(creationListView.getItems().isEmpty());
     }
 }

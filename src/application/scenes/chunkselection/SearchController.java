@@ -10,7 +10,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-public class SearchController {
+/**
+ * Class to handle the application logic for searching wikipedia for a term.
+ */
+class SearchController {
     private TextField searchField;
     private Button searchButton;
     private TextArea searchResultsArea;
@@ -26,14 +29,19 @@ public class SearchController {
             });
     private SearchTask searchTask;
 
-    public SearchController(TextField searchField, Button searchButton, TextArea searchResultsArea, Label prompt) {
+    SearchController(TextField searchField, Button searchButton, TextArea searchResultsArea, Label prompt) {
         this.searchField = searchField;
         this.searchButton = searchButton;
         this.searchResultsArea = searchResultsArea;
         this.prompt = prompt;
     }
 
-    public void search() {
+    /**
+     * Searches wikipedia for the specified term concurrently, using executor services.
+     * If found, displays the results and disables further searching to disallow multiple terms to be combined.
+     * If not found, alerts user.
+     */
+    void search() {
         String searchTerm = searchField.getText();
         if (validateSearchTerm(searchTerm)) {
             searchTask = new SearchTask(searchTerm);
@@ -67,6 +75,9 @@ public class SearchController {
         }
     }
 
+    /**
+     * Checks that specified search term is not empty and does not contain strange characters
+     */
     private static boolean validateSearchTerm(String searchTerm) {
         if (searchTerm == null || searchTerm.isEmpty() || searchTerm.trim().isEmpty()) {
             return false;

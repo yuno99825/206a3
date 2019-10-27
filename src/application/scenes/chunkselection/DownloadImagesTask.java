@@ -4,22 +4,29 @@ import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.FlickrException;
 import com.flickr4java.flickr.REST;
 import com.flickr4java.flickr.photos.*;
-import com.sun.scenario.effect.impl.prism.PrCropPeer;
 import javafx.concurrent.Task;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+/**
+ * Represents the work done in downloading ten images for a specified term.
+ * Credit to Nasser Giacaman, original code taken from Active Classroom Programmer.
+ */
 public class DownloadImagesTask extends Task<Void> {
 
     private String searchTerm;
 
-    public DownloadImagesTask(String searchTerm) {
+    DownloadImagesTask(String searchTerm) {
         this.searchTerm = searchTerm;
         updateProgress(0, 10);
     }
 
+    /**
+     * The main work to be done concurrently.
+     * Downloads ten images using the Flickr API, saves them to a temporary hidden folder
+     */
     @Override
     protected Void call() {
         try {
@@ -80,6 +87,9 @@ public class DownloadImagesTask extends Task<Void> {
         throw new RuntimeException("Couldn't find " + key +" in config file "+file.getName());
     }
 
+    /**
+     * Removes the existing temporary folder using a bash command
+     */
     private void removeTempFolder() throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "rm -fr .temp");
         Process process = pb.start();

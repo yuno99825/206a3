@@ -11,6 +11,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
+/**
+ * FXML controller class for a generic loading screen.
+ * Uses executor services to concurrently execute a specified task.
+ * Handles the application logic of this scene.
+ */
 public class LoadingController {
     @FXML
     private Label label;
@@ -29,6 +34,9 @@ public class LoadingController {
                 }
             });
 
+    /**
+     * Starts the specified task and sets the text of the label to specified text.
+     */
     public void start(String labelText, Task<Void> toDo) {
         success = false;
         label.setText(labelText + ", please wait...");
@@ -45,6 +53,10 @@ public class LoadingController {
         });
     }
 
+    /**
+     * If the button is for cancellation, cancel the task.
+     * Also closes the window containing the loading screen.
+     */
     @FXML
     private void buttonClicked() {
         if (cancelButton.getText().equals("Cancel")) {
