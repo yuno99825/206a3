@@ -1,6 +1,5 @@
 package application.scenes;
 
-import application.PrimaryScene;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.media.Media;
@@ -11,11 +10,11 @@ import javafx.util.Duration;
 
 import java.io.File;
 
+/**
+ * FXML controller class for the scene in which users play existing creations.
+ * Handles the application logic of this scene, including play/pause/replay of creations.
+ */
 public class VideoPlayerController {
-    /**
-     * This Class displays a specific Creation (video) to the user, allowing the user to pause , play and replay.
-     */
-
     @FXML
     private MediaView mediaView;
     private MediaPlayer player;
@@ -23,10 +22,9 @@ public class VideoPlayerController {
     private Button replayButton;
 
     /**
-     * This method takes a Creation name and then finds the corresponding Creation in the creations folder.
-     * It then plays the creation.
-     * @param creationName
-     * @param stage
+     * Sets up the specified creation to play. The video is resized to fit the window and is stopped upon the window being closed.
+     * @param creationName The name of the creation to play
+     * @param stage The window in which the creation is played
      */
     public void setUpVideo(String creationName, Stage stage) {
         File videoURL = new File("./creations/" + creationName + "/creation.mp4");

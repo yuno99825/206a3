@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * The FXML controller class for a cell of the list view containing the list of creations in the main menu.
- * Handles the application logic of the scene.
+ * The FXML controller class for a single cell of the list view containing the list of creations in the main menu.
+ * Handles the application logic of the scene including playing and deleting a creation.
  */
 public class CreationListCell {
     @FXML

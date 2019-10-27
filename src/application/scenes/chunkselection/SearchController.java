@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * Class to handle the application logic for searching wikipedia for a term.
+ * Class to handle the application logic for searching wikipedia for a term and displaying results to user.
  */
 class SearchController {
     private TextField searchField;

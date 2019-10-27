@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * FXML controller class for the scene in which user selects which media (images and music) to include in creation.
- * Handles the application logic of this scene.
+ * Handles the application logic of this scene including display and selection of images and music.
  */
 public class MediaSelectionController extends PrimaryScene {
     @FXML

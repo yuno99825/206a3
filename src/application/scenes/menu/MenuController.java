@@ -20,7 +20,9 @@ import java.util.List;
 
 /**
  * FXML controller class for the main menu scene.
- * Handles the application logic of the scene.
+ * Handles the application logic of the scene, including:
+ * - displaying existing creations
+ * - navigating to the quiz and creation tool
  */
 public class MenuController extends PrimaryScene {
     @FXML

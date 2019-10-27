@@ -16,7 +16,10 @@ import java.util.StringTokenizer;
 
 /**
  * FXML controller class for the scene in which users search for text and create audio chunks.
- * Handles the application logic of this scene.
+ * Handles the application logic of this scene including:
+ * - Selecting chunks to add to creation
+ * - Editing the speed and pitch of chunks
+ * - Ordering and deleting chunks
  */
 public class ChunkSelectionController extends PrimaryScene {
     @FXML

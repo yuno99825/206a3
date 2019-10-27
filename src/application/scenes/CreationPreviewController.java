@@ -12,12 +12,14 @@ import javafx.util.Duration;
 import java.io.*;
 
 /**
- * This class displays the Creation that is being made, giving the user an opportunity to preview it,
- * confirm it is correct and then name it.
+ * The FXML controller for the scene in which users preview their creation to confirm it is correct and then name it.
+ * Handles the application logic of this scene, including:
+ * - play/pause/replay of creation
+ * - naming creation
+ * - saving creation
  */
 
 public class CreationPreviewController extends PrimaryScene {
-
     @FXML
     private MediaView mediaView;
     private MediaPlayer player;
@@ -31,8 +33,8 @@ public class CreationPreviewController extends PrimaryScene {
     private Label nameErrorLabel;
 
     /**
-     * Get the temporary Creation and play it automatically
-     * @throws IOException
+     * Plays the creation currently in the .temp folder.
+     * This is the creation that the user is currently making.
      */
     @FXML
     private void initialize() throws IOException {
@@ -45,11 +47,9 @@ public class CreationPreviewController extends PrimaryScene {
     }
 
     /**
-     * This method looks at the Creation name entered by the user and if it is valid it moves the temporary version to
-     * the Creations folder and renames it to the submitted Creation name. If the name is not valid, it sends a warning
-     * to the user. If the name already exists it gives the user the opportunity to overwrite.
-     * @throws InterruptedException
-     * @throws IOException
+     * Attempts to confirm creation by moving the .temp folder to the creations folder under the name specified by the user.
+     * If the name is not valid, a warning is displayed.
+     * If a creation with the same name already exists, it allows the user overwrite it.
      */
     @FXML
     private void confirmButtonClicked() throws InterruptedException, IOException {
@@ -67,6 +67,7 @@ public class CreationPreviewController extends PrimaryScene {
                 alert.showAndWait();
 
                 if (alert.getResult() == ButtonType.YES) {
+                    // delete existing creation
                     pb.command("/bin/bash", "-c", "rm -fr ./creations/\"" + creationName + "\"");
                     Process removeExisting = pb.start();
                     removeExisting.waitFor();
@@ -85,10 +86,8 @@ public class CreationPreviewController extends PrimaryScene {
     }
 
     /**
-     * This method warns the user that if they cancel the Creation process, all progress will be lost. It then allows
-     * them to decide if they wish to cancel or not.
-     * @throws IOException
-     * @throws InterruptedException
+     * Attempts to return to the home screen.
+     * A warning that all progress will be lost is shown first.
      */
     @FXML
     public void cancelButtonClicked() throws IOException, InterruptedException {

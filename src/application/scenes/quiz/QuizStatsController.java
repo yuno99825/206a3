@@ -11,13 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This Class manages the statistics component of the quiz and is the controller for the QuizStats fxml file.
- * This Class is responsible for displaying the users statistics for a single quiz. This occurs directly after
- * a quiz takes place.
+ * The FXML controller for the scene in which users see the results of the quiz.
+ * Handles the application logic of this scene including setting up and displaying several statistics to the user.
  */
-
 public class QuizStatsController extends PrimaryScene {
-
     @FXML
     private Label recapMessageLabel;
     @FXML
@@ -32,12 +29,11 @@ public class QuizStatsController extends PrimaryScene {
     private int numQuestions;
 
     /**
-     * This method compares the correct quiz answers with the answers provided by the user and displays appropriate
-     * percentages and congratulations messages. It also calls for the correct answers to be displayed next to the
-     * users answers in a grid.
-     * @param correctAnswers
-     * @param userAnswers
-     * @param numCorrect
+     * Compares the correct quiz answers with the answers provided by the user and displays appropriate percentages and congratulations messages.
+     * Also displays correct answers next to the users answers in a grid.
+     * @param correctAnswers The actual answers for the quiz
+     * @param userAnswers What the user answered
+     * @param numCorrect The number of questions answered correctly
      */
     public void setStats(List<String> correctAnswers, List<String> userAnswers, int numCorrect) {
         this.correctAnswers = correctAnswers;
@@ -62,8 +58,8 @@ public class QuizStatsController extends PrimaryScene {
     }
 
     /**
-     * This method creates a table that presents the correct answers along side the answers submitted by
-     * the user. It colours correct answers green and incorrect answers red.
+     * Creates a grid that presents the correct answers along side the answers submitted by the user.
+     * It colours correct answers green and incorrect answers red via an external stylesheet.
      */
     private void setUpGrid(){
         for (int i = 0; i < numQuestions; i++){

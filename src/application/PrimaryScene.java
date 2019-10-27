@@ -55,6 +55,9 @@ public abstract class PrimaryScene {
         }
     }
 
+    /**
+     * Creates an alert with specified title and message.
+     */
     protected void createAlert(String title, String alertText) {
         Alert alert = new Alert(Alert.AlertType.NONE, alertText, ButtonType.OK);
         alert.setTitle(title);

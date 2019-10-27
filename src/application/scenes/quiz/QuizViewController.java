@@ -18,11 +18,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This Class manages the quiz section of the application and is the controller of the QuizView fxml file.
- * This class is responsible for displaying the quiz videos (Creations), recording user answers and alerting users of
- * their success or failure for each question
+ * The FXML controller for the scene in which users play the quiz.
+ * Handles the application logic of this scene including:
+ * - displaying quiz to user and recording their answers
+ * - alerting user of success/failure, recording attempts (max 2) per creation
  */
-
 public class QuizViewController extends PrimaryScene {
 
     @FXML
@@ -58,8 +58,7 @@ public class QuizViewController extends PrimaryScene {
     }
 
     /**
-     * randomizes the order of the Creations for the quiz
-     * @param creations
+     * randomizes the order of the creations for the quiz
      */
     public void setCreations(List<String> creations) {
         Collections.shuffle(creations);
@@ -74,11 +73,8 @@ public class QuizViewController extends PrimaryScene {
     }
 
     /**
-     * Displays the Creation in the media view. Each time it is called, this method displays the next question (Creation).
-     * Sets the label which tells user which question it is. If they're no more questions left it calls for the
-     * statistics of the quiz to be displayed
-     *
-     * @throws IOException
+     * Plays a single question (creation) and sets the question number label to the question number.
+     * If there are no more questions left, the quiz stats screen is displayed.
      */
     private void startQuestion() throws IOException {
         if (questionNum > creations.size()) {
@@ -105,10 +101,8 @@ public class QuizViewController extends PrimaryScene {
     }
 
     /**
-     * Checks if the user's answer is correct, and if so it briefly notifies the user they were
-     * correct and then calls the next question. If the user is incorrect it checks whether it is their
-     * first attempt or second. If it is their first try it allows for a second try. If it is their second try
-     * it tells them the correct answer and continues to the next question.
+     * Checks if the user's answer is correct and displays the result to the user.
+     * If the answer was correct or the user has had 2 attempts, the next question is played.
      */
     @FXML
     private void submitButtonClicked(){
@@ -116,6 +110,7 @@ public class QuizViewController extends PrimaryScene {
             mediaView.setVisible(false);
             replayButton.setVisible(false);
             submitButton.setDisable(true);
+            // answer is correct
             if ((answerField.getText().equalsIgnoreCase(searchTerm)) ||
                     (answerField.getText().trim().equalsIgnoreCase(searchTerm.trim()))) {
                 answerLabel.setText("Correct!");
@@ -124,10 +119,10 @@ public class QuizViewController extends PrimaryScene {
                 correctAnswers.add(searchTerm);
                 userAnswers.add(answerField.getText());
                 questionNum++;
-            } else if (attemptNumber < 2) {
+            } else if (attemptNumber < 2) { // answer is incorrect, user has another attempt
                 answerLabel.setText("Incorrect, try again.");
                 attemptNumber++;
-            } else {
+            } else { // answer is incorrect and no more attempts left
                 answerLabel.setText("Incorrect.\nThe correct answer was: " + searchTerm + ".");
                 attemptNumber = 1;
                 correctAnswers.add(searchTerm);
@@ -148,7 +143,7 @@ public class QuizViewController extends PrimaryScene {
     }
 
     /**
-     * Changes the scene to that of the quiz statistics screen
+     * Changes the scene of the main window to the quiz statistics screen.
      */
     private void dispStatsScreen(){
         try {
@@ -160,11 +155,7 @@ public class QuizViewController extends PrimaryScene {
     }
 
     /**
-     * Takes the Creation name for the given question and looks in the text file associated with that
-     * Creation. It then retrieves the search term for that Creation and returns it.
-     * @param creationName
-     * @return the term that was searched for the specific Creation passed in.
-     * @throws IOException
+     * Retrieves the search term for a specified creation by reading the saved text file.
      */
     private String getSearchTerm(String creationName) throws IOException {
         String cmd = "cat ./creations/\"" + creationName + "\"/searchTerm.txt";
