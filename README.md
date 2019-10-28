@@ -31,3 +31,11 @@ Code Attributions:
 Dark scrollbar skin for javafx
 Author: farrukhobaid
 Available from https://farrukhobaid.wordpress.com/2013/01/16/dark-scrollbar-skin-for-javafx/
+
+206_FlickrExample
+Author: Nasser Giacaman
+Code modified and used in class 'DownloadImagesTask'
+Original code from Active Classroom Programmer
+
+Images for creations retrieved via official Flickr API.
+

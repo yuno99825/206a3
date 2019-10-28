@@ -68,7 +68,6 @@ public class CreationListCell {
             Process deleteProcess = builder.start();
             deleteProcess.waitFor();
             creationList.remove(creationName);
-            System.out.println(creationList);
             quizButton.setDisable(creationList.isEmpty());
         }
     }
