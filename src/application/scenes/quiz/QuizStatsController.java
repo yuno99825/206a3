@@ -70,7 +70,8 @@ public class QuizStatsController extends PrimaryScene {
             userAnswer.getStyleClass().add("stats-h-box");
             userAnswer.getChildren().add(new Label(userAnswers.get(i)));
 
-            if (userAnswers.get(i).equalsIgnoreCase(correctAnswers.get(i))) {
+            if (userAnswers.get(i).equalsIgnoreCase(correctAnswers.get(i)) ||
+                    userAnswers.get(i).trim().equalsIgnoreCase(correctAnswers.get(i))) {
                 userAnswer.getStyleClass().add("stats-correct");
             } else {
                 userAnswer.getStyleClass().add("stats-incorrect");
