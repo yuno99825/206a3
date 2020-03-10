@@ -1,7 +1,7 @@
 Instructions to run application on Virtual Box image:
 
 	1. Open the terminal.
-	2. Navigate to the current directory, named 206a3_group49.
+	2. Navigate to the current directory, named VARpedia.
 	3. Run the following command in the terminal:
 
 		bash run.sh
